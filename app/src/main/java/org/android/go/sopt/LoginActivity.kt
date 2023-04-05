@@ -25,25 +25,18 @@ class LoginActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 Snackbar.make(binding.root, "회원가입이 완료되었습니다.", Snackbar.LENGTH_SHORT).show()
-                setUserInfo(result.data)
+                registerUserInfo(result.data)
             }
         }
 
         binding.btnLogin.setOnClickListener {
-            if(registeredStatus){
-                val id = binding.etId.text.toString()
-                val pw = binding.etPw.text.toString()
-
-                if(userInfo.id == id && userInfo.pw == pw){
-                    Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("user", userInfo)
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }else{
+            if (registeredStatus) {
+                if (compareUserInfo()) {
+                    navigateToHomeScreen()
+                } else {
                     Toast.makeText(this, "등록된 유저 정보가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
-            }else{
+            } else {
                 Toast.makeText(this, "회원가입을 먼저 진행해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -54,7 +47,21 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserInfo(intent: Intent?) {
+    private fun navigateToHomeScreen() {
+        Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("user", userInfo)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    private fun compareUserInfo(): Boolean {
+        val id = binding.etId.text.toString()
+        val pw = binding.etPw.text.toString()
+        return userInfo.id == id && userInfo.pw == pw
+    }
+
+    private fun registerUserInfo(intent: Intent?) {
         registeredStatus = true
         val id = intent?.getStringExtra("id").toString()
         val pw = intent?.getStringExtra("pw").toString()

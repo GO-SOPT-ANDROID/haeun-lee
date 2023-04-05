@@ -3,8 +3,8 @@ package org.android.go.sopt
 import java.io.Serializable
 
 data class User(
-    var id: String,
-    var pw: String,
-    var name: String,
-    var hobby: String
+    val id: String,
+    val pw: String,
+    val name: String,
+    val hobby: String
 ): Serializable
