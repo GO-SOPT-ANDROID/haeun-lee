@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         tools:text="이름: "
         android:layout_marginTop="12dp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/iv_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         tools:text="특기: "
         android:layout_marginTop="12dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name"/>

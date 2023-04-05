@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userInfo = intent.getSerializableExtra("user") as User
-        Log.d(TAG, "${userInfo.id}, ${userInfo.pw}, ${userInfo.name}, ${userInfo.hobby}")
+        binding.tvName.text = "이름: ${userInfo.name}"
+        binding.tvHobby.text = "특기: ${userInfo.hobby}"
     }
 
     companion object {
