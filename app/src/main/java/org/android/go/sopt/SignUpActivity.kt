@@ -53,8 +53,7 @@ class SignUpActivity : AppCompatActivity() {
             val name = binding.etName.text.toString()
             val hobby = binding.etHobby.text.toString()
 
-            val inputs = listOf(id, pw, name, hobby)
-            if(!checkEmptyInput(inputs)){
+            if(checkValidityOfId(id) && checkValidityOfPw(pw) && name.isNotEmpty() && hobby.isNotEmpty()){
                 val intent = Intent(this, LoginActivity::class.java).apply {
                     putExtra("id", id)
                     putExtra("pw", pw)
@@ -65,13 +64,6 @@ class SignUpActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    private fun checkEmptyInput(inputs: List<String>): Boolean {
-        for(item in inputs){
-            if(item.isEmpty()) return true
-        }
-        return false
     }
 
     private fun checkValidityOfId(id: String): Boolean {
