@@ -17,7 +17,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.etId.addTextChangedListener {
-            if (!checkValidityOfId(it.toString())) {
+            if (!checkLengthOfId(it.toString())) {
                 binding.tvIdLimitError.visibility = View.VISIBLE
             } else {
                 binding.tvIdLimitError.visibility = View.INVISIBLE
@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.etPw.addTextChangedListener {
-            if (!checkValidityOfPw(it.toString())) {
+            if (!checkLengthOfPw(it.toString())) {
                 binding.tvPwLimitError.visibility = View.VISIBLE
             } else {
                 binding.tvPwLimitError.visibility = View.INVISIBLE
@@ -49,17 +49,13 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            val id = binding.etId.text.toString()
-            val pw = binding.etPw.text.toString()
-            val name = binding.etName.text.toString()
-            val hobby = binding.etHobby.text.toString()
-
-            if(checkValidityOfId(id) && checkValidityOfPw(pw) && name.isNotEmpty() && hobby.isNotEmpty()){
+            val inputs = getAllInputValues()
+            if(checkInputValidity(inputs)){
                 val intent = Intent(this, LoginActivity::class.java).apply {
-                    putExtra("id", id)
-                    putExtra("pw", pw)
-                    putExtra("name", name)
-                    putExtra("hobby", hobby)
+                    putExtra("id", inputs[0])
+                    putExtra("pw", inputs[1])
+                    putExtra("name", inputs[2])
+                    putExtra("hobby", inputs[3])
                 }
                 setResult(RESULT_OK, intent)
                 finish()
@@ -69,11 +65,23 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkValidityOfId(id: String): Boolean {
+    private fun checkInputValidity(inputs: List<String>): Boolean {
+        return checkLengthOfId(inputs[0]) && checkLengthOfPw(inputs[1]) && inputs[2].isNotEmpty() && inputs[3].isNotEmpty()
+    }
+
+    private fun getAllInputValues(): List<String> {
+        val id = binding.etId.text.toString()
+        val pw = binding.etPw.text.toString()
+        val name = binding.etName.text.toString()
+        val hobby = binding.etHobby.text.toString()
+        return listOf(id, pw, name, hobby)
+    }
+
+    private fun checkLengthOfId(id: String): Boolean {
         return id.length in 6..10
     }
 
-    private fun checkValidityOfPw(pw: String): Boolean {
+    private fun checkLengthOfPw(pw: String): Boolean {
         return pw.length in 8..12
     }
 }
