@@ -1,10 +1,10 @@
 package org.android.go.sopt
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -15,44 +15,63 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.etId.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding.etId.addTextChangedListener {
+            if (!checkValidityOfId(it.toString())) {
+                binding.tvIdLimitError.visibility = View.VISIBLE
+            } else {
+                binding.tvIdLimitError.visibility = View.INVISIBLE
             }
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!checkValidityOfId(s.toString())){
-                    binding.tvIdLimitError.visibility = View.VISIBLE
-                }else{
-                    binding.tvIdLimitError.visibility = View.INVISIBLE
-                }
+        binding.etPw.addTextChangedListener {
+            if (!checkValidityOfPw(it.toString())) {
+                binding.tvPwLimitError.visibility = View.VISIBLE
+            } else {
+                binding.tvPwLimitError.visibility = View.INVISIBLE
             }
+        }
 
-            override fun afterTextChanged(s: Editable?) {
+        binding.etName.addTextChangedListener {
+            if (it.toString().isEmpty()) {
+                binding.tvNameEmptyError.visibility = View.VISIBLE
+            } else {
+                binding.tvNameEmptyError.visibility = View.INVISIBLE
             }
-        })
+        }
 
-        binding.etPw.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding.etHobby.addTextChangedListener {
+            if (it.toString().isEmpty()) {
+                binding.tvHobbyEmptyError.visibility = View.VISIBLE
+            } else {
+                binding.tvHobbyEmptyError.visibility = View.INVISIBLE
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!checkValidityOfPw(s.toString())){
-                    binding.tvPwLimitError.visibility = View.VISIBLE
-                }else{
-                    binding.tvPwLimitError.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+        }
 
         binding.btnSignUp.setOnClickListener {
             val id = binding.etId.text.toString()
             val pw = binding.etPw.text.toString()
             val name = binding.etName.text.toString()
             val hobby = binding.etHobby.text.toString()
+
+            val inputs = listOf(id, pw, name, hobby)
+            if(!checkEmptyInput(inputs)){
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    putExtra("id", id)
+                    putExtra("pw", pw)
+                    putExtra("name", name)
+                    putExtra("hobby", hobby)
+                }
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         }
+    }
+
+    private fun checkEmptyInput(inputs: List<String>): Boolean {
+        for(item in inputs){
+            if(item.isEmpty()) return true
+        }
+        return false
     }
 
     private fun checkValidityOfId(id: String): Boolean {

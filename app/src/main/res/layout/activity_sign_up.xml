@@ -98,6 +98,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_pw" />
 
+    <TextView
+        android:id="@+id/tv_name_empty_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* 필수"
+        android:visibility="invisible"
+        android:textColor="@color/red"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"/>
+
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
@@ -114,10 +126,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="취미"
+        android:text="특기"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_name" />
+
+    <TextView
+        android:id="@+id/tv_hobby_empty_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* 필수"
+        android:visibility="invisible"
+        android:textColor="@color/red"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/tv_hobby"
+        app:layout_constraintTop_toTopOf="@id/tv_hobby"
+        app:layout_constraintBottom_toBottomOf="@id/tv_hobby"/>
 
     <EditText
         android:id="@+id/et_hobby"
