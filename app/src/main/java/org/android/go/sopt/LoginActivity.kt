@@ -51,8 +51,7 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("user", userInfo)
-        setResult(RESULT_OK, intent)
-        finish()
+        startActivity(intent)
     }
 
     private fun compareUserInfo(): Boolean {
