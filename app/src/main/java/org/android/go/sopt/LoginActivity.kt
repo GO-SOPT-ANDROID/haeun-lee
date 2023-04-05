@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var userInfo: User
-    private var registeredStatus: Boolean = false
+    private var userRegisteredStatus: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            if (registeredStatus) {
-                if (compareUserInfo()) {
-                    navigateToHomeScreen()
+            if (userRegisteredStatus) {
+                if (isRegisteredUser()) {
+                    navigateToMainScreen()
                 } else {
                     Toast.makeText(this, "등록된 유저 정보가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
@@ -47,30 +47,26 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToHomeScreen() {
+    private fun navigateToMainScreen() {
         Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("user", userInfo)
         startActivity(intent)
     }
 
-    private fun compareUserInfo(): Boolean {
+    private fun isRegisteredUser(): Boolean {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         return userInfo.id == id && userInfo.pw == pw
     }
 
     private fun registerUserInfo(intent: Intent?) {
-        registeredStatus = true
+        userRegisteredStatus = true
         val id = intent?.getStringExtra("id").toString()
         val pw = intent?.getStringExtra("pw").toString()
         val name = intent?.getStringExtra("name").toString()
         val hobby = intent?.getStringExtra("hobby").toString()
         userInfo = User(id, pw, name, hobby)
-    }
-
-    companion object {
-        private const val TAG = "LoginActivity"
     }
 }
 
