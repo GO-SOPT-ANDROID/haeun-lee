@@ -3,6 +3,7 @@ package org.android.go.sopt
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.databinding.ActivitySignUpBinding
@@ -62,6 +63,8 @@ class SignUpActivity : AppCompatActivity() {
                 }
                 setResult(RESULT_OK, intent)
                 finish()
+            }else{
+                Toast.makeText(this, "모든 항목에 유효한 값을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
