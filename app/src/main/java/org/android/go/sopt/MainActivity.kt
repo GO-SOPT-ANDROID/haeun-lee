@@ -18,8 +18,4 @@ class MainActivity : AppCompatActivity() {
         binding.tvName.text = "이름: ${userInfo.name}"
         binding.tvHobby.text = "특기: ${userInfo.hobby}"
     }
-
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 }
