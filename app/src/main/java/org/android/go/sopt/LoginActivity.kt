@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(isLastUserLogIn()){
+        if(isLastUserLoggedIn()){
             navigateToMainScreen()
         }
 
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun isLastUserLogIn(): Boolean {
+    private fun isLastUserLoggedIn(): Boolean {
         val id = MyApplication.prefs.getString("id", null)
         val pw = MyApplication.prefs.getString("pw", null)
         val name = MyApplication.prefs.getString("name", null)
@@ -74,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToMainScreen() {
         val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
 
