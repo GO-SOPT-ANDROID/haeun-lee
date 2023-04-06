@@ -1,11 +1,9 @@
 package org.android.go.sopt
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -24,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if(isLastUserLogIn()){
+            navigateToMainScreen()
+        }
+
         binding.root.setOnClickListener {
             hideKeyboard()
         }
@@ -40,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (userRegisteredStatus) {
                 if (isRegisteredUser()) {
+                    Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    saveUserInfoToPrefs()
                     navigateToMainScreen()
                 } else {
                     Toast.makeText(this, "등록된 유저 정보가 없습니다.", Toast.LENGTH_SHORT).show()
@@ -55,16 +59,29 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun isLastUserLogIn(): Boolean {
+        val id = MyApplication.prefs.getString("id", null)
+        val pw = MyApplication.prefs.getString("pw", null)
+        val name = MyApplication.prefs.getString("name", null)
+        val hobby = MyApplication.prefs.getString("hobby", null)
+        return id != null && pw != null && name != null && hobby != null
+    }
+
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun navigateToMainScreen() {
-        Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("user", userInfo)
         startActivity(intent)
+    }
+
+    private fun saveUserInfoToPrefs() {
+        MyApplication.prefs.setString("id", userInfo.id)
+        MyApplication.prefs.setString("pw", userInfo.pw)
+        MyApplication.prefs.setString("name", userInfo.name)
+        MyApplication.prefs.setString("hobby", userInfo.hobby)
     }
 
     private fun isRegisteredUser(): Boolean {
