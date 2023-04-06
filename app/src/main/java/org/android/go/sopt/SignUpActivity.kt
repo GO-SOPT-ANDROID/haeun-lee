@@ -1,11 +1,14 @@
 package org.android.go.sopt
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -15,6 +18,10 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+        }
 
         binding.etId.addTextChangedListener {
             if (!checkLengthOfId(it.toString())) {
@@ -63,6 +70,11 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "모든 항목에 유효한 값을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun checkInputValidity(inputs: List<String>): Boolean {
