@@ -22,7 +22,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(isLastUserLoggedIn()){
+        // SharedPreferences에 저장된 유저 정보가 있으면 메인 화면으로 진입
+        if (isLastUserLoggedIn()) {
             navigateToMainScreen()
         }
 
@@ -30,20 +31,23 @@ class LoginActivity : AppCompatActivity() {
             hideKeyboard()
         }
 
+        // 회원가입 화면으로부터 유저 정보 가져오기
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 Snackbar.make(binding.root, "회원가입이 완료되었습니다.", Snackbar.LENGTH_SHORT).show()
                 registerUserInfo(result.data)
+
+                // 자동 로그인을 위해 SharedPreferences에 유저 정보 저장하기
+                saveUserInfoToPrefs()
             }
         }
 
         binding.btnLogin.setOnClickListener {
             if (userRegisteredStatus) {
-                if (isRegisteredUser()) {
+                if (checkInputValues()) {
                     Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                    saveUserInfoToPrefs()
                     navigateToMainScreen()
                 } else {
                     Toast.makeText(this, "등록된 유저 정보가 없습니다.", Toast.LENGTH_SHORT).show()
@@ -78,17 +82,17 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun checkInputValues(): Boolean {
+        val id = binding.etId.text.toString()
+        val pw = binding.etPw.text.toString()
+        return userInfo.id == id && userInfo.pw == pw
+    }
+
     private fun saveUserInfoToPrefs() {
         MyApplication.prefs.setString("id", userInfo.id)
         MyApplication.prefs.setString("pw", userInfo.pw)
         MyApplication.prefs.setString("name", userInfo.name)
         MyApplication.prefs.setString("hobby", userInfo.hobby)
-    }
-
-    private fun isRegisteredUser(): Boolean {
-        val id = binding.etId.text.toString()
-        val pw = binding.etPw.text.toString()
-        return userInfo.id == id && userInfo.pw == pw
     }
 
     private fun registerUserInfo(intent: Intent?) {
