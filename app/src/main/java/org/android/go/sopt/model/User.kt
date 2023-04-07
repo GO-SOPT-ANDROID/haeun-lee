@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.model
 
 data class User(
     val id: String,

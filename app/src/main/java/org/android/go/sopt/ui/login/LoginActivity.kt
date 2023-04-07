@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.ui.login
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import org.android.go.sopt.ui.main.MainActivity
+import org.android.go.sopt.Week1Application
+import org.android.go.sopt.ui.signup.SignUpActivity
+import org.android.go.sopt.model.User
 import org.android.go.sopt.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -64,10 +68,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = MyApplication.prefs.getString("id", null)
-        val pw = MyApplication.prefs.getString("pw", null)
-        val name = MyApplication.prefs.getString("name", null)
-        val hobby = MyApplication.prefs.getString("hobby", null)
+        val id = Week1Application.prefs.getString("id", null)
+        val pw = Week1Application.prefs.getString("pw", null)
+        val name = Week1Application.prefs.getString("name", null)
+        val hobby = Week1Application.prefs.getString("hobby", null)
         return id != null && pw != null && name != null && hobby != null
     }
 
@@ -89,10 +93,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfoToPrefs() {
-        MyApplication.prefs.setString("id", userInfo.id)
-        MyApplication.prefs.setString("pw", userInfo.pw)
-        MyApplication.prefs.setString("name", userInfo.name)
-        MyApplication.prefs.setString("hobby", userInfo.hobby)
+        Week1Application.prefs.setString("id", userInfo.id)
+        Week1Application.prefs.setString("pw", userInfo.pw)
+        Week1Application.prefs.setString("name", userInfo.name)
+        Week1Application.prefs.setString("hobby", userInfo.hobby)
     }
 
     private fun registerUserInfo(intent: Intent?) {

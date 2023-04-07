@@ -1,8 +1,9 @@
 package org.android.go.sopt
 
 import android.app.Application
+import org.android.go.sopt.util.PreferenceUtil
 
-class MyApplication: Application() {
+class Week1Application: Application() {
     override fun onCreate() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()

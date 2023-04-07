@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.ui.signup
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import org.android.go.sopt.databinding.ActivitySignUpBinding
+import org.android.go.sopt.ui.login.LoginActivity
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
