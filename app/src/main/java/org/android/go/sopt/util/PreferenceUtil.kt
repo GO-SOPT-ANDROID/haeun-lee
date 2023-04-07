@@ -14,4 +14,8 @@ class PreferenceUtil(context: Context) {
     fun setString(key: String, str: String) {
         prefs.edit().putString(key, str).apply()
     }
+
+    companion object {
+        private const val SHARED_PREFS_NAME = "my_prefs"
+    }
 }
