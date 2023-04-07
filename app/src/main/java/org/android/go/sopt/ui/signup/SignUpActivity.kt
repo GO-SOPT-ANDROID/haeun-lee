@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.ui.login.LoginActivity
+import org.android.go.sopt.util.*
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -59,15 +60,15 @@ class SignUpActivity : AppCompatActivity() {
             val inputs = getAllInputValues()
             if(checkInputValidity(inputs)){
                 val intent = Intent(this, LoginActivity::class.java).apply {
-                    putExtra("id", inputs[0])
-                    putExtra("pw", inputs[1])
-                    putExtra("name", inputs[2])
-                    putExtra("hobby", inputs[3])
+                    putExtra(ID_KEY, inputs[0])
+                    putExtra(PW_KEY, inputs[1])
+                    putExtra(NAME_KEY, inputs[2])
+                    putExtra(HOBBY_KEY, inputs[3])
                 }
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
-                Toast.makeText(this, "모든 항목에 유효한 값을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, INVALID_INPUT_ERROR, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -90,10 +91,17 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun checkLengthOfId(id: String): Boolean {
-        return id.length in 6..10
+        return id.length in ID_MIN_LEN..ID_MAX_LEN
     }
 
     private fun checkLengthOfPw(pw: String): Boolean {
-        return pw.length in 8..12
+        return pw.length in PW_MIN_LEN..PW_MAX_LEN
+    }
+
+    companion object {
+        private const val ID_MIN_LEN = 6
+        private const val ID_MAX_LEN = 10
+        private const val PW_MIN_LEN = 8
+        private const val PW_MAX_LEN = 12
     }
 }

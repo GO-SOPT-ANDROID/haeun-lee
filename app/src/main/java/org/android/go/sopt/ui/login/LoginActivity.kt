@@ -14,6 +14,7 @@ import org.android.go.sopt.Week1Application
 import org.android.go.sopt.ui.signup.SignUpActivity
 import org.android.go.sopt.model.User
 import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.util.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -40,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                Snackbar.make(binding.root, "회원가입이 완료되었습니다.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, SIGN_UP_SUCCESS_MSG, Snackbar.LENGTH_SHORT).show()
                 registerUserInfo(result.data)
 
                 // 자동 로그인을 위해 SharedPreferences에 유저 정보 저장하기
@@ -51,13 +52,13 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (userRegisteredStatus) {
                 if (checkInputValues()) {
-                    Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, LOGIN_SUCCESS_MSG, Toast.LENGTH_SHORT).show()
                     navigateToMainScreen()
                 } else {
-                    Toast.makeText(this, "등록된 유저 정보가 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, LOGIN_FAIL_MSG, Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "회원가입을 먼저 진행해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, NOT_YET_REGISTERED_MSG, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -68,10 +69,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = Week1Application.prefs.getString("id", null)
-        val pw = Week1Application.prefs.getString("pw", null)
-        val name = Week1Application.prefs.getString("name", null)
-        val hobby = Week1Application.prefs.getString("hobby", null)
+        val id = Week1Application.prefs.getString(ID_KEY, null)
+        val pw = Week1Application.prefs.getString(PW_KEY, null)
+        val name = Week1Application.prefs.getString(NAME_KEY, null)
+        val hobby = Week1Application.prefs.getString(HOBBY_KEY, null)
         return id != null && pw != null && name != null && hobby != null
     }
 
@@ -93,18 +94,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfoToPrefs() {
-        Week1Application.prefs.setString("id", userInfo.id)
-        Week1Application.prefs.setString("pw", userInfo.pw)
-        Week1Application.prefs.setString("name", userInfo.name)
-        Week1Application.prefs.setString("hobby", userInfo.hobby)
+        Week1Application.prefs.setString(ID_KEY, userInfo.id)
+        Week1Application.prefs.setString(PW_KEY, userInfo.pw)
+        Week1Application.prefs.setString(NAME_KEY, userInfo.name)
+        Week1Application.prefs.setString(HOBBY_KEY, userInfo.hobby)
     }
 
     private fun registerUserInfo(intent: Intent?) {
         userRegisteredStatus = true
-        val id = intent?.getStringExtra("id").toString()
-        val pw = intent?.getStringExtra("pw").toString()
-        val name = intent?.getStringExtra("name").toString()
-        val hobby = intent?.getStringExtra("hobby").toString()
+        val id = intent?.getStringExtra(ID_KEY).toString()
+        val pw = intent?.getStringExtra(PW_KEY).toString()
+        val name = intent?.getStringExtra(NAME_KEY).toString()
+        val hobby = intent?.getStringExtra(HOBBY_KEY).toString()
         userInfo = User(id, pw, name, hobby)
     }
 }
