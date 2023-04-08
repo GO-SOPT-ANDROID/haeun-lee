@@ -2,10 +2,12 @@ package org.android.go.sopt.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.android.go.sopt.Week1Application
+import androidx.fragment.app.Fragment
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityMainBinding
-import org.android.go.sopt.util.HOBBY_KEY
-import org.android.go.sopt.util.NAME_KEY
+import org.android.go.sopt.ui.main.bnv.GalleryFragment
+import org.android.go.sopt.ui.main.bnv.HomeFragment
+import org.android.go.sopt.ui.main.bnv.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -15,9 +17,36 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val name = Week1Application.prefs.getString(NAME_KEY, "nothing")
-        val hobby = Week1Application.prefs.getString(HOBBY_KEY, "nothing")
-        binding.tvName.text = "이름: $name"
-        binding.tvHobby.text = "특기: $hobby"
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
+        if(currentFragment == null){
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fcv_main, HomeFragment())
+                .commit()
+        }
+
+        binding.bnvMain.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.home_menu -> {
+                    changeFragment(HomeFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.gallery_menu -> {
+                    changeFragment(GalleryFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.search_menu -> {
+                    changeFragment(SearchFragment())
+                    return@setOnItemSelectedListener true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fcv_main, fragment)
+            .commit()
     }
 }
