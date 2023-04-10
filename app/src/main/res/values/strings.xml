@@ -1,8 +1,39 @@
 <resources>
     <string name="app_name">GO SOPT Android</string>
+
+    <!-- message -->
     <string name="unregistered_msg">회원가입을 먼저 진행해주세요.</string>
     <string name="sign_up_success_msg">회원가입이 완료되었습니다.</string>
     <string name="login_success_msg">로그인에 성공했습니다.</string>
     <string name="login_fail_msg">로그인에 실패했습니다.</string>
     <string name="sign_up_invalid_input_err">모든 항목에 유효한 값을 입력해주세요.</string>
+
+    <!-- login -->
+    <string name="login_welcome_msg">Welcome to GO Android!</string>
+    <string name="login_id_label">ID</string>
+    <string name="login_id_hint">아이디를 입력하세요.</string>
+    <string name="login_pw_label">PW</string>
+    <string name="login_pw_hint">비밀번호를 입력하세요.</string>
+    <string name="login_btn_text">Login</string>
+    <string name="sign_up_start_btn_text">Sign Up</string>
+
+    <!-- main -->
+    <string name="main_user_name">이름:</string>
+    <string name="main_user_hobby">특기:</string>
+
+    <!-- signup -->
+    <string name="sign_up_title">회원가입</string>
+    <string name="sign_up_id_label">ID</string>
+    <string name="sign_up_id_err">* 6~10글자 이내만 허용</string>
+    <string name="sign_up_id_hint">아이디를 입력하세요.</string>
+    <string name="sign_up_pw_label">PW</string>
+    <string name="sign_up_pw_err">* 8~12글자 이내만 허용</string>
+    <string name="sign_up_pw_hint">비밀번호를 입력하세요.</string>
+    <string name="sign_up_name_label">이름</string>
+    <string name="sign_up_name_err">* 필수</string>
+    <string name="sign_up_name_hint">이름을 입력하세요.</string>
+    <string name="sign_up_hobby_label">특기</string>
+    <string name="sign_up_hobby_err">* 필수</string>
+    <string name="sign_up_hobby_hint">특기를 입력하세요.</string>
+    <string name="sign_up_finish_btn_text">회원가입 완료</string>
 </resources>
