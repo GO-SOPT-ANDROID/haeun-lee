@@ -1,13 +1,10 @@
 package org.android.go.sopt.ui.login
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.Week1Application
 import org.android.go.sopt.ui.signup.SignUpActivity
@@ -15,40 +12,47 @@ import org.android.go.sopt.model.User
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.util.*
 import org.android.go.sopt.util.extension.hideKeyboard
+import org.android.go.sopt.util.extension.showSnackbar
+import org.android.go.sopt.util.extension.showToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userInfo: User
-    private var userRegisteredStatus: Boolean = false
+    private var isUserRegistered: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        handleAutoLogin()
+        initRootLayoutClickListener()
+        initSignUpButtonClickListener()
+        initLoginButtonClickListener()
+    }
+
+    private fun handleAutoLogin() {
         if (isLastUserLoggedIn()) {
             navigateToMainScreen()
         }
-
-        initRootLayoutClickListener()
-
-        initSignUpButtonClickListener()
-
-        initLoginButtonClickListener()
     }
 
     private fun initLoginButtonClickListener() {
         binding.btnLogin.setOnClickListener {
-            if (userRegisteredStatus) {
-                if (checkInputValues()) {
-                    Toast.makeText(this, LOGIN_SUCCESS_MSG, Toast.LENGTH_SHORT).show()
-                    navigateToMainScreen()
-                } else {
-                    Toast.makeText(this, LOGIN_FAIL_MSG, Toast.LENGTH_SHORT).show()
-                }
+            if (isUserRegistered) {
+                handleLoginResult()
             } else {
-                Toast.makeText(this, NOT_YET_REGISTERED_MSG, Toast.LENGTH_SHORT).show()
+                showToast(NOT_YET_REGISTERED_MSG)
             }
+        }
+    }
+
+    private fun handleLoginResult() {
+        if (checkLoginInputValidity()) {
+            showToast(LOGIN_SUCCESS_MSG)
+            navigateToMainScreen()
+        } else {
+            showToast(LOGIN_FAIL_MSG)
         }
     }
 
@@ -57,9 +61,7 @@ class LoginActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                Snackbar.make(binding.root, SIGN_UP_SUCCESS_MSG, Snackbar.LENGTH_SHORT).show()
-                registerUserInfo(result.data)
-                saveUserInfoToPrefs()
+                handleSignUpResult(result)
             }
         }
 
@@ -68,6 +70,14 @@ class LoginActivity : AppCompatActivity() {
                 Intent(this, SignUpActivity::class.java)
             )
         }
+    }
+
+    private fun handleSignUpResult(result: ActivityResult) {
+        isUserRegistered = true
+        showSnackbar(binding.root, SIGN_UP_SUCCESS_MSG)
+
+        initUserInfoFromIntent(result.data)
+        saveUserInfoToPrefs()
     }
 
     private fun initRootLayoutClickListener() {
@@ -91,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkInputValues(): Boolean {
+    private fun checkLoginInputValidity(): Boolean {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         return userInfo.id == id && userInfo.pw == pw
@@ -104,8 +114,7 @@ class LoginActivity : AppCompatActivity() {
         Week1Application.prefs.setString(HOBBY_KEY, userInfo.hobby)
     }
 
-    private fun registerUserInfo(intent: Intent?) {
-        userRegisteredStatus = true
+    private fun initUserInfoFromIntent(intent: Intent?) {
         val id = intent?.getStringExtra(ID_KEY).toString()
         val pw = intent?.getStringExtra(PW_KEY).toString()
         val name = intent?.getStringExtra(NAME_KEY).toString()
