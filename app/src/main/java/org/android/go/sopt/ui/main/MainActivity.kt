@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val name = Week1Application.prefs.getString(NAME_KEY, "nothing")
         val hobby = Week1Application.prefs.getString(HOBBY_KEY, "nothing")
-        binding.tvName.text = "이름: $name"
-        binding.tvHobby.text = "특기: $hobby"
+        binding.tvName.append(name)
+        binding.tvHobby.append(hobby)
     }
 }
