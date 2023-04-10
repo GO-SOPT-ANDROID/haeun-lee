@@ -1,16 +1,17 @@
 package org.android.go.sopt.ui.signup
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivitySignUpBinding
+import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.login.LoginActivity
 import org.android.go.sopt.util.*
+import org.android.go.sopt.util.extension.hideKeyboard
+import org.android.go.sopt.util.extension.showToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -20,10 +21,35 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.root.setOnClickListener {
-            hideKeyboard()
-        }
+        initRootLayoutClickListener()
+        initEditTextChangedListeners()
+        initSignUpButtonClickListener()
+    }
 
+    private fun initSignUpButtonClickListener() {
+        binding.btnSignUp.setOnClickListener {
+            val userInfo = getUserInfoInputValues()
+            if (checkSignUpInputValidity(userInfo)) {
+                sendUserInfoToLoginScreen(userInfo)
+                return@setOnClickListener
+            }
+
+            showToast(getString(R.string.sign_up_invalid_input_err))
+        }
+    }
+
+    private fun sendUserInfoToLoginScreen(userInfo: User) {
+        Intent(this, LoginActivity::class.java).apply {
+            putExtra(ID_KEY, userInfo.id)
+            putExtra(PW_KEY, userInfo.pw)
+            putExtra(NAME_KEY, userInfo.name)
+            putExtra(HOBBY_KEY, userInfo.hobby)
+            setResult(RESULT_OK, this)
+        }
+        finish()
+    }
+
+    private fun initEditTextChangedListeners() {
         binding.etId.addTextChangedListener {
             if (!checkLengthOfId(it.toString())) {
                 binding.tvIdLimitError.visibility = View.VISIBLE
@@ -55,39 +81,25 @@ class SignUpActivity : AppCompatActivity() {
                 binding.tvHobbyEmptyError.visibility = View.INVISIBLE
             }
         }
+    }
 
-        binding.btnSignUp.setOnClickListener {
-            val inputs = getAllInputValues()
-            if(checkInputValidity(inputs)){
-                val intent = Intent(this, LoginActivity::class.java).apply {
-                    putExtra(ID_KEY, inputs[0])
-                    putExtra(PW_KEY, inputs[1])
-                    putExtra(NAME_KEY, inputs[2])
-                    putExtra(HOBBY_KEY, inputs[3])
-                }
-                setResult(RESULT_OK, intent)
-                finish()
-            }else{
-                Toast.makeText(this, INVALID_INPUT_ERROR, Toast.LENGTH_SHORT).show()
-            }
+    private fun initRootLayoutClickListener() {
+        binding.root.setOnClickListener {
+            hideKeyboard()
         }
     }
 
-    private fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    private fun checkSignUpInputValidity(userInfo: User): Boolean {
+        return checkLengthOfId(userInfo.id) && checkLengthOfPw(userInfo.pw) &&
+                userInfo.name.isNotEmpty() && userInfo.hobby.isNotEmpty()
     }
 
-    private fun checkInputValidity(inputs: List<String>): Boolean {
-        return checkLengthOfId(inputs[0]) && checkLengthOfPw(inputs[1]) && inputs[2].isNotEmpty() && inputs[3].isNotEmpty()
-    }
-
-    private fun getAllInputValues(): List<String> {
+    private fun getUserInfoInputValues(): User {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         val name = binding.etName.text.toString()
         val hobby = binding.etHobby.text.toString()
-        return listOf(id, pw, name, hobby)
+        return User(id, pw, name, hobby)
     }
 
     private fun checkLengthOfId(id: String): Boolean {
