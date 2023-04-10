@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.ui.main.MainActivity
@@ -15,10 +14,10 @@ import org.android.go.sopt.ui.signup.SignUpActivity
 import org.android.go.sopt.model.User
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.util.*
+import org.android.go.sopt.util.extension.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var userInfo: User
     private var userRegisteredStatus: Boolean = false
 
@@ -27,28 +26,18 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // SharedPreferences에 저장된 유저 정보가 있으면 메인 화면으로 진입
         if (isLastUserLoggedIn()) {
             navigateToMainScreen()
         }
 
-        binding.root.setOnClickListener {
-            hideKeyboard()
-        }
+        initRootLayoutClickListener()
 
-        // 회원가입 화면으로부터 유저 정보 가져오기
-        resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                Snackbar.make(binding.root, SIGN_UP_SUCCESS_MSG, Snackbar.LENGTH_SHORT).show()
-                registerUserInfo(result.data)
+        initSignUpButtonClickListener()
 
-                // 자동 로그인을 위해 SharedPreferences에 유저 정보 저장하기
-                saveUserInfoToPrefs()
-            }
-        }
+        initLoginButtonClickListener()
+    }
 
+    private fun initLoginButtonClickListener() {
         binding.btnLogin.setOnClickListener {
             if (userRegisteredStatus) {
                 if (checkInputValues()) {
@@ -61,10 +50,29 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, NOT_YET_REGISTERED_MSG, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun initSignUpButtonClickListener() {
+        val signUpResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                Snackbar.make(binding.root, SIGN_UP_SUCCESS_MSG, Snackbar.LENGTH_SHORT).show()
+                registerUserInfo(result.data)
+                saveUserInfoToPrefs()
+            }
+        }
 
         binding.btnSignUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            resultLauncher.launch(intent)
+            signUpResultLauncher.launch(
+                Intent(this, SignUpActivity::class.java)
+            )
+        }
+    }
+
+    private fun initRootLayoutClickListener() {
+        binding.root.setOnClickListener {
+            hideKeyboard()
         }
     }
 
@@ -76,15 +84,11 @@ class LoginActivity : AppCompatActivity() {
         return id != null && pw != null && name != null && hobby != null
     }
 
-    private fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
-    }
-
     private fun navigateToMainScreen() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+        Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(this)
+        }
     }
 
     private fun checkInputValues(): Boolean {
