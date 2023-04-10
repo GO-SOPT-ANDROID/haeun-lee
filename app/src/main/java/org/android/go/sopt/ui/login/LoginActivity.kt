@@ -1,15 +1,16 @@
 package org.android.go.sopt.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import org.android.go.sopt.ui.main.MainActivity
+import androidx.appcompat.app.AppCompatActivity
+import org.android.go.sopt.R
 import org.android.go.sopt.Week1Application
-import org.android.go.sopt.ui.signup.SignUpActivity
-import org.android.go.sopt.model.User
 import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.model.User
+import org.android.go.sopt.ui.main.MainActivity
+import org.android.go.sopt.ui.signup.SignUpActivity
 import org.android.go.sopt.util.*
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
@@ -42,17 +43,17 @@ class LoginActivity : AppCompatActivity() {
             if (isUserRegistered) {
                 handleLoginResult()
             } else {
-                showToast(NOT_YET_REGISTERED_MSG)
+                showToast(getString(R.string.unregistered_msg))
             }
         }
     }
 
     private fun handleLoginResult() {
         if (checkLoginInputValidity()) {
-            showToast(LOGIN_SUCCESS_MSG)
+            showToast(getString(R.string.login_success_msg))
             navigateToMainScreen()
         } else {
-            showToast(LOGIN_FAIL_MSG)
+            showToast(getString(R.string.login_fail_msg))
         }
     }
 
@@ -74,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleSignUpResult(result: ActivityResult) {
         isUserRegistered = true
-        showSnackbar(binding.root, SIGN_UP_SUCCESS_MSG)
+        showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
 
         initUserInfoFromIntent(result.data)
         saveUserInfoToPrefs()

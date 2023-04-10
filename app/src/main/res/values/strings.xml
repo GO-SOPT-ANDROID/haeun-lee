@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GO SOPT Android</string>
+    <string name="unregistered_msg">회원가입을 먼저 진행해주세요.</string>
+    <string name="sign_up_success_msg">회원가입이 완료되었습니다.</string>
+    <string name="login_success_msg">로그인에 성공했습니다.</string>
+    <string name="login_fail_msg">로그인에 실패했습니다.</string>
+    <string name="sign_up_invalid_input_err">모든 항목에 유효한 값을 입력해주세요.</string>
 </resources>
