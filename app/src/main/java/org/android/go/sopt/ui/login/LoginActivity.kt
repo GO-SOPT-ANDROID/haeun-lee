@@ -6,7 +6,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.Week1Application
+import org.android.go.sopt.Week2Application
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.main.MainActivity
@@ -88,10 +88,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = Week1Application.prefs.getString(ID_KEY, null)
-        val pw = Week1Application.prefs.getString(PW_KEY, null)
-        val name = Week1Application.prefs.getString(NAME_KEY, null)
-        val hobby = Week1Application.prefs.getString(HOBBY_KEY, null)
+        val id = Week2Application.prefs.getString(ID_KEY, null)
+        val pw = Week2Application.prefs.getString(PW_KEY, null)
+        val name = Week2Application.prefs.getString(NAME_KEY, null)
+        val hobby = Week2Application.prefs.getString(HOBBY_KEY, null)
         return id != null && pw != null && name != null && hobby != null
     }
 
@@ -109,10 +109,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfoToPrefs() {
-        Week1Application.prefs.setString(ID_KEY, userInfo.id)
-        Week1Application.prefs.setString(PW_KEY, userInfo.pw)
-        Week1Application.prefs.setString(NAME_KEY, userInfo.name)
-        Week1Application.prefs.setString(HOBBY_KEY, userInfo.hobby)
+        Week2Application.prefs.setString(ID_KEY, userInfo.id)
+        Week2Application.prefs.setString(PW_KEY, userInfo.pw)
+        Week2Application.prefs.setString(NAME_KEY, userInfo.name)
+        Week2Application.prefs.setString(HOBBY_KEY, userInfo.hobby)
     }
 
     private fun initUserInfoFromIntent(intent: Intent?) {
