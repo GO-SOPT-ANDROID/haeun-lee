@@ -15,7 +15,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(FragmentHomeBinding::i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataSet = RepoSource().loadRepoSources()
+        val dataSet = RepoSource.loadRepoSources()
         val recyclerView = binding.rvRepo
         recyclerView.adapter = RepoAdapter(dataSet)
         recyclerView.layoutManager = LinearLayoutManager(context)

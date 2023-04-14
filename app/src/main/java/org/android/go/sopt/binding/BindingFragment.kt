@@ -13,7 +13,7 @@ abstract class BindingFragment<VB: ViewBinding>(
     private val inflate: Inflate<VB>
 ): Fragment() {
     private var _binding: VB? = null
-    val binding get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
+    protected val binding get() = requireNotNull(_binding) { "앗 ! _binding이 null이다 !" }
 
     override fun onCreateView(
         inflater: LayoutInflater,
