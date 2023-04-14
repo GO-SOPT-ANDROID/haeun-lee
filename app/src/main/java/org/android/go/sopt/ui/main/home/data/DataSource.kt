@@ -17,6 +17,10 @@ object DataSource {
             MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
             MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
             MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
+            MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
+            MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
+            MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
+            MultiViewItem.ImageItem(R.drawable.ic_launcher_background, "name", "author"),
         )
     }
 }
