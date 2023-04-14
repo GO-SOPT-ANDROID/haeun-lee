@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.bnv
+package org.android.go.sopt.ui.main.gallery
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
-import org.android.go.sopt.databinding.FragmentSearchBinding
+import org.android.go.sopt.databinding.FragmentGalleryBinding
 
-class SearchFragment : BindingFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
+class GalleryFragment : BindingFragment<FragmentGalleryBinding>(FragmentGalleryBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }

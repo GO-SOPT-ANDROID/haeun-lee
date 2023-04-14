@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
-import org.android.go.sopt.ui.main.bnv.GalleryFragment
-import org.android.go.sopt.ui.main.bnv.HomeFragment
-import org.android.go.sopt.ui.main.bnv.SearchFragment
+import org.android.go.sopt.ui.main.gallery.GalleryFragment
+import org.android.go.sopt.ui.main.home.HomeFragment
+import org.android.go.sopt.ui.main.search.SearchFragment
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 

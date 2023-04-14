@@ -10,7 +10,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_main"
-            android:name="org.android.go.sopt.ui.main.bnv.HomeFragment"
+            android:name="org.android.go.sopt.ui.main.home.HomeFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/bnv_main"
