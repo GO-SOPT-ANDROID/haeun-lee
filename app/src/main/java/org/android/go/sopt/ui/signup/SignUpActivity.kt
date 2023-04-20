@@ -15,6 +15,7 @@ import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

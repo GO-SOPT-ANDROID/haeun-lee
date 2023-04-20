@@ -1,10 +1,8 @@
 package org.android.go.sopt.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
