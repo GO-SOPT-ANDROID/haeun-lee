@@ -19,7 +19,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initRecyclerView(dataSet)
     }
 
-    private fun initRecyclerView(dataSet: List<MultiViewItem>) {
+    private fun initRecyclerView(dataSet: ArrayList<MultiViewItem>) {
         binding.rvRepo.apply {
             adapter = MultiViewAdapter(dataSet)
             layoutManager = LinearLayoutManager(context)
