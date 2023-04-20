@@ -25,7 +25,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
             if(currentFragment is HomeFragment){
                 val recyclerView = findViewById<RecyclerView>(R.id.rv_repo)
-                recyclerView.smoothScrollToPosition(0)
+                recyclerView.scrollToPosition(0)
             }
         }
     }
