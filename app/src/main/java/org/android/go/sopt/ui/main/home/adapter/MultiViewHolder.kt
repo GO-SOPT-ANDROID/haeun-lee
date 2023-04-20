@@ -22,9 +22,11 @@ sealed class MultiViewHolder<E : MultiViewItem>(
         private val binding: ItemImageBinding
     ) : MultiViewHolder<MultiViewItem.ImageItem>(binding) {
         override fun bind(item: MultiViewItem.ImageItem) {
-            binding.ivImage.setImageResource(item.imageRes)
-            binding.name = item.name
-            binding.author = item.author
+            with(binding){
+                ivImage.setImageResource(item.imageRes)
+                name = item.name
+                author = item.author
+            }
         }
     }
 
