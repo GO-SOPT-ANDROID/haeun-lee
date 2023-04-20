@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.gallery
+package org.android.go.sopt.ui.main.gallery.adapter.model
 
 import androidx.annotation.DrawableRes
 

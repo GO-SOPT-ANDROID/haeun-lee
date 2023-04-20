@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.android.go.sopt.databinding.ItemImageBinding
-import org.android.go.sopt.ui.main.gallery.Repo
+import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 import java.util.*
 
 class MyListAdapter : ListAdapter<Repo, MyViewHolder>(MyDiffCallback()) {

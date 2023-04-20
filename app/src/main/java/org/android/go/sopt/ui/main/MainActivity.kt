@@ -23,9 +23,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private fun initBnvItemReselectedListener() {
         binding.bnvMain.setOnItemReselectedListener {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
-            if(currentFragment is HomeFragment){
-                val recyclerView = findViewById<RecyclerView>(R.id.rv_repo)
-                recyclerView.scrollToPosition(0)
+            when(currentFragment){
+                is HomeFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.rv_home)
+                    recyclerView.scrollToPosition(0)
+                }
+                is GalleryFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.rv_gallery)
+                    recyclerView.scrollToPosition(0)
+                }
             }
         }
     }
@@ -64,9 +70,5 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             .beginTransaction()
             .replace(R.id.fcv_main, fragment)
             .commit()
-    }
-
-    companion object {
-        private const val UP_DIRECTION = -1
     }
 }

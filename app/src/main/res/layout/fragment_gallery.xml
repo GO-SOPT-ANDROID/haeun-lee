@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_repo"
+            android:id="@+id/rv_gallery"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"

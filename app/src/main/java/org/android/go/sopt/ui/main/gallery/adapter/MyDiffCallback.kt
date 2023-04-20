@@ -1,7 +1,7 @@
 package org.android.go.sopt.ui.main.gallery.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import org.android.go.sopt.ui.main.gallery.Repo
+import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 
 class MyDiffCallback : DiffUtil.ItemCallback<Repo>() {
     override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
