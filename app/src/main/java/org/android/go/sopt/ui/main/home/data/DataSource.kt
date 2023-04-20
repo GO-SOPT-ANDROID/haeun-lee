@@ -5,16 +5,17 @@ import org.android.go.sopt.R
 
 object DataSource {
     fun loadDataSources(): ArrayList<MultiViewItem> {
-        val dataSet: ArrayList<MultiViewItem> = arrayListOf()
-        dataSet.add(MultiViewItem.TextItem("하은의 레포지토리"))
-        for (i in 1..20) {
-            dataSet.add(
-                MultiViewItem.ImageItem(
-                    R.drawable.ic_launcher_background,
-                    "name $i",
-                    "author $i"
+        val dataSet = arrayListOf<MultiViewItem>().apply {
+            add(MultiViewItem.TextItem("하은의 레포지토리"))
+            for (i in 1..20) {
+                add(
+                    MultiViewItem.ImageItem(
+                        R.drawable.ic_launcher_background,
+                        "name $i",
+                        "author $i"
+                    )
                 )
-            )
+            }
         }
         return dataSet
     }
