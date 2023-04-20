@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class MultiViewAdapter(
-    private val itemList: ArrayList<MultiViewItem>
+    private val itemList: List<MultiViewItem>
 ) : RecyclerView.Adapter<MultiViewHolder<MultiViewItem>>() {
     private val multiViewHolderFactory = MultiViewHolderFactory()
 
