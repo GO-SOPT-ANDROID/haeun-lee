@@ -9,8 +9,8 @@ import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.ui.main.gallery.adapter.MyListAdapter
-import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 import org.android.go.sopt.ui.main.gallery.adapter.MyItemTouchHelperCallback
+import org.android.go.sopt.ui.main.data.DataSources
 
 /** DiffUtil + ListAdapter 사용해서 리사이클러뷰 성능 개선하기 */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
@@ -32,12 +32,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
             adapter = myListAdapter
         }
 
-        val dataSet = arrayListOf<Repo>().apply {
-            for (i in 1..20) {
-                add(Repo(R.drawable.ic_launcher_background, "name $i", "author $i"))
-            }
-        }
-
+        val dataSet = DataSources.loadGalleryDataSet()
         myListAdapter.submitList(dataSet)
         Log.d("ListAdapter", "submitList called...")
     }
