@@ -22,8 +22,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun initBnvItemReselectedListener() {
         binding.bnvMain.setOnItemReselectedListener {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
-            when(currentFragment){
+            when(supportFragmentManager.findFragmentById(R.id.fcv_main)){
                 is HomeFragment -> {
                     val recyclerView = findViewById<RecyclerView>(R.id.rv_home)
                     recyclerView.scrollToPosition(0)

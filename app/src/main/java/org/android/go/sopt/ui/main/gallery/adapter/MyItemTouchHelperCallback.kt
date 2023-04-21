@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.home.adapter
+package org.android.go.sopt.ui.main.gallery.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

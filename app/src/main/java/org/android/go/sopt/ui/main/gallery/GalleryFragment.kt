@@ -10,8 +10,9 @@ import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.ui.main.gallery.adapter.MyListAdapter
 import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
-import org.android.go.sopt.ui.main.home.adapter.MyItemTouchHelperCallback
+import org.android.go.sopt.ui.main.gallery.adapter.MyItemTouchHelperCallback
 
+/** DiffUtil + ListAdapter 사용해서 리사이클러뷰 성능 개선하기 */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
     private val myListAdapter: MyListAdapter by lazy {
         MyListAdapter()
@@ -22,7 +23,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
         initRecyclerView()
         initFABClickListener()
-        applyItemTouchHelper()
+        initItemTouchHelper()
     }
 
     private fun initRecyclerView() {
@@ -49,7 +50,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
         }
     }
 
-    private fun applyItemTouchHelper() {
+    private fun initItemTouchHelper() {
         val recyclerView = binding.rvGallery
         val itemTouchHelper = ItemTouchHelper(MyItemTouchHelperCallback(recyclerView))
         itemTouchHelper.attachToRecyclerView(recyclerView)
