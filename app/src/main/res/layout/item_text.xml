@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="@{title}"
-            tools:text="하은의 레포지토리"
+            tools:text="@string/header_text_preview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

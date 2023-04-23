@@ -53,7 +53,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="레포지토리 이름" />
+                    tools:text="@string/repo_name_preview" />
 
                 <TextView
                     android:id="@+id/tv_author"
@@ -64,7 +64,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name"
-                    tools:text="레포지토리 주인" />
+                    tools:text="@string/repo_author_preview" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
