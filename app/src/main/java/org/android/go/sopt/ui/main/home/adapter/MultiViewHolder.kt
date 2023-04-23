@@ -10,7 +10,7 @@ sealed class MultiViewHolder<E : MultiViewItem>(
     binding: ViewDataBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    data class TextViewHolder(
+    class TextViewHolder(
         private val binding: ItemTextBinding
     ) : MultiViewHolder<MultiViewItem.TextItem>(binding) {
         override fun bind(item: MultiViewItem.TextItem) {
@@ -18,7 +18,7 @@ sealed class MultiViewHolder<E : MultiViewItem>(
         }
     }
 
-    data class ImageViewHolder(
+    class ImageViewHolder(
         private val binding: ItemImageBinding
     ) : MultiViewHolder<MultiViewItem.ImageItem>(binding) {
         override fun bind(item: MultiViewItem.ImageItem) {
