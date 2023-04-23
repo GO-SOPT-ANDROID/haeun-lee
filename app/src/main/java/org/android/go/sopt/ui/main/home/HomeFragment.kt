@@ -22,7 +22,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun initRecyclerView(dataSet: ArrayList<MultiViewItem>) {
         binding.rvHome.apply {
             adapter = MultiViewAdapter(dataSet)
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }

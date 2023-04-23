@@ -28,8 +28,8 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     private fun initRecyclerView() {
         binding.rvGallery.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = myListAdapter
+            setHasFixedSize(true)
         }
 
         val dataSet = DataSources.loadGalleryDataSet()
