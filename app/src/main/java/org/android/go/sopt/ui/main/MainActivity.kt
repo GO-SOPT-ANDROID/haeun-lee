@@ -55,11 +55,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun loadHomeFragment() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
-        if (currentFragment == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fcv_main, HomeFragment())
-                .commit()
-        }
+        if (currentFragment == null) changeFragment(HomeFragment())
     }
 
     private fun changeFragment(fragment: Fragment) {

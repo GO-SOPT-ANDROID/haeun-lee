@@ -2,6 +2,7 @@ package org.android.go.sopt.ui.main.home.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
 
 class MultiViewAdapter(
     private val itemList: ArrayList<MultiViewItem>

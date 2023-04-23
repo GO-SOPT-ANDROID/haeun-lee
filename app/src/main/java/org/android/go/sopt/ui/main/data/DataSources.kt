@@ -2,7 +2,7 @@ package org.android.go.sopt.ui.main.data
 
 import org.android.go.sopt.R
 import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
-import org.android.go.sopt.ui.main.home.adapter.MultiViewItem
+import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
 
 object DataSources {
     private const val HOME_ITEM_NUM = 20

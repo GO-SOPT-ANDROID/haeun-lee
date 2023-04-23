@@ -8,12 +8,13 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import org.android.go.sopt.R
 
 abstract class BindingFragment<T : ViewDataBinding>(
     @LayoutRes val layoutRes: Int
 ) : Fragment() {
     private var _binding: T? = null
-    protected val binding get() = _binding!!
+    protected val binding get() = _binding ?: error(getString(R.string.binding_error_msg))
 
     override fun onCreateView(
         inflater: LayoutInflater,

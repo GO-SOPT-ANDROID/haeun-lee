@@ -44,4 +44,5 @@
     <string name="home_menu">Home</string>
     <string name="gallery_menu">Gallery</string>
     <string name="search_menu">Search</string>
+    <string name="binding_error_msg">Binding not initialized to reference the view.</string>
 </resources>

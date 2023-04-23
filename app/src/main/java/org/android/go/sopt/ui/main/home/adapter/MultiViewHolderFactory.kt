@@ -5,15 +5,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import org.android.go.sopt.R
+import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
+import org.android.go.sopt.ui.main.home.adapter.MultiViewType.REPO_TYPE
+import org.android.go.sopt.ui.main.home.adapter.MultiViewType.HEADER_TYPE
 
 class MultiViewHolderFactory {
     @Suppress("UNCHECKED_CAST")
     fun getViewHolder(parent: ViewGroup, viewType: MultiViewType): MultiViewHolder<MultiViewItem> {
         return when (viewType) {
-            MultiViewType.TEXT ->
-                MultiViewHolder.TextViewHolder(viewBind(parent, R.layout.item_text))
-            MultiViewType.IMAGE ->
-                MultiViewHolder.ImageViewHolder(viewBind(parent, R.layout.item_image))
+            HEADER_TYPE ->
+                MultiViewHolder.HeaderViewHolder(viewBind(parent, R.layout.item_header))
+            REPO_TYPE ->
+                MultiViewHolder.RepoViewHolder(viewBind(parent, R.layout.item_repo))
         } as MultiViewHolder<MultiViewItem>
     }
 
