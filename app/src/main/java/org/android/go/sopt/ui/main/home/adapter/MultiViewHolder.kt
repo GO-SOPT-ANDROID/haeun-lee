@@ -12,16 +12,16 @@ sealed class MultiViewHolder<E : MultiViewItem>(
 
     class TextViewHolder(
         private val binding: ItemTextBinding
-    ) : MultiViewHolder<MultiViewItem.TextItem>(binding) {
-        override fun bind(item: MultiViewItem.TextItem) {
+    ) : MultiViewHolder<MultiViewItem.Header>(binding) {
+        override fun bind(item: MultiViewItem.Header) {
             binding.title = item.title
         }
     }
 
     class ImageViewHolder(
         private val binding: ItemImageBinding
-    ) : MultiViewHolder<MultiViewItem.ImageItem>(binding) {
-        override fun bind(item: MultiViewItem.ImageItem) {
+    ) : MultiViewHolder<MultiViewItem.Repo>(binding) {
+        override fun bind(item: MultiViewItem.Repo) {
             with(binding){
                 ivImage.setImageResource(item.imageRes)
                 name = item.name

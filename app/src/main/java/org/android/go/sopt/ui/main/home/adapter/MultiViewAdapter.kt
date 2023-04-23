@@ -25,8 +25,4 @@ class MultiViewAdapter(
     override fun getItemViewType(position: Int): Int {
         return itemList[position].getViewType().ordinal
     }
-
-    fun scrollToTop() {
-
-    }
 }

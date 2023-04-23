@@ -5,9 +5,9 @@ import androidx.annotation.DrawableRes
 sealed class MultiViewItem(
     private val viewType: MultiViewType
 ) {
-    data class TextItem(val title: String) : MultiViewItem(MultiViewType.TEXT)
+    data class Header(val title: String) : MultiViewItem(MultiViewType.TEXT)
 
-    data class ImageItem(
+    data class Repo(
         @DrawableRes val imageRes: Int,
         val name: String,
         val author: String

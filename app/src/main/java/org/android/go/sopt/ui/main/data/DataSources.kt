@@ -10,11 +10,11 @@ object DataSources {
 
     fun loadHomeDataSet(): ArrayList<MultiViewItem> {
         val multiViewItems = arrayListOf<MultiViewItem>().apply {
-            add(MultiViewItem.TextItem("하은의 레포지토리"))
+            add(MultiViewItem.Header("하은의 레포지토리"))
 
             for (i in 1..HOME_ITEM_NUM) {
                 add(
-                    MultiViewItem.ImageItem(
+                    MultiViewItem.Repo(
                         R.drawable.ic_launcher_background,
                         "name $i",
                         "author $i"
