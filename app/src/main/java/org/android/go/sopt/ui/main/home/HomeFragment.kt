@@ -3,6 +3,7 @@ package org.android.go.sopt.ui.main.home
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
@@ -24,5 +25,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             adapter = MultiViewAdapter(dataSet)
             setHasFixedSize(true)
         }
+    }
+
+    fun scrollToTop() {
+        binding.rvHome.scrollToPosition(0)
     }
 }

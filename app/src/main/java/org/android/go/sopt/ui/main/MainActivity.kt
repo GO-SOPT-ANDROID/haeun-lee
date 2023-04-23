@@ -22,14 +22,12 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun initBnvItemReselectedListener() {
         binding.bnvMain.setOnItemReselectedListener {
-            when(supportFragmentManager.findFragmentById(R.id.fcv_main)){
+            when(val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)){
                 is HomeFragment -> {
-                    val recyclerView = findViewById<RecyclerView>(R.id.rv_home)
-                    recyclerView.scrollToPosition(0)
+                    currentFragment.scrollToTop()
                 }
                 is GalleryFragment -> {
-                    val recyclerView = findViewById<RecyclerView>(R.id.rv_gallery)
-                    recyclerView.scrollToPosition(0)
+                    currentFragment.scrollToTop()
                 }
             }
         }

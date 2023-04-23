@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
@@ -34,14 +35,12 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
         val dataSet = DataSources.loadGalleryDataSet()
         myListAdapter.submitList(dataSet)
-        Log.d("ListAdapter", "submitList called...")
     }
 
     private fun initFABClickListener() {
         binding.fabShuffle.setOnClickListener {
             val currentList = myListAdapter.currentList
             myListAdapter.submitList(currentList.shuffled())
-            Log.d("ListAdapter", "submitList called...")
         }
     }
 
@@ -51,4 +50,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+    fun scrollToTop() {
+        binding.rvGallery.scrollToPosition(0)
+    }
 }

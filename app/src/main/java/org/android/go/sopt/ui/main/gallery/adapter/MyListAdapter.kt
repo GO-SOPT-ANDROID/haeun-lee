@@ -27,13 +27,11 @@ class MyListAdapter : ListAdapter<Repo, MyViewHolder>(MyDiffCallback()) {
         val newList = currentList.toMutableList()
         Collections.swap(newList, fromPosition, toPosition)
         submitList(newList)
-        Log.d("ListAdapter", "submitList called...")
     }
 
     fun removeItem(position: Int) {
         val newList = currentList.toMutableList()
         newList.removeAt(position)
         submitList(newList)
-        Log.d("ListAdapter", "submitList called...")
     }
 }
