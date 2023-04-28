@@ -1,7 +1,6 @@
 package org.android.go.sopt.ui.main.gallery.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 
 class MyDiffCallback<T : Any>(
     val onItemsTheSame: (T, T) -> Boolean,

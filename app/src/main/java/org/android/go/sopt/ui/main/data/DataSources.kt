@@ -1,8 +1,8 @@
 package org.android.go.sopt.ui.main.data
 
 import org.android.go.sopt.R
-import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
+import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem.*
 
 object DataSources {
     private const val HOME_ITEM_NUM = 20
@@ -10,12 +10,12 @@ object DataSources {
 
     fun loadHomeDataSet(): ArrayList<MultiViewItem> {
         val multiViewItems = arrayListOf<MultiViewItem>().apply {
-            add(MultiViewItem.Header("하은의 레포지토리"))
+            add(Header("하은의 레포지토리"))
 
             for (i in 1..HOME_ITEM_NUM) {
                 add(
-                    MultiViewItem.Repo(
-                        R.drawable.ic_launcher_background,
+                    Repo(
+                        R.drawable.profile_image,
                         "name $i",
                         "author $i"
                     )
@@ -29,7 +29,7 @@ object DataSources {
     fun loadGalleryDataSet(): ArrayList<Repo> {
         val repos = arrayListOf<Repo>().apply {
             for (i in 1..GALLERY_ITEM_NUM) {
-                add(Repo(R.drawable.ic_launcher_background, "name $i", "author $i"))
+                add(Repo(R.drawable.profile_image, "name $i", "author $i"))
             }
         }
 
