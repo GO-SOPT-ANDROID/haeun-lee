@@ -2,7 +2,8 @@ package org.android.go.sopt.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
@@ -15,14 +16,31 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loadHomeFragment()
+        initDefaultFragment()
         initBnvItemSelectedListener()
         initBnvItemReselectedListener()
     }
 
+    private fun initDefaultFragment() {
+        supportFragmentManager.findFragmentById(R.id.fcv_main)
+            ?: navigateTo<HomeFragment>()
+    }
+
+    private fun initBnvItemSelectedListener() {
+        binding.bnvMain.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home_menu -> navigateTo<HomeFragment>()
+                R.id.gallery_menu -> navigateTo<GalleryFragment>()
+                R.id.search_menu -> navigateTo<SearchFragment>()
+            }
+            true
+        }
+    }
+
+    // 이 함수... 반복되는 코드를 더 줄일 수 있는 방법 아시는 분.. 코멘트 남겨주세요!!
     private fun initBnvItemReselectedListener() {
         binding.bnvMain.setOnItemReselectedListener {
-            when(val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)){
+            when (val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)) {
                 is HomeFragment -> {
                     currentFragment.scrollToTop()
                 }
@@ -33,35 +51,10 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
-    private fun initBnvItemSelectedListener() {
-        binding.bnvMain.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.home_menu -> {
-                    changeFragment(HomeFragment())
-                    true
-                }
-                R.id.gallery_menu -> {
-                    changeFragment(GalleryFragment())
-                    true
-                }
-                R.id.search_menu -> {
-                    changeFragment(SearchFragment())
-                    true
-                }
-                else -> false
-            }
+    // 불필요한 객체 생성을 막기 위해 inline 사용 & 제네릭 타입을 위해 reified 사용
+    private inline fun <reified T : Fragment> navigateTo() {
+        supportFragmentManager.commit {
+            replace<T>(R.id.fcv_main, T::class.simpleName)
         }
-    }
-
-    private fun loadHomeFragment() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
-        if (currentFragment == null) changeFragment(HomeFragment())
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fcv_main, fragment)
-            .commit()
     }
 }
