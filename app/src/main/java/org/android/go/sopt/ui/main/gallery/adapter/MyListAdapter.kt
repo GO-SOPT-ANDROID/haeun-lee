@@ -7,7 +7,7 @@ import org.android.go.sopt.databinding.ItemRepoBinding
 import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 import java.util.*
 
-class MyListAdapter : ListAdapter<Repo, MyViewHolder>(MyDiffCallback()) {
+class MyListAdapter : ListAdapter<Repo, MyViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             ItemRepoBinding.inflate(
@@ -32,5 +32,12 @@ class MyListAdapter : ListAdapter<Repo, MyViewHolder>(MyDiffCallback()) {
         val newList = currentList.toMutableList()
         newList.removeAt(position)
         submitList(newList)
+    }
+
+    companion object {
+        private val diffUtil = MyDiffCallback<Repo>(
+            onItemsTheSame = { old, new -> old === new },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }
