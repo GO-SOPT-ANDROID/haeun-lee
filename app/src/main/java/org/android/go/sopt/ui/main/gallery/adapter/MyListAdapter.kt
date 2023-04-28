@@ -3,14 +3,14 @@ package org.android.go.sopt.ui.main.gallery.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import org.android.go.sopt.databinding.ItemImageBinding
+import org.android.go.sopt.databinding.ItemRepoBinding
 import org.android.go.sopt.ui.main.gallery.adapter.model.Repo
 import java.util.*
 
 class MyListAdapter : ListAdapter<Repo, MyViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            ItemImageBinding.inflate(
+            ItemRepoBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
