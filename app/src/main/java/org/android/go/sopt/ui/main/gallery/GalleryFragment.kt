@@ -1,11 +1,8 @@
 package org.android.go.sopt.ui.main.gallery
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
@@ -15,9 +12,7 @@ import org.android.go.sopt.ui.main.data.DataSources
 
 /** DiffUtil + ListAdapter 사용해서 리사이클러뷰 성능 개선하기 */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
-    private val myListAdapter: MyListAdapter by lazy {
-        MyListAdapter()
-    }
+    private val listAdapter by lazy { MyListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,26 +23,22 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
     }
 
     private fun initRecyclerView() {
-        binding.rvGallery.apply {
-            adapter = myListAdapter
-            setHasFixedSize(true)
-        }
+        binding.rvGallery.adapter = listAdapter
 
         val dataSet = DataSources.loadGalleryDataSet()
-        myListAdapter.submitList(dataSet)
+        listAdapter.submitList(dataSet)
     }
 
     private fun initFABClickListener() {
         binding.fabShuffle.setOnClickListener {
-            val currentList = myListAdapter.currentList
-            myListAdapter.submitList(currentList.shuffled())
+            val currentList = listAdapter.currentList
+            listAdapter.submitList(currentList.shuffled())
         }
     }
 
     private fun initItemTouchHelper() {
-        val recyclerView = binding.rvGallery
-        val itemTouchHelper = ItemTouchHelper(MyItemTouchHelperCallback(recyclerView))
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        val itemTouchHelper = ItemTouchHelper(MyItemTouchHelperCallback(listAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.rvGallery)
     }
 
     fun scrollToTop() {
