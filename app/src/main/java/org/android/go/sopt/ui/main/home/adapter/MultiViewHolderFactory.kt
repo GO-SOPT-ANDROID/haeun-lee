@@ -6,17 +6,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import org.android.go.sopt.R
 import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
-import org.android.go.sopt.ui.main.home.adapter.MultiViewType.REPO_TYPE
-import org.android.go.sopt.ui.main.home.adapter.MultiViewType.HEADER_TYPE
+import org.android.go.sopt.ui.main.home.adapter.MultiViewHolder.*
+import org.android.go.sopt.ui.main.home.adapter.MultiViewType.*
 
 class MultiViewHolderFactory {
-    @Suppress("UNCHECKED_CAST")
-    fun getViewHolder(parent: ViewGroup, viewType: MultiViewType): MultiViewHolder<MultiViewItem> {
+    fun getViewHolder(parent: ViewGroup, viewType: MultiViewType):
+            MultiViewHolder<MultiViewItem> {
         return when (viewType) {
             HEADER_TYPE ->
-                MultiViewHolder.HeaderViewHolder(viewBind(parent, R.layout.item_header))
+                HeaderViewHolder(viewBind(parent, R.layout.item_header))
             REPO_TYPE ->
-                MultiViewHolder.RepoViewHolder(viewBind(parent, R.layout.item_repo))
+                RepoViewHolder(viewBind(parent, R.layout.item_repo))
         } as MultiViewHolder<MultiViewItem>
     }
 

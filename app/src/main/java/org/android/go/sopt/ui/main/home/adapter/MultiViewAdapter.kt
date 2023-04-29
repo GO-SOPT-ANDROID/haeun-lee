@@ -7,9 +7,8 @@ import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
 class MultiViewAdapter(
     private val itemList: ArrayList<MultiViewItem>
 ) : RecyclerView.Adapter<MultiViewHolder<MultiViewItem>>() {
-    private val multiViewHolderFactory = MultiViewHolderFactory()
+    private val multiViewHolderFactory by lazy { MultiViewHolderFactory() }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
