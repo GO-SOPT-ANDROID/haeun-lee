@@ -2,6 +2,17 @@
 
 ## 과제 링크 제출란
 
+|주차|주제|링크|
+|:---:|---|:---:|
+|1|안드로이드 UI 구현 기초 - View, ViewGroup과 UI 이벤트 처리|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/issues/1)|
+|2|안드로이드 UI 구현 심화 - 어댑터 패턴을 사용하는 심화 UI 컴포넌트들|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/issues/3)|
+|3|UI/UX의 이해와 구글의 Material Design - 안드로이드 고유의 디자인 철학||
+|4|서버 통신 기초 - HTTP, 비동기의 이해와 Retrofit2를 활용한 서버 통신||
+|5|합동 세미나 - Client, Design, Server||
+|6|서버 통신 심화 - OkHttp 로직 자동화, LiveData 반응형 프로그래밍||
+|7|프로덕트 생성 실전 - 확장 함수를 통한 간결한 작성, 로컬 저장소에서 릴리즈 준비||
+|8|미니 세미나 - 선배 개발자들의 미미나를 통한 앱잼 및 성장 실전 Tip||
+
 ## 템플릿 설명
 레포지터리에는 총 2개의 브랜치가 있습니다.
 ### main
