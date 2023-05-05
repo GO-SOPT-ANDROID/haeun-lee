@@ -15,9 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/login_welcome_msg"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:textAppearance="?textAppearanceDisplayLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,8 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/login_id_label"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -39,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_id_hint"
+            android:textAppearance="?textAppearanceBodyMedium"
             android:inputType="text"
             android:minHeight="48dp"
             android:singleLine="true"
@@ -52,8 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/login_pw_label"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_id" />
 
@@ -64,6 +61,7 @@
             android:layout_marginTop="12dp"
             android:hint="@string/login_pw_hint"
             android:inputType="textPassword"
+            android:textAppearance="?textAppearanceBodyMedium"
             android:minHeight="48dp"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +75,7 @@
             android:layout_marginTop="32dp"
             android:padding="12dp"
             android:text="@string/login_btn_text"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_pw" />
@@ -88,6 +87,7 @@
             android:layout_marginTop="12dp"
             android:padding="12dp"
             android:text="@string/sign_up_start_btn_text"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />

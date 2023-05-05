@@ -15,8 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/sign_up_title"
-            android:textColor="@color/black"
-            android:textSize="28sp"
+            android:textAppearance="?textAppearanceDisplayLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/sign_up_id_label"
-            android:textSize="20sp"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -37,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sign_up_id_err"
+            android:textAppearance="?textAppearanceLabelLarge"
             android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/tv_id"
@@ -53,6 +53,7 @@
             android:maxLength="10"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_id" />
@@ -63,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/sign_up_pw_label"
-            android:textSize="20sp"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_id" />
 
@@ -77,6 +78,7 @@
             android:maxLength="12"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_pw" />
@@ -87,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sign_up_pw_err"
+            android:textAppearance="?textAppearanceLabelLarge"
             android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/tv_pw"
@@ -99,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/sign_up_name_label"
-            android:textSize="20sp"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_pw" />
 
@@ -109,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sign_up_name_err"
+            android:textAppearance="?textAppearanceLabelLarge"
             android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/tv_name"
@@ -124,6 +128,7 @@
             android:inputType="text"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -134,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/sign_up_hobby_label"
-            android:textSize="20sp"
+            android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_name" />
 
@@ -144,6 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sign_up_hobby_err"
+            android:textAppearance="?textAppearanceLabelLarge"
             android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/tv_hobby"
@@ -159,6 +165,7 @@
             android:inputType="text"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_hobby" />
@@ -170,6 +177,7 @@
             android:layout_marginTop="32dp"
             android:padding="12dp"
             android:text="@string/sign_up_finish_btn_text"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_hobby" />
