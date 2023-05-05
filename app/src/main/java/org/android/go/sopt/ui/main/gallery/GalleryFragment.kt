@@ -8,7 +8,7 @@ import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.ui.main.gallery.adapter.MyListAdapter
 import org.android.go.sopt.ui.main.gallery.adapter.MyItemTouchHelperCallback
-import org.android.go.sopt.ui.main.data.DataSources
+import org.android.go.sopt.data.DataSources
 
 /** DiffUtil + ListAdapter 사용해서 리사이클러뷰 성능 개선하기 */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {

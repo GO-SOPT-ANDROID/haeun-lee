@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.data
+package org.android.go.sopt.data
 
 import org.android.go.sopt.R
 import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
