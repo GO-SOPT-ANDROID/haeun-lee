@@ -2,20 +2,36 @@ package org.android.go.sopt.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 
 class PreferenceUtil(context: Context) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences by lazy {
+        // 암호화 할 마스터 키 생성
+        val masterKeyAlias = MasterKey
+            .Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
-    fun getString(key: String, defValue: String?): String? {
-        return prefs.getString(key, defValue)
+        // key, value를 암호화 한 sharedPreferences 객체 생성
+        EncryptedSharedPreferences.create(
+            context,
+            FILE_NAME,
+            masterKeyAlias,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 
-    fun setString(key: String, str: String) {
-        prefs.edit().putString(key, str).apply()
+    fun getString(key: String, defaultValue: String?): String? {
+        return sharedPreferences.getString(key, defaultValue)
+    }
+
+    fun setString(key: String, newValue: String) {
+        sharedPreferences.edit().putString(key, newValue).apply()
     }
 
     companion object {
-        private const val SHARED_PREFS_NAME = "my_prefs"
+        private const val FILE_NAME = "encrypted_user_info"
     }
 }

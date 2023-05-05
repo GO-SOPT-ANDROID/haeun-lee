@@ -3,10 +3,10 @@ package org.android.go.sopt
 import android.app.Application
 import org.android.go.sopt.util.PreferenceUtil
 
-class Week2Application: Application() {
+class GoSoptApplication: Application() {
     override fun onCreate() {
-        prefs = PreferenceUtil(applicationContext)
         super.onCreate()
+        prefs = PreferenceUtil(applicationContext)
     }
 
     companion object {
