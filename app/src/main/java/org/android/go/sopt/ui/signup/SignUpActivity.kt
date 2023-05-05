@@ -1,16 +1,15 @@
 package org.android.go.sopt.ui.signup
 
 import android.content.Intent
+import android.content.Intent.EXTRA_USER
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.login.LoginActivity
-import org.android.go.sopt.util.*
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 
@@ -26,7 +25,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun initSignUpButtonClickListener() {
         binding.btnSignUp.setOnClickListener {
-            val userInfo = getUserInfoInputValues()
+            val userInfo = getInputValues()
             if (checkSignUpInputValidity(userInfo)) {
                 sendUserInfoToLoginScreen(userInfo)
                 return@setOnClickListener
@@ -38,10 +37,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun sendUserInfoToLoginScreen(userInfo: User) {
         Intent(this, LoginActivity::class.java).apply {
-            putExtra(ID_KEY, userInfo.id)
-            putExtra(PW_KEY, userInfo.pw)
-            putExtra(NAME_KEY, userInfo.name)
-            putExtra(HOBBY_KEY, userInfo.hobby)
+            putExtra(EXTRA_USER, userInfo)
             setResult(RESULT_OK, this)
         }
         finish()
@@ -92,7 +88,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 userInfo.name.isNotEmpty() && userInfo.hobby.isNotEmpty()
     }
 
-    private fun getUserInfoInputValues(): User {
+    private fun getInputValues(): User {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         val name = binding.etName.text.toString()
