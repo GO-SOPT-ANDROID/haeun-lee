@@ -31,6 +31,10 @@ class PreferenceUtil(context: Context) {
         sharedPreferences.edit().putString(key, newValue).apply()
     }
 
+    fun deleteAllData() {
+        sharedPreferences.edit().clear().apply()
+    }
+
     companion object {
         private const val FILE_NAME = "encrypted_user_info"
     }

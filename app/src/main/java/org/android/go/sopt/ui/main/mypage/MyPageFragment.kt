@@ -1,11 +1,14 @@
 package org.android.go.sopt.ui.main.mypage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentMyPageBinding
+import org.android.go.sopt.ui.login.LoginActivity
+import org.android.go.sopt.ui.main.MainActivity
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,7 +26,12 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
 
     private fun initLogoutButtonClickListener() {
         binding.btnLogout.setOnClickListener {
-            // todo: 유저 데이터 삭제하고, 로그인 화면 다시 진입하기
+            GoSoptApplication.prefs.deleteAllData()
+
+            Intent(requireContext(), LoginActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(this)
+            }
         }
     }
 
