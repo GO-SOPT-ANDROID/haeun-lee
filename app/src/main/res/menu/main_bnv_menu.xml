@@ -12,4 +12,8 @@
         android:id="@+id/search_menu"
         android:icon="@drawable/ic_search"
         android:title="@string/search_menu" />
+    <item
+        android:id="@+id/mypage_menu"
+        android:icon="@drawable/ic_my_page"
+        android:title="@string/mypage_menu" />
 </menu>

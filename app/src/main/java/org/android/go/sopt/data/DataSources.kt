@@ -10,7 +10,7 @@ object DataSources {
 
     fun loadHomeDataSet(): ArrayList<MultiViewItem> {
         val multiViewItems = arrayListOf<MultiViewItem>().apply {
-            add(Header("하은의 레포지토리"))
+            add(Header("Repository List"))
 
             for (i in 1..HOME_ITEM_NUM) {
                 add(
