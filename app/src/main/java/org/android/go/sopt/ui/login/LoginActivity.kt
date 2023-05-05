@@ -2,11 +2,11 @@ package org.android.go.sopt.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import org.android.go.sopt.R
-import org.android.go.sopt.Week2Application
+import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.model.User
@@ -65,10 +65,24 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
 
         binding.btnSignUp.setOnClickListener {
+            hideKeyboard()
+            clearEditText()
+            focusOutEditText(it)
             signUpResultLauncher.launch(
                 Intent(this, SignUpActivity::class.java)
             )
         }
+    }
+
+    private fun focusOutEditText(button: View?) {
+        binding.etId.clearFocus()
+        binding.etPw.clearFocus()
+        button?.requestFocus()
+    }
+
+    private fun clearEditText() {
+        binding.etId.text.clear()
+        binding.etPw.text.clear()
     }
 
     private fun handleSignUpResult(result: ActivityResult) {
@@ -86,10 +100,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = Week2Application.prefs.getString(ID_KEY, null)
-        val pw = Week2Application.prefs.getString(PW_KEY, null)
-        val name = Week2Application.prefs.getString(NAME_KEY, null)
-        val hobby = Week2Application.prefs.getString(HOBBY_KEY, null)
+        val id = GoSoptApplication.prefs.getString(ID_KEY, null)
+        val pw = GoSoptApplication.prefs.getString(PW_KEY, null)
+        val name = GoSoptApplication.prefs.getString(NAME_KEY, null)
+        val hobby = GoSoptApplication.prefs.getString(HOBBY_KEY, null)
         return id != null && pw != null && name != null && hobby != null
     }
 
@@ -107,10 +121,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun saveUserInfoToPrefs() {
-        Week2Application.prefs.setString(ID_KEY, userInfo.id)
-        Week2Application.prefs.setString(PW_KEY, userInfo.pw)
-        Week2Application.prefs.setString(NAME_KEY, userInfo.name)
-        Week2Application.prefs.setString(HOBBY_KEY, userInfo.hobby)
+        GoSoptApplication.prefs.setString(ID_KEY, userInfo.id)
+        GoSoptApplication.prefs.setString(PW_KEY, userInfo.pw)
+        GoSoptApplication.prefs.setString(NAME_KEY, userInfo.name)
+        GoSoptApplication.prefs.setString(HOBBY_KEY, userInfo.hobby)
     }
 
     private fun initUserInfoFromIntent(intent: Intent?) {
