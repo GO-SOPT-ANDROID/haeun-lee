@@ -2,10 +2,11 @@ package org.android.go.sopt.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.annotation.StringRes
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
-class PreferenceUtil(context: Context) {
+class PreferenceUtil(private val context: Context) {
     private val sharedPreferences: SharedPreferences by lazy {
         // 암호화 할 마스터 키 생성
         val masterKeyAlias = MasterKey
@@ -23,11 +24,13 @@ class PreferenceUtil(context: Context) {
         )
     }
 
-    fun getString(key: String, defaultValue: String?): String? {
+    fun getString(@StringRes keyId: Int, defaultValue: String?): String? {
+        val key = context.getString(keyId)
         return sharedPreferences.getString(key, defaultValue)
     }
 
-    fun setString(key: String, newValue: String) {
+    fun putString(@StringRes keyId: Int, newValue: String) {
+        val key = context.getString(keyId)
         sharedPreferences.edit().putString(key, newValue).apply()
     }
 

@@ -17,6 +17,12 @@
     <string name="login_btn_text">Login</string>
     <string name="sign_up_start_btn_text">Sign Up</string>
 
+    <!-- sharedPreferences -->
+    <string name="prefs_id_key">id</string>
+    <string name="prefs_pw_key">pw</string>
+    <string name="prefs_name_key">name</string>
+    <string name="prefs_hobby_key">hobby</string>
+
     <!-- signup -->
     <string name="sign_up_title">회원가입</string>
     <string name="sign_up_id_label">ID</string>
@@ -48,4 +54,8 @@
     <string name="mypage_name">이름:&#160;</string>
     <string name="mypage_hobby">취미:&#160;</string>
     <string name="logout_btn_text">Logout</string>
+    
+    <string name="dialog_logout_msg">로그아웃 하시겠습니까?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
 </resources>

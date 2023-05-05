@@ -13,7 +13,6 @@ import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.ui.signup.SignUpActivity
-import org.android.go.sopt.util.*
 import org.android.go.sopt.util.extension.getCompatibleSerializableExtra
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
@@ -39,10 +38,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = GoSoptApplication.prefs.getString(ID_KEY, null)
-        val pw = GoSoptApplication.prefs.getString(PW_KEY, null)
-        val name = GoSoptApplication.prefs.getString(NAME_KEY, null)
-        val hobby = GoSoptApplication.prefs.getString(HOBBY_KEY, null)
+        val id = GoSoptApplication.prefs.getString(R.string.prefs_id_key, null)
+        val pw = GoSoptApplication.prefs.getString(R.string.prefs_pw_key, null)
+        val name = GoSoptApplication.prefs.getString(R.string.prefs_name_key, null)
+        val hobby = GoSoptApplication.prefs.getString(R.string.prefs_hobby_key, null)
         return id != null && pw != null && name != null && hobby != null
     }
 
@@ -120,29 +119,22 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initUserInfoFromIntent(intent: Intent?) {
-          intent?.getCompatibleSerializableExtra<User>(EXTRA_USER)?.apply {
-              userInfo = this
-          }
+        intent?.getCompatibleSerializableExtra<User>(EXTRA_USER)?.apply {
+            userInfo = this
+        }
     }
 
     private fun saveUserInfoToPrefs() {
-        GoSoptApplication.prefs.setString(ID_KEY, userInfo.id)
-        GoSoptApplication.prefs.setString(PW_KEY, userInfo.pw)
-        GoSoptApplication.prefs.setString(NAME_KEY, userInfo.name)
-        GoSoptApplication.prefs.setString(HOBBY_KEY, userInfo.hobby)
+        GoSoptApplication.prefs.putString(R.string.prefs_id_key, userInfo.id)
+        GoSoptApplication.prefs.putString(R.string.prefs_pw_key, userInfo.pw)
+        GoSoptApplication.prefs.putString(R.string.prefs_name_key, userInfo.name)
+        GoSoptApplication.prefs.putString(R.string.prefs_hobby_key, userInfo.hobby)
     }
 
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {
             hideKeyboard()
         }
-    }
-
-    companion object {
-        private const val ID_KEY = "id"
-        private const val PW_KEY = "pw"
-        private const val NAME_KEY = "name"
-        private const val HOBBY_KEY = "hobby"
     }
 }
 
