@@ -37,7 +37,7 @@
     <string name="sign_up_hobby_label">Hobby</string>
     <string name="sign_up_hobby_err">* 필수</string>
     <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
-    <string name="sign_up_finish_btn_text">회원가입 완료</string>
+    <string name="sign_up_finish_btn_text">Complete</string>
 
 
     <!-- main -->
