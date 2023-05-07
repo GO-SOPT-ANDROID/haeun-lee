@@ -7,8 +7,8 @@
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/amber_300</item>
-        <item name="colorSecondaryVariant">@color/amber_700</item>
+        <item name="colorSecondary">@color/indigo_500</item>
+        <item name="colorSecondaryVariant">@color/indigo_700</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Neutral key color. -->
