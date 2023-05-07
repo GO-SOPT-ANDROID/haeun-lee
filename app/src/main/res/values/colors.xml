@@ -20,6 +20,17 @@
     <color name="gray_800">#424242</color>
     <color name="gray_900">#212121</color>
 
+    <color name="blue_gray_50">#eceff1</color>
+    <color name="blue_gray_100">#cfd8dc</color>
+    <color name="blue_gray_200">#b0bec5</color>
+    <color name="blue_gray_300">#90a4ae</color>
+    <color name="blue_gray_400">#78909c</color>
+    <color name="blue_gray_500">#607d8b</color>
+    <color name="blue_gray_600">#546e7a</color>
+    <color name="blue_gray_700">#455a64</color>
+    <color name="blue_gray_800">#37474f</color>
+    <color name="blue_gray_900">#263238</color>
+
     <color name="blue_50">#e7e9fd</color>
     <color name="blue_100">#d0d9ff</color>
     <color name="blue_200">#afbfff</color>
