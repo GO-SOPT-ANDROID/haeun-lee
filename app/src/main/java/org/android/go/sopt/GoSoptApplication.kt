@@ -1,15 +1,15 @@
 package org.android.go.sopt
 
 import android.app.Application
-import org.android.go.sopt.util.PreferenceUtil
+import org.android.go.sopt.util.PreferenceManager
 
 class GoSoptApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        prefs = PreferenceUtil(applicationContext)
+        prefs = PreferenceManager(applicationContext)
     }
 
     companion object {
-        lateinit var prefs: PreferenceUtil
+        lateinit var prefs: PreferenceManager
     }
 }
