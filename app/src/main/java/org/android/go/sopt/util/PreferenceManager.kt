@@ -3,6 +3,7 @@ package org.android.go.sopt.util
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
@@ -27,7 +28,7 @@ class PreferenceManager(context: Context) {
     }
 
     private fun putString(key: String, newValue: String) {
-        sharedPreferences.edit().putString(key, newValue).apply()
+        sharedPreferences.edit { putString(key, newValue) }
     }
 
     private fun getString(key: String, defaultValue: String): String? {
@@ -45,7 +46,7 @@ class PreferenceManager(context: Context) {
     }
 
     fun deleteAllData() {
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit { clear() }
     }
 
     companion object {
