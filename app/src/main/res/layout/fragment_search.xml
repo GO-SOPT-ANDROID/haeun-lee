@@ -3,10 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.search.SearchFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
 </layout>
