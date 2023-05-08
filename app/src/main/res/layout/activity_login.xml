@@ -24,7 +24,7 @@
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:text="@string/login_id_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
 
         <EditText
             android:id="@+id/et_id"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_id_hint"
@@ -56,14 +56,14 @@
 
         <EditText
             android:id="@+id/et_pw"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_pw_hint"
             android:inputType="textPassword"
-            android:textAppearance="?textAppearanceBodyMedium"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_pw" />
@@ -72,10 +72,10 @@
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="12dp"
+            android:layout_marginTop="40dp"
+            android:padding="14dp"
             android:text="@string/login_btn_text"
-            android:textAppearance="?textAppearanceBodyMedium"
+            android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_pw" />
@@ -85,9 +85,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:padding="12dp"
+            android:padding="14dp"
             android:text="@string/sign_up_start_btn_text"
-            android:textAppearance="?textAppearanceBodyMedium"
+            android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />

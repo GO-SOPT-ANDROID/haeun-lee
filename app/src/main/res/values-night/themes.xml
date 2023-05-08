@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/light_blue_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/amber_300</item>
-        <item name="colorSecondaryVariant">@color/amber_300</item>
+        <item name="colorSecondary">@color/indigo_300</item>
+        <item name="colorSecondaryVariant">@color/indigo_300</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Neutral key color. -->
         <item name="android:colorBackground">@color/black</item>

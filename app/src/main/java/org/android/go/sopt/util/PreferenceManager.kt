@@ -1,12 +1,15 @@
 package org.android.go.sopt.util
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import androidx.annotation.StringRes
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.google.gson.Gson
+import org.android.go.sopt.model.User
 
-class PreferenceUtil(private val context: Context) {
+class PreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences by lazy {
         // 암호화 할 마스터 키 생성
         val masterKeyAlias = MasterKey
@@ -24,18 +27,26 @@ class PreferenceUtil(private val context: Context) {
         )
     }
 
-    fun getString(@StringRes keyId: Int, defaultValue: String?): String? {
-        val key = context.getString(keyId)
+    private fun putString(key: String, newValue: String) {
+        sharedPreferences.edit { putString(key, newValue) }
+    }
+
+    private fun getString(key: String, defaultValue: String): String? {
         return sharedPreferences.getString(key, defaultValue)
     }
 
-    fun putString(@StringRes keyId: Int, newValue: String) {
-        val key = context.getString(keyId)
-        sharedPreferences.edit().putString(key, newValue).apply()
+    fun putUserData(user: User) {
+        val json = Gson().toJson(user)
+        putString(Intent.EXTRA_USER, json)
+    }
+
+    fun getUserData(): User? {
+        val json = getString(Intent.EXTRA_USER, "")
+        return Gson().fromJson(json, User::class.java)
     }
 
     fun deleteAllData() {
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit { clear() }
     }
 
     companion object {

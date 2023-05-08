@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/et_id"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_id_hint"
@@ -70,7 +70,7 @@
 
         <EditText
             android:id="@+id/et_pw"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_pw_hint"
@@ -121,7 +121,7 @@
 
         <EditText
             android:id="@+id/et_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_name_hint"
@@ -158,7 +158,7 @@
 
         <EditText
             android:id="@+id/et_hobby"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_hobby_hint"
@@ -174,13 +174,13 @@
             android:id="@+id/btn_sign_up"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="12dp"
+            android:layout_marginBottom="36dp"
+            android:padding="14dp"
             android:text="@string/sign_up_finish_btn_text"
-            android:textAppearance="?textAppearanceBodyMedium"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_hobby" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

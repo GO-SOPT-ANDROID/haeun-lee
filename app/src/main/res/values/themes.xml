@@ -1,22 +1,32 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.GOSOPTAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.GOSOPTAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_blue_500</item>
         <item name="colorPrimaryVariant">@color/light_blue_700</item>
         <item name="colorOnPrimary">@color/white</item>
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/amber_300</item>
-        <item name="colorSecondaryVariant">@color/amber_700</item>
+        <item name="colorSecondary">@color/indigo_500</item>
+        <item name="colorSecondaryVariant">@color/indigo_700</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Neutral key color. -->
         <item name="android:colorBackground">@color/white</item>
         <item name="colorOnBackground">@color/black</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurface">@color/gray_600</item>
-        <item name="colorSurfaceVariant">@color/gray_200</item>
-        <item name="colorOnSurfaceInverse">@color/gray_600</item>
-        <item name="colorOnSurfaceVariant">@color/gray_400</item>
+
+        <!-- Navigation Bar Container color -->
+        <item name="colorSurface">@color/blue_gray_50</item>
+
+        <!-- Navigation Bar Active Indicator color -->
+        <item name="colorSurfaceVariant">@color/light_blue_100</item>
+
+        <!-- Navigation Bar Icon/Text Active color -->
+        <item name="colorOnSurface">@color/black</item>
+
+        <!-- Navigation Bar Icon/Text Inactive color -->
+        <item name="colorOnSurfaceVariant">@color/gray_800</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -31,5 +41,10 @@
         <item name="textAppearanceBodySmall">@style/TextAppearance.GOSOPTAndroid.BodySmall</item>
         <item name="textAppearanceLabelLarge">@style/TextAppearance.GOSOPTAndroid.LabelLarge</item>
         <item name="textAppearanceLabelMedium">@style/TextAppearance.GOSOPTAndroid.LabelMedium</item>
+    </style>
+
+    <!-- Navigation Bar Active indicator style -->
+    <style name="Widget.GOSOPTAndroid.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?colorSurfaceVariant</item>
     </style>
 </resources>

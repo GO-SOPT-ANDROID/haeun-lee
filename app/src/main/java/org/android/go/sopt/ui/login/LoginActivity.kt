@@ -13,7 +13,7 @@ import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.ui.signup.SignUpActivity
-import org.android.go.sopt.util.extension.getCompatibleSerializableExtra
+import org.android.go.sopt.util.extension.getCompatibleParcelableExtra
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.extension.showToast
@@ -38,11 +38,18 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val id = GoSoptApplication.prefs.getString(R.string.prefs_id_key, null)
-        val pw = GoSoptApplication.prefs.getString(R.string.prefs_pw_key, null)
-        val name = GoSoptApplication.prefs.getString(R.string.prefs_name_key, null)
-        val hobby = GoSoptApplication.prefs.getString(R.string.prefs_hobby_key, null)
-        return id != null && pw != null && name != null && hobby != null
+        val savedUserInfo = GoSoptApplication.prefs.getUserData()
+        if (savedUserInfo != null) {
+            return checkSavedUserInfo(savedUserInfo)
+        }
+        return false
+    }
+
+    private fun checkSavedUserInfo(savedUserInfo: User): Boolean {
+        return savedUserInfo.id.isNotBlank() &&
+                savedUserInfo.pw.isNotBlank() &&
+                savedUserInfo.name.isNotBlank() &&
+                savedUserInfo.hobby.isNotBlank()
     }
 
     private fun navigateToMainScreen() {
@@ -119,16 +126,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initUserInfoFromIntent(intent: Intent?) {
-        intent?.getCompatibleSerializableExtra<User>(EXTRA_USER)?.apply {
+        intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
             userInfo = this
         }
     }
 
     private fun saveUserInfoToPrefs() {
-        GoSoptApplication.prefs.putString(R.string.prefs_id_key, userInfo.id)
-        GoSoptApplication.prefs.putString(R.string.prefs_pw_key, userInfo.pw)
-        GoSoptApplication.prefs.putString(R.string.prefs_name_key, userInfo.name)
-        GoSoptApplication.prefs.putString(R.string.prefs_hobby_key, userInfo.hobby)
+        GoSoptApplication.prefs.putUserData(userInfo)
     }
 
     private fun initRootLayoutClickListener() {

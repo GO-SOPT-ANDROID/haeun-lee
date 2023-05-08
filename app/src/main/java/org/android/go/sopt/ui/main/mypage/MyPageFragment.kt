@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentMyPageBinding
+import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.login.LoginActivity
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
@@ -18,10 +20,11 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     }
 
     private fun initUserProfile() {
-        val name = GoSoptApplication.prefs.getString(R.string.prefs_name_key, null)
-        val hobby = GoSoptApplication.prefs.getString(R.string.prefs_hobby_key, null)
-        binding.tvName.append(name)
-        binding.tvHobby.append(hobby)
+        val savedUserInfo = GoSoptApplication.prefs.getUserData()
+        if (savedUserInfo != null) {
+            binding.tvName.append(savedUserInfo.name)
+            binding.tvHobby.append(savedUserInfo.hobby)
+        }
     }
 
     private fun initLogoutButtonClickListener() {
