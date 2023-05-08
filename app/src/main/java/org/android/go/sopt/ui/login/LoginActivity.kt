@@ -13,7 +13,7 @@ import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.ui.signup.SignUpActivity
-import org.android.go.sopt.util.extension.getCompatibleSerializableExtra
+import org.android.go.sopt.util.extension.getCompatibleParcelableExtra
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.extension.showToast
@@ -126,7 +126,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initUserInfoFromIntent(intent: Intent?) {
-        intent?.getCompatibleSerializableExtra<User>(EXTRA_USER)?.apply {
+        intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
             userInfo = this
         }
     }
