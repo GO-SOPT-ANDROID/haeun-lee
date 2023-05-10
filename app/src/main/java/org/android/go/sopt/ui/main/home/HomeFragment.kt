@@ -5,7 +5,7 @@ import android.view.View
 import org.android.go.sopt.R
 import org.android.go.sopt.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.ui.main.data.DataSources
+import org.android.go.sopt.data.DataSources
 import org.android.go.sopt.ui.main.home.adapter.MultiViewAdapter
 import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
 
@@ -14,7 +14,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataSet = DataSources.loadHomeDataSet()
+        val dataSet = DataSources.loadHomeDataSet(requireContext())
         initRecyclerView(dataSet)
     }
 

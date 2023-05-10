@@ -22,7 +22,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_main"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
+            app:itemActiveIndicatorStyle="@style/Widget.GOSOPTAndroid.BottomNavigationView.ActiveIndicator"
+            app:itemIconTint="@drawable/bottom_nav_color"
+            app:itemTextAppearanceActive="?textAppearanceLabelLarge"
+            app:itemTextAppearanceInactive="?textAppearanceLabelLarge"
+            app:itemTextColor="@drawable/bottom_nav_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

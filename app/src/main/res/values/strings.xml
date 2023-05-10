@@ -12,37 +12,51 @@
     <string name="login_welcome_msg">Welcome to GO Android!</string>
     <string name="login_id_label">ID</string>
     <string name="login_id_hint">아이디를 입력하세요.</string>
-    <string name="login_pw_label">PW</string>
+    <string name="login_pw_label">Password</string>
     <string name="login_pw_hint">비밀번호를 입력하세요.</string>
     <string name="login_btn_text">Login</string>
     <string name="sign_up_start_btn_text">Sign Up</string>
 
-    <!-- main -->
-    <string name="main_user_name">이름:</string>
-    <string name="main_user_hobby">특기:</string>
+    <!-- sharedPreferences -->
+    <string name="prefs_id_key">id</string>
+    <string name="prefs_pw_key">pw</string>
+    <string name="prefs_name_key">name</string>
+    <string name="prefs_hobby_key">hobby</string>
 
     <!-- signup -->
     <string name="sign_up_title">회원가입</string>
     <string name="sign_up_id_label">ID</string>
     <string name="sign_up_id_err">* 6~10글자 이내만 허용</string>
     <string name="sign_up_id_hint">아이디를 입력하세요.</string>
-    <string name="sign_up_pw_label">PW</string>
+    <string name="sign_up_pw_label">Password</string>
     <string name="sign_up_pw_err">* 8~12글자 이내만 허용</string>
     <string name="sign_up_pw_hint">비밀번호를 입력하세요.</string>
-    <string name="sign_up_name_label">이름</string>
+    <string name="sign_up_name_label">Name</string>
     <string name="sign_up_name_err">* 필수</string>
     <string name="sign_up_name_hint">이름을 입력하세요.</string>
-    <string name="sign_up_hobby_label">특기</string>
+    <string name="sign_up_hobby_label">Hobby</string>
     <string name="sign_up_hobby_err">* 필수</string>
-    <string name="sign_up_hobby_hint">특기를 입력하세요.</string>
-    <string name="sign_up_finish_btn_text">회원가입 완료</string>
+    <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
+    <string name="sign_up_finish_btn_text">Complete</string>
 
 
+    <!-- main -->
     <string name="repo_name_preview">레포지토리 이름</string>
     <string name="repo_author_preview">레포지토리 주인</string>
-    <string name="header_text_preview">하은의 레포지토리</string>
+    <string name="header_text_preview">Repository List</string>
+    <string name="header_text">Repository List</string>
+
     <string name="home_menu">Home</string>
     <string name="gallery_menu">Gallery</string>
     <string name="search_menu">Search</string>
+    <string name="mypage_menu">MyPage</string>
     <string name="binding_error_msg">Binding not initialized to reference the view.</string>
+
+    <string name="mypage_name">이름:&#160;</string>
+    <string name="mypage_hobby">취미:&#160;</string>
+    <string name="logout_btn_text">Logout</string>
+    
+    <string name="dialog_logout_msg">로그아웃 하시겠습니까?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
 </resources>

@@ -9,6 +9,7 @@ import org.android.go.sopt.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
 import org.android.go.sopt.ui.main.gallery.GalleryFragment
 import org.android.go.sopt.ui.main.home.HomeFragment
+import org.android.go.sopt.ui.main.mypage.MyPageFragment
 import org.android.go.sopt.ui.main.search.SearchFragment
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -32,12 +33,12 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 R.id.home_menu -> navigateTo<HomeFragment>()
                 R.id.gallery_menu -> navigateTo<GalleryFragment>()
                 R.id.search_menu -> navigateTo<SearchFragment>()
+                R.id.mypage_menu -> navigateTo<MyPageFragment>()
             }
             true
         }
     }
 
-    // 이 함수... 반복되는 코드를 더 줄일 수 있는 방법 아시는 분.. 코멘트 남겨주세요!!
     private fun initBnvItemReselectedListener() {
         binding.bnvMain.setOnItemReselectedListener {
             when (val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)) {
