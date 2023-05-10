@@ -2,27 +2,16 @@
 
 레포지터리에는 총 2개의 브랜치가 있습니다.
 
-### main
-
-가장 기본이 되는 브랜치입니다. 새로운 연습 환경을 만들고자 할 때 이 브랜치에서 새로운 브랜치를 파서 만드시면 됩니다. 
-
-### develop
-
-여러분의 대부분의 과제는 이 브랜치에서 이뤄지게 될 것입니다.
-
-develop/view 브랜치에서 새로운 feature 브랜치(seminar1, week1, feature/1 등 자유)를 파고 작업을 진행하면서
-
-과제를 완료하면 해당 과제를 develop PR을 올려주시고 금잔디 조원들에게 코드리뷰를 받으시면 됩니다 !
-
-머지까지 완료하시면 과제 완료로 인정하겠습니다 !
+- main: 가장 기본이 되는 브랜치입니다. 새로운 연습 환경을 만들고자 할 때 이 브랜치에서 새로운 브랜치를 파서 만드시면 됩니다. 
+- develop: 여러분의 대부분의 과제는 이 브랜치에서 이뤄지게 될 것입니다. develop/view 브랜치에서 새로운 feature 브랜치(seminar1, week1, feature/1 등 자유)를 파고 작업을 진행하면서 과제를 완료하면 해당 과제를 develop PR을 올려주시고 금잔디 조원들에게 코드리뷰를 받으시면 됩니다! 머지까지 완료하시면 과제 완료로 인정하겠습니다! 
 
 ## 과제 링크 제출란
 
 |주차|주제|링크|
 |:---:|---|:---:|
-|1|안드로이드 UI 구현 기초 - View, ViewGroup과 UI 이벤트 처리|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/issues/1)|
-|2|안드로이드 UI 구현 심화 - 어댑터 패턴을 사용하는 심화 UI 컴포넌트들|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/issues/3)|
-|3|UI/UX의 이해와 구글의 Material Design - 안드로이드 고유의 디자인 철학|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/issues/5)|
+|1|안드로이드 UI 구현 기초 - View, ViewGroup과 UI 이벤트 처리|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/pull/2)|
+|2|안드로이드 UI 구현 심화 - 어댑터 패턴을 사용하는 심화 UI 컴포넌트들|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/pull/4)|
+|3|UI/UX의 이해와 구글의 Material Design - 안드로이드 고유의 디자인 철학|[✅](https://github.com/GO-SOPT-ANDROID/haeun-lee/pull/6)|
 |4|서버 통신 기초 - HTTP, 비동기의 이해와 Retrofit2를 활용한 서버 통신||
 |5|합동 세미나 - Client, Design, Server||
 |6|서버 통신 심화 - OkHttp 로직 자동화, LiveData 반응형 프로그래밍||
