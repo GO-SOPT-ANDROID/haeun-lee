@@ -7,7 +7,7 @@
 
         <variable
             name="repo"
-            type="org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem.Repo" />
+            type="org.android.go.sopt.domain.model.MultiViewItem.Repo" />
 
     </data>
 
@@ -36,10 +36,12 @@
 
                 <ImageView
                     android:id="@+id/iv_image"
-                    setImageBinding="@{repo.imageRes, default=@drawable/ic_launcher_background}"
                     android:layout_width="50dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
+                    app:imageUrl="@{repo.imgUrl}"
+                    app:placeholder="@{@drawable/img_loading}"
+                    app:error="@{@drawable/img_loading_error}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{repo.author}"
+                    android:text="@{repo.owner}"
                     android:textAppearance="?textAppearanceBodySmall"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

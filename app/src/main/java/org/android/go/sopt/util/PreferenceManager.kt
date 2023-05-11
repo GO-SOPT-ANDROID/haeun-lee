@@ -7,7 +7,7 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
-import org.android.go.sopt.model.User
+import org.android.go.sopt.domain.model.User
 
 class PreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences by lazy {

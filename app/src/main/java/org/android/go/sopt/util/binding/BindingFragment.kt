@@ -1,4 +1,4 @@
-package org.android.go.sopt.binding
+package org.android.go.sopt.util.binding
 
 import android.os.Bundle
 import android.view.LayoutInflater

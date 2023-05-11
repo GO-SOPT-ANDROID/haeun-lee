@@ -53,9 +53,20 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // lifecycle
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+    // timber
+    implementation "com.jakewharton.timber:timber:4.7.1"
 
     // shared preferences
     implementation "androidx.security:security-crypto-ktx:1.1.0-alpha06"
@@ -72,4 +83,7 @@ dependencies {
     // define any required OkHttp artifacts without version (위의 BOM에 맞게 버전 적용)
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
