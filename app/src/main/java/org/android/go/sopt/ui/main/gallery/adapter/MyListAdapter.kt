@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemRepoBinding
-import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem.Repo
+import org.android.go.sopt.domain.model.MultiViewItem.Repo
 import java.util.*
 
 class MyListAdapter : ListAdapter<Repo, MyListAdapter.MyViewHolder>(diffUtil) {

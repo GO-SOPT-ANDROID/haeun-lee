@@ -8,9 +8,9 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.R
 import org.android.go.sopt.GoSoptApplication
-import org.android.go.sopt.binding.BindingActivity
+import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
-import org.android.go.sopt.model.User
+import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.ui.signup.SignUpActivity
 import org.android.go.sopt.util.extension.getCompatibleParcelableExtra

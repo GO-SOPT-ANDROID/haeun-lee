@@ -7,12 +7,12 @@ import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.R
-import org.android.go.sopt.binding.BindingActivity
+import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.data.remote.ApiFactory
 import org.android.go.sopt.data.remote.model.RequestSignUpDto
 import org.android.go.sopt.data.remote.model.ResponseSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
-import org.android.go.sopt.model.User
+import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.login.LoginActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast

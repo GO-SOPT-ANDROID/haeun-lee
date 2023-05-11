@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import com.google.gson.Gson
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
-import org.android.go.sopt.binding.BindingFragment
+import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentMyPageBinding
-import org.android.go.sopt.model.User
 import org.android.go.sopt.ui.login.LoginActivity
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {

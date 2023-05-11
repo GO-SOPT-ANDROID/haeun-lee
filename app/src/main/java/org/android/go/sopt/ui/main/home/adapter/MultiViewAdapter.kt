@@ -2,12 +2,12 @@ package org.android.go.sopt.ui.main.home.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
-import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem.*
+import org.android.go.sopt.domain.model.MultiViewItem
+import org.android.go.sopt.domain.model.MultiViewItem.*
 import org.android.go.sopt.ui.main.home.adapter.MultiViewHolder.*
 
 class MultiViewAdapter(
-    private val itemList: ArrayList<MultiViewItem>
+    private val itemList: MutableList<MultiViewItem>
 ) : RecyclerView.Adapter<MultiViewHolder>() {
     private val multiViewHolderFactory by lazy { MultiViewHolderFactory() }
 

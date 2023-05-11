@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import org.android.go.sopt.R
-import org.android.go.sopt.binding.BindingActivity
+import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
 import org.android.go.sopt.ui.main.gallery.GalleryFragment
 import org.android.go.sopt.ui.main.home.HomeFragment

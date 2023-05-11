@@ -3,7 +3,7 @@ package org.android.go.sopt.ui.main.search
 import android.os.Bundle
 import android.view.View
 import org.android.go.sopt.R
-import org.android.go.sopt.binding.BindingFragment
+import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentSearchBinding
 import org.android.go.sopt.ui.main.search.adapter.SearchAdapter
 

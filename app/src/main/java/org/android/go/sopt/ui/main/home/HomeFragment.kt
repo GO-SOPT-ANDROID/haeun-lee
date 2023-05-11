@@ -3,22 +3,39 @@ package org.android.go.sopt.ui.main.home
 import android.os.Bundle
 import android.view.View
 import org.android.go.sopt.R
-import org.android.go.sopt.binding.BindingFragment
+import org.android.go.sopt.data.local.source.RepoDataSource
+import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.data.local.DataSources
+import org.android.go.sopt.domain.model.MultiViewItem
 import org.android.go.sopt.ui.main.home.adapter.MultiViewAdapter
-import org.android.go.sopt.ui.main.home.adapter.model.MultiViewItem
+import org.android.go.sopt.domain.model.MultiViewItem.*
+import timber.log.Timber
 
-/** 멀티 뷰 타입의 리사이클러뷰 적용 (텍스트 타입, 이미지 타입) */
+/** MultiView Adapter + ListAdapter 적용 */
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataSet = DataSources.loadHomeDataSet(requireContext())
-        initRecyclerView(dataSet)
+        initRecyclerView(getMultiViewItems())
     }
 
-    private fun initRecyclerView(dataSet: ArrayList<MultiViewItem>) {
+    private fun getMultiViewItems(): MutableList<MultiViewItem> {
+        val multiViewItems = mutableListOf<MultiViewItem>()
+        multiViewItems.add(Header(getString(R.string.header_text)))
+
+        RepoDataSource(requireContext()).getRepoList()
+            .onSuccess { repoList ->
+                multiViewItems.addAll(repoList)
+                Timber.d("GET REPO LIST SUCCESS : $repoList")
+            }
+            .onFailure { t ->
+                Timber.e("GET REPO LIST FAIL : ${t.message}")
+            }
+
+        return multiViewItems
+    }
+
+    private fun initRecyclerView(dataSet: MutableList<MultiViewItem>) {
         binding.rvHome.apply {
             adapter = MultiViewAdapter(dataSet)
             setHasFixedSize(true)
