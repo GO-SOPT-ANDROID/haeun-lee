@@ -38,7 +38,7 @@
     <string name="sign_up_hobby_err">* 필수</string>
     <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
     <string name="sign_up_finish_btn_text">Complete</string>
-    <string name="id_duplicate_error_msg">id가 중복되었습니다.</string>
+    <string name="id_duplicate_error_msg">이미 등록된 유저입니다.</string>
 
 
     <!-- main -->

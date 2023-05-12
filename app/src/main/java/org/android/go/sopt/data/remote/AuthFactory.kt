@@ -5,9 +5,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.android.go.sopt.BuildConfig
-import org.android.go.sopt.data.remote.service.LoginService
-import org.android.go.sopt.data.remote.service.SignUpService
-import org.android.go.sopt.data.remote.service.UserInfoService
+import org.android.go.sopt.data.remote.service.AuthService
 import retrofit2.Retrofit
 
 object AuthFactory {
@@ -20,8 +18,6 @@ object AuthFactory {
     inline fun <reified T> create(): T = retrofit.create(T::class.java)
 
     object ServicePool {
-        val signUpService = create<SignUpService>()
-        val loginService = create<LoginService>()
-        val userInfoService = create<UserInfoService>()
+        val authService = create<AuthService>()
     }
 }

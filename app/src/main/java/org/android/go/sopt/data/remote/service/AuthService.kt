@@ -10,21 +10,17 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface SignUpService {
+interface AuthService {
     @POST("sign-up")
     fun signUp(
         @Body request: ReqSignUpDto
     ): Call<ResSignUpDto>
-}
 
-interface LoginService {
     @POST("sign-in")
     fun login(
         @Body request: ReqLoginDto
     ): Call<ResLoginDto>
-}
 
-interface UserInfoService {
     @GET("info/{userId}")
     fun getUserInfo(
         @Path("userId") id: String

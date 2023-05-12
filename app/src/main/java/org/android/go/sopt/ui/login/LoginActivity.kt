@@ -87,24 +87,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun sendUserDataToServer() {
-        val loginService = AuthFactory.ServicePool.loginService
-        val call = loginService.login(ReqLoginDto(signedUser.id, signedUser.pw))
-        handleLoginRetrofitResult(call)
-    }
+        AuthFactory.ServicePool.authService.login(ReqLoginDto(signedUser.id, signedUser.pw))
+            .enqueue(object : retrofit2.Callback<ResLoginDto> {
+                override fun onResponse(
+                    call: Call<ResLoginDto>,
+                    response: Response<ResLoginDto>
+                ) {
+                    handleLoginRetrofitResponse(response)
+                }
 
-    private fun handleLoginRetrofitResult(call: Call<ResLoginDto>) {
-        call.enqueue(object : retrofit2.Callback<ResLoginDto> {
-            override fun onResponse(
-                call: Call<ResLoginDto>,
-                response: Response<ResLoginDto>
-            ) {
-                handleLoginRetrofitResponse(response)
-            }
-
-            override fun onFailure(call: Call<ResLoginDto>, t: Throwable) {
-                Timber.e(t)
-            }
-        })
+                override fun onFailure(call: Call<ResLoginDto>, t: Throwable) {
+                    Timber.e(t)
+                }
+            })
     }
 
     private fun handleLoginRetrofitResponse(response: Response<ResLoginDto>) {
