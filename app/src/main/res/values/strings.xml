@@ -2,18 +2,18 @@
     <string name="app_name">GO SOPT Android</string>
 
     <!-- message -->
-    <string name="unregistered_msg">회원가입을 먼저 진행해주세요.</string>
+    <string name="unregistered_error">가입되지 않은 유저입니다.</string>
     <string name="sign_up_success_msg">회원가입이 완료되었습니다.</string>
     <string name="login_success_msg">로그인에 성공했습니다.</string>
     <string name="login_fail_msg">로그인에 실패했습니다.</string>
-    <string name="sign_up_invalid_input_err">모든 항목에 유효한 값을 입력해주세요.</string>
+    <string name="invalid_input_error">모든 항목에 유효한 값을 입력해주세요.</string>
 
     <!-- login -->
     <string name="login_welcome_msg">Welcome to GO Android!</string>
     <string name="login_id_label">ID</string>
-    <string name="login_id_hint">아이디를 입력하세요.</string>
+    <string name="login_id_hint">6~10자리 이내의 아이디를 입력하세요.</string>
     <string name="login_pw_label">Password</string>
-    <string name="login_pw_hint">비밀번호를 입력하세요.</string>
+    <string name="login_pw_hint">8~12자리 이내의 비밀번호를 입력하세요.</string>
     <string name="login_btn_text">Login</string>
     <string name="sign_up_start_btn_text">Sign Up</string>
 

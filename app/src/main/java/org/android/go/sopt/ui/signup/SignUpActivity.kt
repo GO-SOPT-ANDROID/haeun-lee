@@ -1,7 +1,6 @@
 package org.android.go.sopt.ui.signup
 
 import android.content.Intent
-import android.content.Intent.EXTRA_USER
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
@@ -15,7 +14,6 @@ import org.android.go.sopt.data.remote.model.ResSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.login.LoginActivity
-import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import retrofit2.Call
@@ -40,7 +38,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 return@setOnClickListener
             }
 
-            showSnackbar(binding.root, getString(R.string.sign_up_invalid_input_err))
+            showSnackbar(binding.root, getString(R.string.invalid_input_error))
         }
     }
 
@@ -138,14 +136,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             startActivity(this)
         }
     }
-
-//    private fun sendUserExtraToLoginScreen() {
-//        Intent(this, LoginActivity::class.java).apply {
-//            putExtra(EXTRA_USER, user)
-//            setResult(RESULT_OK, this)
-//        }
-//        finish()
-//    }
 
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {

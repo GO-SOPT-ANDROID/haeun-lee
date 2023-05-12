@@ -1,93 +1,79 @@
 package org.android.go.sopt.ui.login
 
 import android.content.Intent
-import android.content.Intent.EXTRA_USER
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import org.android.go.sopt.R
 import org.android.go.sopt.GoSoptApplication
+import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.AuthFactory
 import org.android.go.sopt.data.remote.model.ReqLoginDto
 import org.android.go.sopt.data.remote.model.ResLoginDto
-import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.main.MainActivity
 import org.android.go.sopt.ui.signup.SignUpActivity
-import org.android.go.sopt.util.extension.getCompatibleParcelableExtra
+import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
-import org.android.go.sopt.util.extension.showToast
 import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber
 
-// TODO: 서버 데이터 사용해서 회원가입, 로그인, 로그아웃 하도록 변경
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
-    private lateinit var signedUser: User
-    private var signedUpStatus: Boolean = false
+    private var savedUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         handleAutoLogin()
         initRootLayoutClickListener()
-        initLoginButtonClickListener()
         initSignUpButtonClickListener()
-    }
-
-    private fun handleAutoLogin() {
-        if (isLastUserLoggedIn()) {
-            navigateToMainScreen()
-        }
-    }
-
-    private fun isLastUserLoggedIn(): Boolean {
-        val prefUser = GoSoptApplication.prefs.getUserData()
-        if (prefUser != null) {
-            return checkPrefUserData(prefUser)
-        }
-        return false
-    }
-
-    private fun checkPrefUserData(prefUser: User): Boolean {
-        return prefUser.id.isNotBlank() &&
-                prefUser.pw.isNotBlank() &&
-                prefUser.name.isNotBlank() &&
-                prefUser.hobby.isNotBlank()
-    }
-
-    private fun navigateToMainScreen() {
-        Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(this)
-        }
+        initLoginButtonClickListener()
     }
 
     private fun initLoginButtonClickListener() {
         binding.btnLogin.setOnClickListener {
-            if (signedUpStatus) {
-                handleLoginInput()
-            } else {
-                showToast(getString(R.string.unregistered_msg))
+            if (checkInputValidity()) {
+                checkSavedUser()
+                return@setOnClickListener
             }
+
+            showSnackbar(binding.root, getString(R.string.invalid_input_error))
         }
     }
 
-    private fun handleLoginInput() {
-        if (checkLoginInputValidity()) {
-            showToast(getString(R.string.login_success_msg))
-            sendUserDataToServer()
+    private fun checkSavedUser() {
+        // pref에 등록된 유저 정보가 아예 없는 경우 (회원가입 안 한 경우)
+        savedUser = GoSoptApplication.prefs.getUserData()
+        if (savedUser == null) {
+            showSnackbar(binding.root, getString(R.string.unregistered_error))
+            return
+        }
+
+        // pref에 등록된 id, pw와 입력값 비교
+        if (compareInputWithPrefs()) {
+            loginToServer()
+            saveLoginStatusToPrefs()
             navigateToMainScreen()
         } else {
-            showToast(getString(R.string.login_fail_msg))
+            showSnackbar(binding.root, getString(R.string.login_fail_msg))
         }
     }
 
-    private fun sendUserDataToServer() {
-        AuthFactory.ServicePool.authService.login(ReqLoginDto(signedUser.id, signedUser.pw))
+    private fun saveLoginStatusToPrefs() {
+        GoSoptApplication.prefs.putBoolean(LOGIN_STATUS_KEY, true)
+    }
+
+    private fun compareInputWithPrefs(): Boolean {
+        val id = binding.etId.text.toString()
+        val pw = binding.etPw.text.toString()
+        return savedUser?.id == id && savedUser?.pw == pw
+    }
+
+    private fun loginToServer() {
+        val id = binding.etId.text.toString()
+        val pw = binding.etPw.text.toString()
+        AuthFactory.ServicePool.authService.login(ReqLoginDto(id, pw))
             .enqueue(object : retrofit2.Callback<ResLoginDto> {
                 override fun onResponse(
                     call: Call<ResLoginDto>,
@@ -100,6 +86,20 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     Timber.e(t)
                 }
             })
+    }
+
+    private fun handleAutoLogin() {
+        val loggedIn = GoSoptApplication.prefs.getBoolean(LOGIN_STATUS_KEY, false)
+        if (loggedIn) {
+            navigateToMainScreen()
+        }
+    }
+
+    private fun navigateToMainScreen() {
+        Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(this)
+        }
     }
 
     private fun handleLoginRetrofitResponse(response: Response<ResLoginDto>) {
@@ -116,26 +116,33 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
     }
 
-    private fun checkLoginInputValidity(): Boolean {
+    private fun checkInputValidity(): Boolean {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
-        return signedUser.id == id && signedUser.pw == pw
+        return id.isNotBlank() &&
+                pw.isNotBlank() &&
+                checkLengthOfId(id) &&
+                checkLengthOfPw(pw)
+    }
+
+    private fun checkLengthOfId(id: String): Boolean {
+        return id.length in ID_MIN_LEN..ID_MAX_LEN
+    }
+
+    private fun checkLengthOfPw(pw: String): Boolean {
+        return pw.length in PW_MIN_LEN..PW_MAX_LEN
     }
 
     private fun initSignUpButtonClickListener() {
-        val signUpResultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                handleSignUpResult(result)
-            }
-        }
-
         binding.btnSignUp.setOnClickListener {
             initEditText(it)
-            signUpResultLauncher.launch(
-                Intent(this, SignUpActivity::class.java)
-            )
+            navigateToSignUpScreen()
+        }
+    }
+
+    private fun navigateToSignUpScreen() {
+        Intent(this, SignUpActivity::class.java).apply {
+            startActivity(this)
         }
     }
 
@@ -156,27 +163,35 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         button?.requestFocus()
     }
 
-    private fun handleSignUpResult(result: ActivityResult) {
-        signedUpStatus = true
-        showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
-        initUserInfoFromIntent(result.data)
-        saveUserInfoToPrefs()
-    }
-
-    private fun initUserInfoFromIntent(intent: Intent?) {
-        intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
-            signedUser = this
-        }
-    }
-
-    private fun saveUserInfoToPrefs() {
-        GoSoptApplication.prefs.putUserData(signedUser)
-    }
+//    private fun handleSignUpResult(result: ActivityResult) {
+//        signedUpStatus = true
+//        showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
+//        initUserInfoFromIntent(result.data)
+//        saveUserInfoToPrefs()
+//    }
+//
+//    private fun initUserInfoFromIntent(intent: Intent?) {
+//        intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
+//            signedUser = this
+//        }
+//    }
+//
+//    private fun saveUserInfoToPrefs() {
+//        GoSoptApplication.prefs.putUserData(signedUser)
+//    }
 
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {
             hideKeyboard()
         }
+    }
+
+    companion object {
+        private const val ID_MIN_LEN = 6
+        private const val ID_MAX_LEN = 10
+        private const val PW_MIN_LEN = 8
+        private const val PW_MAX_LEN = 12
+        private const val LOGIN_STATUS_KEY = "login"
     }
 }
 

@@ -27,12 +27,20 @@ class PreferenceManager(context: Context) {
         )
     }
 
-    private fun putString(key: String, newValue: String) {
-        sharedPreferences.edit { putString(key, newValue) }
+    private fun putString(key: String, value: String) {
+        sharedPreferences.edit { putString(key, value) }
     }
 
     private fun getString(key: String, defaultValue: String): String? {
         return sharedPreferences.getString(key, defaultValue)
+    }
+
+    fun putBoolean(key: String, value: Boolean){
+        sharedPreferences.edit { putBoolean(key, value) }
+    }
+
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
+        return sharedPreferences.getBoolean(key, defaultValue)
     }
 
     fun putUserData(user: User) {
