@@ -64,4 +64,5 @@
     <string name="follower_email_preview">jxlhe46@gmail.com</string>
     <string name="item_repo_desc">repo image</string>
     <string name="item_follower_desc">follower image</string>
+    <string name="follower_list_header">Follower List</string>
 </resources>
