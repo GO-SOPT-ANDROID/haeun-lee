@@ -11,7 +11,7 @@ import org.android.go.sopt.ui.main.home.adapter.MultiViewAdapter
 import org.android.go.sopt.domain.model.MultiViewItem.*
 import timber.log.Timber
 
-/** MultiView Adapter 적용 */
+/** JSON 파싱 + MultiView Adapter */
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

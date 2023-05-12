@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber
 
-/** Retrofit + ListAdapter */
+/** ReqRes API Retrofit + ListAdapter */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
     private val followerAdapter by lazy { FollowerAdapter() }
 
