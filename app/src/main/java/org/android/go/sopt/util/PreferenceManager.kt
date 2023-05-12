@@ -53,10 +53,6 @@ class PreferenceManager(context: Context) {
         return Gson().fromJson(json, User::class.java)
     }
 
-    fun deleteAllData() {
-        sharedPreferences.edit { clear() }
-    }
-
     companion object {
         private const val FILE_NAME = "encrypted_user_info"
     }
