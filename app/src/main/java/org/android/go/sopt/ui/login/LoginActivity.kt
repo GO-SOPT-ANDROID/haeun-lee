@@ -163,23 +163,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         button?.requestFocus()
     }
 
-//    private fun handleSignUpResult(result: ActivityResult) {
-//        signedUpStatus = true
-//        showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
-//        initUserInfoFromIntent(result.data)
-//        saveUserInfoToPrefs()
-//    }
-//
-//    private fun initUserInfoFromIntent(intent: Intent?) {
-//        intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
-//            signedUser = this
-//        }
-//    }
-//
-//    private fun saveUserInfoToPrefs() {
-//        GoSoptApplication.prefs.putUserData(signedUser)
-//    }
-
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {
             hideKeyboard()

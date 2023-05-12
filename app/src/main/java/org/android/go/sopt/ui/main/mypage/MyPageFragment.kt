@@ -35,7 +35,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(R.string.dialog_logout_msg)
             .setPositiveButton(R.string.dialog_yes) { dialog, id ->
-                GoSoptApplication.prefs.deleteAllData()
+                changeLoginStatus()
                 navigateToLoginScreen()
             }
             .setNegativeButton(R.string.dialog_no, null)
@@ -43,10 +43,18 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         builder.show()
     }
 
+    private fun changeLoginStatus() {
+        GoSoptApplication.prefs.putBoolean(LOGIN_STATUS_KEY, false)
+    }
+
     private fun navigateToLoginScreen() {
         Intent(requireContext(), LoginActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
+    }
+
+    companion object {
+        private const val LOGIN_STATUS_KEY = "login"
     }
 }
