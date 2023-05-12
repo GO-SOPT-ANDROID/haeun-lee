@@ -3,7 +3,6 @@ package org.android.go.sopt.ui.signup
 import android.content.Intent
 import android.content.Intent.EXTRA_USER
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.R
@@ -18,6 +17,7 @@ import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showToast
 import retrofit2.Call
 import retrofit2.Response
+import timber.log.Timber
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private lateinit var user: User
@@ -32,11 +32,11 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun initSignUpButtonClickListener() {
         binding.btnSignUp.setOnClickListener {
-            initUserFromInput()
+            initUserObjFromInput()
 
             if (checkSignUpInputValidity()) {
                 registerUserToServer()
-                sendUserDataToLoginScreen()
+                sendUserExtraToLoginScreen()
                 return@setOnClickListener
             }
 
@@ -63,7 +63,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             // 응답이 안 온 경우
             override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
                 t.message?.let {
-                    Log.e(RETROFIT_TAG, it)
+                    Timber.e(it)
                 }
             }
         })
@@ -73,17 +73,17 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         // 서버 통신 성공
         if (response.isSuccessful) {
             response.body()?.message?.let {
-                Log.d(RETROFIT_TAG, it)
+                Timber.d(it)
             }
         } else {
             // 서버 통신 실패
             response.body()?.message?.let {
-                Log.e(RETROFIT_TAG, it)
+                Timber.e(it)
             }
         }
     }
 
-    private fun sendUserDataToLoginScreen() {
+    private fun sendUserExtraToLoginScreen() {
         Intent(this, LoginActivity::class.java).apply {
             putExtra(EXTRA_USER, user)
             setResult(RESULT_OK, this)
@@ -104,7 +104,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 user.hobby.isNotBlank()
     }
 
-    private fun initUserFromInput() {
+    private fun initUserObjFromInput() {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         val name = binding.etName.text.toString()
