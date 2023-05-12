@@ -8,14 +8,14 @@ import com.bumptech.glide.request.RequestOptions
 
 object BindingAdapter {
     @JvmStatic
-    @BindingAdapter("app:imageUrl", "app:placeholder", "app:error")
+    @BindingAdapter("app:imgUrl", "app:placeholder", "app:error")
     fun ImageView.loadImage(
-        url: String,
+        imgUrl: String,
         loadingImg: Drawable,
         errorImg: Drawable
     ) {
         Glide.with(this.context)
-            .load(url)
+            .load(imgUrl)
             .placeholder(loadingImg)
             .error(errorImg)
             .apply(RequestOptions().fitCenter())

@@ -8,9 +8,9 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.R
 import org.android.go.sopt.GoSoptApplication
-import org.android.go.sopt.data.remote.ApiFactory
-import org.android.go.sopt.data.remote.model.RequestLoginDto
-import org.android.go.sopt.data.remote.model.ResponseLoginDto
+import org.android.go.sopt.data.remote.AuthFactory
+import org.android.go.sopt.data.remote.model.ReqLoginDto
+import org.android.go.sopt.data.remote.model.ResLoginDto
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.domain.model.User
@@ -24,6 +24,7 @@ import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber
 
+// TODO: 서버 데이터 사용해서 회원가입, 로그인, 로그아웃 하도록 변경
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private lateinit var signedUser: User
     private var signedUpStatus: Boolean = false
@@ -86,27 +87,27 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun sendUserDataToServer() {
-        val loginService = ApiFactory.ServicePool.loginService
-        val call = loginService.login(RequestLoginDto(signedUser.id, signedUser.pw))
+        val loginService = AuthFactory.ServicePool.loginService
+        val call = loginService.login(ReqLoginDto(signedUser.id, signedUser.pw))
         handleLoginRetrofitResult(call)
     }
 
-    private fun handleLoginRetrofitResult(call: Call<ResponseLoginDto>) {
-        call.enqueue(object : retrofit2.Callback<ResponseLoginDto> {
+    private fun handleLoginRetrofitResult(call: Call<ResLoginDto>) {
+        call.enqueue(object : retrofit2.Callback<ResLoginDto> {
             override fun onResponse(
-                call: Call<ResponseLoginDto>,
-                response: Response<ResponseLoginDto>
+                call: Call<ResLoginDto>,
+                response: Response<ResLoginDto>
             ) {
                 handleLoginRetrofitResponse(response)
             }
 
-            override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResLoginDto>, t: Throwable) {
                 Timber.e(t)
             }
         })
     }
 
-    private fun handleLoginRetrofitResponse(response: Response<ResponseLoginDto>) {
+    private fun handleLoginRetrofitResponse(response: Response<ResLoginDto>) {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())

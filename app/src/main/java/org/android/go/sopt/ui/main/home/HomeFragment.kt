@@ -11,7 +11,7 @@ import org.android.go.sopt.ui.main.home.adapter.MultiViewAdapter
 import org.android.go.sopt.domain.model.MultiViewItem.*
 import timber.log.Timber
 
-/** MultiView Adapter + ListAdapter 적용 */
+/** MultiView Adapter 적용 */
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,18 +26,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         RepoDataSource(requireContext()).getRepoList()
             .onSuccess { repoList ->
                 multiViewItems.addAll(repoList)
-                Timber.d("GET REPO LIST SUCCESS : $repoList")
             }
             .onFailure { t ->
-                Timber.e("GET REPO LIST FAIL : ${t.message}")
+                Timber.e(t)
             }
 
         return multiViewItems
     }
 
-    private fun initRecyclerView(dataSet: MutableList<MultiViewItem>) {
+    private fun initRecyclerView(multiViewItems: MutableList<MultiViewItem>) {
         binding.rvHome.apply {
-            adapter = MultiViewAdapter(dataSet)
+            adapter = MultiViewAdapter(multiViewItems)
             setHasFixedSize(true)
         }
     }

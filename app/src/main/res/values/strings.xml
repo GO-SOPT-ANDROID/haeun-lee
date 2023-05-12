@@ -60,4 +60,8 @@
     <string name="dialog_logout_msg">로그아웃 하시겠습니까?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
+    <string name="follower_name_preview">Haeun Lee</string>
+    <string name="follower_email_preview">jxlhe46@gmail.com</string>
+    <string name="item_repo_desc">repo image</string>
+    <string name="item_follower_desc">follower image</string>
 </resources>

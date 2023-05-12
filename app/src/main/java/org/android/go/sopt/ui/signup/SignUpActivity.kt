@@ -7,9 +7,9 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
-import org.android.go.sopt.data.remote.ApiFactory
-import org.android.go.sopt.data.remote.model.RequestSignUpDto
-import org.android.go.sopt.data.remote.model.ResponseSignUpDto
+import org.android.go.sopt.data.remote.AuthFactory
+import org.android.go.sopt.data.remote.model.ReqSignUpDto
+import org.android.go.sopt.data.remote.model.ResSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.login.LoginActivity
@@ -46,30 +46,30 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun registerUserToServer() {
-        val signUpService = ApiFactory.ServicePool.signUpService
-        val call = signUpService.signUp(RequestSignUpDto(user.id, user.pw, user.name, user.hobby))
+        val signUpService = AuthFactory.ServicePool.signUpService
+        val call = signUpService.signUp(ReqSignUpDto(user.id, user.pw, user.name, user.hobby))
 
         handleSignUpRetrofitResult(call)
     }
 
-    private fun handleSignUpRetrofitResult(call: Call<ResponseSignUpDto>) {
-        call.enqueue(object : retrofit2.Callback<ResponseSignUpDto> {
+    private fun handleSignUpRetrofitResult(call: Call<ResSignUpDto>) {
+        call.enqueue(object : retrofit2.Callback<ResSignUpDto> {
             // 응답이 온 경우
             override fun onResponse(
-                call: Call<ResponseSignUpDto>,
-                response: Response<ResponseSignUpDto>
+                call: Call<ResSignUpDto>,
+                response: Response<ResSignUpDto>
             ) {
                 handleSignUpRetrofitResponse(response)
             }
 
             // 응답이 안 온 경우
-            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
                 Timber.e(t)
             }
         })
     }
 
-    private fun handleSignUpRetrofitResponse(response: Response<ResponseSignUpDto>) {
+    private fun handleSignUpRetrofitResponse(response: Response<ResSignUpDto>) {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())
