@@ -8,6 +8,9 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.R
 import org.android.go.sopt.GoSoptApplication
+import org.android.go.sopt.data.remote.ApiFactory
+import org.android.go.sopt.data.remote.model.RequestLoginDto
+import org.android.go.sopt.data.remote.model.ResponseLoginDto
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.domain.model.User
@@ -17,10 +20,13 @@ import org.android.go.sopt.util.extension.getCompatibleParcelableExtra
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.extension.showToast
+import retrofit2.Call
+import retrofit2.Response
+import timber.log.Timber
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
-    private lateinit var userInfo: User
-    private var isUserRegistered: Boolean = false
+    private lateinit var signedUser: User
+    private var signedUpStatus: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +44,18 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun isLastUserLoggedIn(): Boolean {
-        val savedUserInfo = GoSoptApplication.prefs.getUserData()
-        if (savedUserInfo != null) {
-            return checkSavedUserInfo(savedUserInfo)
+        val prefUser = GoSoptApplication.prefs.getUserData()
+        if (prefUser != null) {
+            return checkPrefUserData(prefUser)
         }
         return false
     }
 
-    private fun checkSavedUserInfo(savedUserInfo: User): Boolean {
-        return savedUserInfo.id.isNotBlank() &&
-                savedUserInfo.pw.isNotBlank() &&
-                savedUserInfo.name.isNotBlank() &&
-                savedUserInfo.hobby.isNotBlank()
+    private fun checkPrefUserData(prefUser: User): Boolean {
+        return prefUser.id.isNotBlank() &&
+                prefUser.pw.isNotBlank() &&
+                prefUser.name.isNotBlank() &&
+                prefUser.hobby.isNotBlank()
     }
 
     private fun navigateToMainScreen() {
@@ -61,27 +67,63 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginButtonClickListener() {
         binding.btnLogin.setOnClickListener {
-            if (isUserRegistered) {
-                handleLoginResult()
+            if (signedUpStatus) {
+                handleLoginInput()
             } else {
                 showToast(getString(R.string.unregistered_msg))
             }
         }
     }
 
-    private fun handleLoginResult() {
+    private fun handleLoginInput() {
         if (checkLoginInputValidity()) {
             showToast(getString(R.string.login_success_msg))
+            sendUserDataToServer()
             navigateToMainScreen()
         } else {
             showToast(getString(R.string.login_fail_msg))
         }
     }
 
+    private fun sendUserDataToServer() {
+        val loginService = ApiFactory.ServicePool.loginService
+        val call = loginService.login(RequestLoginDto(signedUser.id, signedUser.pw))
+        handleLoginRetrofitResult(call)
+    }
+
+    private fun handleLoginRetrofitResult(call: Call<ResponseLoginDto>) {
+        call.enqueue(object : retrofit2.Callback<ResponseLoginDto> {
+            override fun onResponse(
+                call: Call<ResponseLoginDto>,
+                response: Response<ResponseLoginDto>
+            ) {
+                handleLoginRetrofitResponse(response)
+            }
+
+            override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
+                Timber.e(t)
+            }
+        })
+    }
+
+    private fun handleLoginRetrofitResponse(response: Response<ResponseLoginDto>) {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                Timber.d(it.status.toString())
+                Timber.d(it.message)
+                Timber.d(it.data.id)
+                Timber.d(it.data.name)
+                Timber.d(it.data.skill)
+            }
+        } else {
+            Timber.e(response.code().toString())
+        }
+    }
+
     private fun checkLoginInputValidity(): Boolean {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
-        return userInfo.id == id && userInfo.pw == pw
+        return signedUser.id == id && signedUser.pw == pw
     }
 
     private fun initSignUpButtonClickListener() {
@@ -94,14 +136,14 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
 
         binding.btnSignUp.setOnClickListener {
-            initInputState(it)
+            initEditText(it)
             signUpResultLauncher.launch(
                 Intent(this, SignUpActivity::class.java)
             )
         }
     }
 
-    private fun initInputState(button: View?) {
+    private fun initEditText(button: View?) {
         hideKeyboard()
         clearEditText()
         focusOutEditText(button)
@@ -119,7 +161,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun handleSignUpResult(result: ActivityResult) {
-        isUserRegistered = true
+        signedUpStatus = true
         showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
         initUserInfoFromIntent(result.data)
         saveUserInfoToPrefs()
@@ -127,12 +169,12 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initUserInfoFromIntent(intent: Intent?) {
         intent?.getCompatibleParcelableExtra<User>(EXTRA_USER)?.apply {
-            userInfo = this
+            signedUser = this
         }
     }
 
     private fun saveUserInfoToPrefs() {
-        GoSoptApplication.prefs.putUserData(userInfo)
+        GoSoptApplication.prefs.putUserData(signedUser)
     }
 
     private fun initRootLayoutClickListener() {

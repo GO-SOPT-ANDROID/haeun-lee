@@ -14,3 +14,11 @@ data class RequestSignUpDto(
     @SerialName("skill")
     val skill: String,
 )
+
+@Serializable
+data class RequestLoginDto(
+    @SerialName("id")
+    val id: String,
+    @SerialName("password")
+    val password: String,
+)

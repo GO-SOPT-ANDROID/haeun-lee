@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber
 
+// TODO: id 중복 여부 체크하여 에러 메시지 띄우기
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private lateinit var user: User
 
@@ -47,38 +48,38 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun registerUserToServer() {
         val signUpService = ApiFactory.ServicePool.signUpService
         val call = signUpService.signUp(RequestSignUpDto(user.id, user.pw, user.name, user.hobby))
-        handleRetrofitResult(call)
+
+        handleSignUpRetrofitResult(call)
     }
 
-    private fun handleRetrofitResult(call: Call<ResponseSignUpDto>) {
+    private fun handleSignUpRetrofitResult(call: Call<ResponseSignUpDto>) {
         call.enqueue(object : retrofit2.Callback<ResponseSignUpDto> {
             // 응답이 온 경우
             override fun onResponse(
                 call: Call<ResponseSignUpDto>,
                 response: Response<ResponseSignUpDto>
             ) {
-                handleRetrofitResponse(response)
+                handleSignUpRetrofitResponse(response)
             }
 
             // 응답이 안 온 경우
             override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
-                t.message?.let {
-                    Timber.e(it)
-                }
+                Timber.e(t)
             }
         })
     }
 
-    private fun handleRetrofitResponse(response: Response<ResponseSignUpDto>) {
-        // 서버 통신 성공
+    private fun handleSignUpRetrofitResponse(response: Response<ResponseSignUpDto>) {
         if (response.isSuccessful) {
-            response.body()?.message?.let {
-                Timber.d(it)
+            response.body()?.let {
+                Timber.d(it.status.toString())
+                Timber.d(it.message)
+                Timber.d(it.data.name)
+                Timber.d(it.data.skill)
             }
         } else {
-            // 서버 통신 실패
-            response.body()?.message?.let {
-                Timber.e(it)
+            if (response.code() == 409) {
+                Timber.e(getString(R.string.id_duplicate_error_msg))
             }
         }
     }
@@ -159,7 +160,5 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         private const val ID_MAX_LEN = 10
         private const val PW_MIN_LEN = 8
         private const val PW_MAX_LEN = 12
-
-        private const val RETROFIT_TAG = "Retrofit"
     }
 }
