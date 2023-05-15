@@ -15,20 +15,26 @@ import timber.log.Timber
 
 /** ReqRes API Retrofit + ListAdapter */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
-    private val followerAdapter by lazy { FollowerAdapter() }
+    private var followerAdapter: FollowerAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
+        initFollowerAdapter()
+        initRecyclerViewLayoutManager()
+        initFollowerList()
     }
 
-    private fun initRecyclerView() {
-        binding.rvGallery.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = followerAdapter
-        }
+    private fun initFollowerAdapter() {
+        followerAdapter = FollowerAdapter()
+        binding.rvGallery.adapter = followerAdapter
+    }
 
+    private fun initRecyclerViewLayoutManager() {
+        binding.rvGallery.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    private fun initFollowerList() {
         ReqResApiFactory.ServicePool.followerService.getFollowerList(PAGE, PER_PAGE)
             .enqueue(object : retrofit2.Callback<ResFollowerDto> {
                 override fun onResponse(
@@ -37,7 +43,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            followerAdapter.submitList(it.followers)
+                            followerAdapter?.submitList(it.followers)
                         }
                     } else {
                         Timber.e(response.code().toString())
@@ -52,6 +58,12 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     fun scrollToTop() {
         binding.rvGallery.scrollToPosition(0)
+    }
+
+    // 뷰에 종속되는 어댑터에도 null을 할당하여 메모리 누수 방지
+    override fun onDestroyView() {
+        super.onDestroyView()
+        followerAdapter = null
     }
 
     companion object {
