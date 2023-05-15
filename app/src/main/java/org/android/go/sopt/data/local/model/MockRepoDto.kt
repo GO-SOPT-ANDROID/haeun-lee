@@ -12,7 +12,8 @@ data class MockRepoDto(
     val name: String,
     @SerialName("full_name")
     val fullName: String,
-    val `private`: Boolean,
+    @SerialName("private")
+    val isPrivate: Boolean,
     val owner: Owner,
     @SerialName("html_url")
     val htmlUrl: String,
