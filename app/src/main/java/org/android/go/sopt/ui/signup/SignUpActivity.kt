@@ -9,7 +9,6 @@ import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.data.remote.AuthFactory
 import org.android.go.sopt.data.remote.model.ReqSignUpDto
-import org.android.go.sopt.data.remote.model.ResLoginDto
 import org.android.go.sopt.data.remote.model.ResSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
@@ -34,7 +33,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun initSignUpButtonClickListener() {
         binding.btnSignUp.setOnClickListener {
             if (checkInputValidity()) {
-                checkDuplicateId()
+                createUserToServer()
                 return@setOnClickListener
             }
 
@@ -55,40 +54,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 user.hobby.isNotBlank()
     }
 
-    private fun checkDuplicateId() {
-        val userId = binding.etId.text.toString()
-        AuthFactory.ServicePool.authService.getUserInfo(userId)
-            .enqueue(object : retrofit2.Callback<ResLoginDto> {
-                override fun onResponse(call: Call<ResLoginDto>, response: Response<ResLoginDto>) {
-                    // 이미 등록된 유저인 경우
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            Timber.d(it.status.toString())
-                            Timber.d(it.message)
-                            Timber.d(it.data.id)
-                            Timber.d(it.data.name)
-                            Timber.d(it.data.skill)
-                        }
-                        showSnackbar(binding.root, getString(R.string.id_duplicate_error_msg))
-                        return
-                    }
-
-                    // 새로운 유저 등록
-                    registerNewUser()
-                }
-
-                override fun onFailure(call: Call<ResLoginDto>, t: Throwable) {
-                    Timber.e(t)
-                }
-            })
-    }
-
-    private fun registerNewUser() {
-        createUserToServer()
-        saveUserToPrefs()
-        navigateToLoginScreen()
-    }
-
     private fun createUserToServer() {
         AuthFactory.ServicePool.authService.signUp(
             ReqSignUpDto(
@@ -102,7 +67,10 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 call: Call<ResSignUpDto>,
                 response: Response<ResSignUpDto>
             ) {
-                handleSignUpRetrofitResponse(response)
+                if (isResponseSuccessful(response)) {
+                    saveUserToPrefs()
+                    navigateToLoginScreen()
+                }
             }
 
             override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
@@ -111,7 +79,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         })
     }
 
-    private fun handleSignUpRetrofitResponse(response: Response<ResSignUpDto>) {
+    private fun isResponseSuccessful(response: Response<ResSignUpDto>): Boolean {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())
@@ -119,11 +87,14 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 Timber.d(it.data.name)
                 Timber.d(it.data.skill)
             }
-            return
+            return true
         }
 
-        // 409가 나오면 중복 id 에러
-        Timber.e(response.code().toString())
+        if (response.code() == CODE_DUPLICATE_ID) {
+            showSnackbar(binding.root, getString(R.string.id_duplicate_error_msg))
+        }
+
+        return false
     }
 
     private fun saveUserToPrefs() {
@@ -132,9 +103,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun navigateToLoginScreen() {
         Intent(this, LoginActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(this)
+            setResult(RESULT_OK, this)
         }
+        finish()
     }
 
     private fun initRootLayoutClickListener() {
@@ -190,5 +161,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         private const val ID_MAX_LEN = 10
         private const val PW_MIN_LEN = 8
         private const val PW_MAX_LEN = 12
+        private const val CODE_DUPLICATE_ID = 409
     }
 }

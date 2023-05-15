@@ -3,6 +3,7 @@ package org.android.go.sopt.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.AuthFactory
@@ -134,15 +135,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initSignUpButtonClickListener() {
+        val signUpResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                showSnackbar(binding.root, getString(R.string.sign_up_success_msg))
+            }
+        }
+
         binding.btnSignUp.setOnClickListener {
             initEditText(it)
-            navigateToSignUpScreen()
-        }
-    }
-
-    private fun navigateToSignUpScreen() {
-        Intent(this, SignUpActivity::class.java).apply {
-            startActivity(this)
+            signUpResultLauncher.launch(
+                Intent(this, SignUpActivity::class.java)
+            )
         }
     }
 
