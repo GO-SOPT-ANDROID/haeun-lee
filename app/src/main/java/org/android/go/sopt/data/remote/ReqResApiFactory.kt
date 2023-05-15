@@ -4,13 +4,14 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import org.android.go.sopt.BuildConfig
 import org.android.go.sopt.data.remote.service.FollowerService
 import retrofit2.Retrofit
 
 object ReqResApiFactory {
     @OptIn(ExperimentalSerializationApi::class)
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://reqres.in/api/")
+        .baseUrl(BuildConfig.REQRES_BASE_URL)
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .build()
 
