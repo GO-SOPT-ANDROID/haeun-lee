@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.AuthFactory
@@ -22,6 +23,7 @@ import timber.log.Timber
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private var savedUser: User? = null
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,19 +76,17 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun loginToServer() {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
-        AuthFactory.ServicePool.authService.login(ReqLoginDto(id, pw))
-            .enqueue(object : retrofit2.Callback<ResLoginDto> {
-                override fun onResponse(
-                    call: Call<ResLoginDto>,
-                    response: Response<ResLoginDto>
-                ) {
-                    handleLoginRetrofitResponse(response)
-                }
+        loginViewModel.login(ReqLoginDto(id, pw))
 
-                override fun onFailure(call: Call<ResLoginDto>, t: Throwable) {
-                    Timber.e(t)
-                }
-            })
+        loginViewModel.loginResult.observe(this) {
+            Timber.d(it.status.toString())
+            Timber.d(it.message)
+            Timber.d(it.data.id)
+            Timber.d(it.data.name)
+            Timber.d(it.data.skill)
+        }
+
+        // todo: 서버 통신 실패했을 때 처리하기 (UI State 사용해보기)
     }
 
     private fun handleAutoLogin() {
@@ -100,20 +100,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
-        }
-    }
-
-    private fun handleLoginRetrofitResponse(response: Response<ResLoginDto>) {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                Timber.d(it.status.toString())
-                Timber.d(it.message)
-                Timber.d(it.data.id)
-                Timber.d(it.data.name)
-                Timber.d(it.data.skill)
-            }
-        } else {
-            Timber.e(response.code().toString())
         }
     }
 

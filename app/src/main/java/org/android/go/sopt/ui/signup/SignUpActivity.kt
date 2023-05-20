@@ -3,6 +3,7 @@ package org.android.go.sopt.ui.signup
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
@@ -21,6 +22,7 @@ import timber.log.Timber
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private lateinit var user: User
+    private val signUpViewModel by viewModels<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,46 +57,22 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun createUserToServer() {
-        AuthFactory.ServicePool.authService.signUp(
-            ReqSignUpDto(
-                user.id,
-                user.pw,
-                user.name,
-                user.hobby
-            )
-        ).enqueue(object : retrofit2.Callback<ResSignUpDto> {
-            override fun onResponse(
-                call: Call<ResSignUpDto>,
-                response: Response<ResSignUpDto>
-            ) {
-                if (isResponseSuccessful(response)) {
-                    saveUserToPrefs()
-                    navigateToLoginScreen()
-                }
-            }
+        signUpViewModel.signUp(ReqSignUpDto(
+            user.id,
+            user.pw,
+            user.name,
+            user.hobby
+        ))
 
-            override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
-                Timber.e(t)
-            }
-        })
-    }
+        signUpViewModel.signUpResult.observe(this) {
+            Timber.d(it.status.toString())
+            Timber.d(it.message)
+            Timber.d(it.data.name)
+            Timber.d(it.data.skill)
 
-    private fun isResponseSuccessful(response: Response<ResSignUpDto>): Boolean {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                Timber.d(it.status.toString())
-                Timber.d(it.message)
-                Timber.d(it.data.name)
-                Timber.d(it.data.skill)
-            }
-            return true
+            saveUserToPrefs()
+            navigateToLoginScreen()
         }
-
-        if (response.code() == CODE_DUPLICATE_ID) {
-            showSnackbar(binding.root, getString(R.string.id_duplicate_error_msg))
-        }
-
-        return false
     }
 
     private fun saveUserToPrefs() {
@@ -161,6 +139,5 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         private const val ID_MAX_LEN = 10
         private const val PW_MIN_LEN = 8
         private const val PW_MAX_LEN = 12
-        private const val CODE_DUPLICATE_ID = 409
     }
 }
