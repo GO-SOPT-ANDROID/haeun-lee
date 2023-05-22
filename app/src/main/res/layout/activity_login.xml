@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.login.LoginActivity">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="org.android.go.sopt.presentation.login.LoginViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,10 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_id_hint"
-            android:textAppearance="?textAppearanceBodyMedium"
             android:inputType="text"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:text="@={vm._id}"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_id" />
@@ -63,6 +71,7 @@
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:singleLine="true"
+            android:text="@={vm._pw}"
             android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:onClick="@{()->vm.login()}"
             android:padding="14dp"
             android:text="@string/login_btn_text"
             android:textAppearance="?textAppearanceBodyLarge"

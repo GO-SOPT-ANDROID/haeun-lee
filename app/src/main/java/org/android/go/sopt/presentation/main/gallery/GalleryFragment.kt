@@ -18,6 +18,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.galleryViewModel = viewModel
 
         initFollowerAdapter()
         initRecyclerViewLayoutManager()
