@@ -1,11 +1,11 @@
-package org.android.go.sopt.ui.main.home.adapter
+package org.android.go.sopt.presentation.main.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import org.android.go.sopt.R
-import org.android.go.sopt.ui.main.home.adapter.MultiViewHolder.*
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewHolder.*
 import org.android.go.sopt.util.type.MultiViewType
 import org.android.go.sopt.util.type.MultiViewType.*
 

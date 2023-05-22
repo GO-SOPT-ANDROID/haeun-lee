@@ -1,10 +1,10 @@
-package org.android.go.sopt.ui.main.home.adapter
+package org.android.go.sopt.presentation.main.home.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.domain.model.MultiViewItem
 import org.android.go.sopt.domain.model.MultiViewItem.*
-import org.android.go.sopt.ui.main.home.adapter.MultiViewHolder.*
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewHolder.*
 import org.android.go.sopt.util.type.MultiViewType
 
 class MultiViewAdapter(

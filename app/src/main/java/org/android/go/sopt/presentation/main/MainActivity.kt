@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main
+package org.android.go.sopt.presentation.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,10 @@ import androidx.fragment.app.replace
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivityMainBinding
-import org.android.go.sopt.ui.main.gallery.GalleryFragment
-import org.android.go.sopt.ui.main.home.HomeFragment
-import org.android.go.sopt.ui.main.mypage.MyPageFragment
-import org.android.go.sopt.ui.main.search.SearchFragment
+import org.android.go.sopt.presentation.main.gallery.GalleryFragment
+import org.android.go.sopt.presentation.main.home.HomeFragment
+import org.android.go.sopt.presentation.main.mypage.MyPageFragment
+import org.android.go.sopt.presentation.main.search.SearchFragment
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 

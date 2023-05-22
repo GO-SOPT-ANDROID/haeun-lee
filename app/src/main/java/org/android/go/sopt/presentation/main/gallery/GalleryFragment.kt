@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.gallery
+package org.android.go.sopt.presentation.main.gallery
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import org.android.go.sopt.data.remote.module.ReqResFactory
 import org.android.go.sopt.data.remote.entity.response.ResponseGetFollowerListDto
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
-import org.android.go.sopt.ui.main.gallery.adapter.FollowerAdapter
+import org.android.go.sopt.presentation.main.gallery.adapter.FollowerAdapter
 import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber

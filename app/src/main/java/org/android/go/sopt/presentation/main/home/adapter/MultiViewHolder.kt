@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.home.adapter
+package org.android.go.sopt.presentation.main.home.adapter
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

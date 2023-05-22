@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.gallery.adapter
+package org.android.go.sopt.presentation.main.gallery.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

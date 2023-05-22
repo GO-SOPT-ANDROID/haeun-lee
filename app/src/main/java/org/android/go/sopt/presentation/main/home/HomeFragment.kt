@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.home
+package org.android.go.sopt.presentation.main.home
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import org.android.go.sopt.data.local.source.RepoDataSource
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.domain.model.MultiViewItem
-import org.android.go.sopt.ui.main.home.adapter.MultiViewAdapter
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewAdapter
 import org.android.go.sopt.domain.model.MultiViewItem.*
 import timber.log.Timber
 

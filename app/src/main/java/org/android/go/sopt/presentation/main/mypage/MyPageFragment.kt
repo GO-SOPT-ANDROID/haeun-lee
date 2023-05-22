@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.mypage
+package org.android.go.sopt.presentation.main.mypage
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentMyPageBinding
-import org.android.go.sopt.ui.login.LoginActivity
+import org.android.go.sopt.presentation.login.LoginActivity
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

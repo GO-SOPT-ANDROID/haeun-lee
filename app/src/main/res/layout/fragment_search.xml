@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.search.SearchFragment">
+        tools:context=".presentation.main.search.SearchFragment">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_search"

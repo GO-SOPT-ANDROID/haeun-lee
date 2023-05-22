@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.signup
+package org.android.go.sopt.presentation.signup
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import org.android.go.sopt.data.remote.entity.response.ResponsePostSignUpDto
 import org.android.go.sopt.data.remote.entity.response.base.BaseResponse
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
-import org.android.go.sopt.ui.login.LoginActivity
+import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import retrofit2.Call

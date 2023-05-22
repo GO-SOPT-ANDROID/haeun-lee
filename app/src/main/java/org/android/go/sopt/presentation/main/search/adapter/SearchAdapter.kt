@@ -1,4 +1,4 @@
-package org.android.go.sopt.ui.main.search.adapter
+package org.android.go.sopt.presentation.main.search.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
