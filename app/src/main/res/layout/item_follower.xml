@@ -7,7 +7,7 @@
 
         <variable
             name="follower"
-            type="org.android.go.sopt.data.remote.model.Follower" />
+            type="org.android.go.sopt.data.remote.entity.Follower" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

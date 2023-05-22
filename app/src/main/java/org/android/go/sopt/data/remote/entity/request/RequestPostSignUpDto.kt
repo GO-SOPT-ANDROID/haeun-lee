@@ -1,10 +1,10 @@
-package org.android.go.sopt.data.remote.model
+package org.android.go.sopt.data.remote.entity.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ReqSignUpDto(
+data class RequestPostSignUpDto(
     @SerialName("id")
     val id: String,
     @SerialName("password")
@@ -13,12 +13,4 @@ data class ReqSignUpDto(
     val name: String,
     @SerialName("skill")
     val skill: String,
-)
-
-@Serializable
-data class ReqLoginDto(
-    @SerialName("id")
-    val id: String,
-    @SerialName("password")
-    val password: String,
 )

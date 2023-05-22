@@ -8,8 +8,8 @@ import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.data.remote.AuthFactory
-import org.android.go.sopt.data.remote.model.ReqSignUpDto
-import org.android.go.sopt.data.remote.model.ResSignUpDto
+import org.android.go.sopt.data.remote.entity.request.RequestPostSignUpDto
+import org.android.go.sopt.data.remote.entity.response.ResponsePostSignUpDto
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.login.LoginActivity
@@ -56,16 +56,16 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun createUserToServer() {
         AuthFactory.ServicePool.authService.signUp(
-            ReqSignUpDto(
+            RequestPostSignUpDto(
                 user.id,
                 user.pw,
                 user.name,
                 user.hobby
             )
-        ).enqueue(object : retrofit2.Callback<ResSignUpDto> {
+        ).enqueue(object : retrofit2.Callback<ResponsePostSignUpDto> {
             override fun onResponse(
-                call: Call<ResSignUpDto>,
-                response: Response<ResSignUpDto>
+                call: Call<ResponsePostSignUpDto>,
+                response: Response<ResponsePostSignUpDto>
             ) {
                 if (isResponseSuccessful(response)) {
                     saveUserToPrefs()
@@ -73,13 +73,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 }
             }
 
-            override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
+            override fun onFailure(call: Call<ResponsePostSignUpDto>, t: Throwable) {
                 Timber.e(t)
             }
         })
     }
 
-    private fun isResponseSuccessful(response: Response<ResSignUpDto>): Boolean {
+    private fun isResponseSuccessful(response: Response<ResponsePostSignUpDto>): Boolean {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())

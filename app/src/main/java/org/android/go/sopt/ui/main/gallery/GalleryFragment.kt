@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import org.android.go.sopt.R
 import org.android.go.sopt.data.remote.ReqResApiFactory
-import org.android.go.sopt.data.remote.model.ResFollowerDto
+import org.android.go.sopt.data.remote.entity.response.ResponseGetFollowerListDto
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.ui.main.gallery.adapter.FollowerAdapter
@@ -36,21 +36,21 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     private fun initFollowerList() {
         ReqResApiFactory.ServicePool.followerService.getFollowerList(PAGE, PER_PAGE)
-            .enqueue(object : retrofit2.Callback<ResFollowerDto> {
+            .enqueue(object : retrofit2.Callback<ResponseGetFollowerListDto> {
                 override fun onResponse(
-                    call: Call<ResFollowerDto>,
-                    response: Response<ResFollowerDto>
+                    call: Call<ResponseGetFollowerListDto>,
+                    response: Response<ResponseGetFollowerListDto>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            followerAdapter?.submitList(it.followers)
+                            followerAdapter?.submitList(it.data)
                         }
                     } else {
                         Timber.e(response.code().toString())
                     }
                 }
 
-                override fun onFailure(call: Call<ResFollowerDto>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseGetFollowerListDto>, t: Throwable) {
                     Timber.e(t)
                 }
             })
