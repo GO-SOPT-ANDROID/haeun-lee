@@ -7,6 +7,8 @@
     <string name="login_success_msg">로그인에 성공했습니다.</string>
     <string name="login_fail_msg">로그인에 실패했습니다.</string>
     <string name="invalid_input_error">모든 항목에 유효한 값을 입력해주세요.</string>
+    <string name="gallery_follower_list_null_msg">팔로워가 존재하지 않습니다.</string>
+    <string name="network_error_msg">서버 통신에 문제가 발생했습니다.</string>
 
     <!-- login -->
     <string name="login_welcome_msg">Welcome to GO Android!</string>

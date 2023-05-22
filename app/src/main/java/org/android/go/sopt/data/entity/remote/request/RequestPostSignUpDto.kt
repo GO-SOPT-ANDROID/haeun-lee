@@ -1,7 +1,8 @@
-package org.android.go.sopt.data.remote.entity.request
+package org.android.go.sopt.data.entity.remote.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.android.go.sopt.domain.model.User
 
 @Serializable
 data class RequestPostSignUpDto(
@@ -13,4 +14,11 @@ data class RequestPostSignUpDto(
     val name: String,
     @SerialName("skill")
     val skill: String,
-)
+) {
+    fun toUser() = User(
+        id = id,
+        pw = password,
+        name = name,
+        hobby = skill
+    )
+}

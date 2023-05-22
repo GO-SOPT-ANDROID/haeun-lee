@@ -3,7 +3,7 @@ package org.android.go.sopt.presentation.main.home
 import android.os.Bundle
 import android.view.View
 import org.android.go.sopt.R
-import org.android.go.sopt.data.local.source.RepoDataSource
+import org.android.go.sopt.domain.repository.RepoRepository
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.domain.model.MultiViewItem
@@ -23,7 +23,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         val multiViewItems = mutableListOf<MultiViewItem>()
         multiViewItems.add(Header(getString(R.string.header_text)))
 
-        RepoDataSource(requireContext()).getRepoList()
+        // HomeViewModel에서 RepoRepository 사용하려고 했는데,,
+        // assetLoader에 context를 넘겨줘야 하기 때문에 프래그먼트에서 사용함.
+        // 뷰모델에 context를 넘겨주면 메모리 누수가 발생할 수 있음.
+        RepoRepository(requireContext()).getRepoList()
             .onSuccess { repoList ->
                 multiViewItems.addAll(repoList)
             }

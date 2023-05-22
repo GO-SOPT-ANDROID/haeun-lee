@@ -6,10 +6,10 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.module.AuthFactory
-import org.android.go.sopt.data.remote.entity.request.RequestPostLoginDto
-import org.android.go.sopt.data.remote.entity.response.ResponsePostLoginDto
-import org.android.go.sopt.data.remote.entity.response.base.BaseResponse
+import org.android.go.sopt.data.module.AuthFactory
+import org.android.go.sopt.data.entity.remote.request.RequestPostLoginDto
+import org.android.go.sopt.data.entity.remote.response.ResponsePostLoginDto
+import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.presentation.main.MainActivity
@@ -75,7 +75,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun loginToServer() {
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
-        AuthFactory.ServicePool.authService.login(RequestPostLoginDto(id, pw))
+        AuthFactory.ServicePool.authService.postLogin(RequestPostLoginDto(id, pw))
             .enqueue(object : retrofit2.Callback<BaseResponse<ResponsePostLoginDto>> {
                 override fun onResponse(
                     call: Call<BaseResponse<ResponsePostLoginDto>>,

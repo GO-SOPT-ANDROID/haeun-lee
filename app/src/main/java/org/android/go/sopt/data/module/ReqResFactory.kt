@@ -1,4 +1,4 @@
-package org.android.go.sopt.data.remote.module
+package org.android.go.sopt.data.module
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -7,7 +7,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.android.go.sopt.BuildConfig.*
-import org.android.go.sopt.data.remote.service.FollowerService
+import org.android.go.sopt.data.service.FollowerService
 import retrofit2.Retrofit
 
 object ReqResFactory {

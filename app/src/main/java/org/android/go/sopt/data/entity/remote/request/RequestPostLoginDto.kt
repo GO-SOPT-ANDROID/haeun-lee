@@ -1,4 +1,4 @@
-package org.android.go.sopt.data.remote.entity.request
+package org.android.go.sopt.data.entity.remote.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
