@@ -6,9 +6,10 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.AuthFactory
+import org.android.go.sopt.data.remote.module.AuthFactory
 import org.android.go.sopt.data.remote.entity.request.RequestPostLoginDto
 import org.android.go.sopt.data.remote.entity.response.ResponsePostLoginDto
+import org.android.go.sopt.data.remote.entity.response.base.BaseResponse
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.main.MainActivity
@@ -75,15 +76,15 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         val id = binding.etId.text.toString()
         val pw = binding.etPw.text.toString()
         AuthFactory.ServicePool.authService.login(RequestPostLoginDto(id, pw))
-            .enqueue(object : retrofit2.Callback<ResponsePostLoginDto> {
+            .enqueue(object : retrofit2.Callback<BaseResponse<ResponsePostLoginDto>> {
                 override fun onResponse(
-                    call: Call<ResponsePostLoginDto>,
-                    response: Response<ResponsePostLoginDto>
+                    call: Call<BaseResponse<ResponsePostLoginDto>>,
+                    response: Response<BaseResponse<ResponsePostLoginDto>>
                 ) {
                     handleLoginRetrofitResponse(response)
                 }
 
-                override fun onFailure(call: Call<ResponsePostLoginDto>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<ResponsePostLoginDto>>, t: Throwable) {
                     Timber.e(t)
                 }
             })
@@ -103,14 +104,14 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
     }
 
-    private fun handleLoginRetrofitResponse(response: Response<ResponsePostLoginDto>) {
+    private fun handleLoginRetrofitResponse(response: Response<BaseResponse<ResponsePostLoginDto>>) {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())
                 Timber.d(it.message)
-                Timber.d(it.data.id)
-                Timber.d(it.data.name)
-                Timber.d(it.data.skill)
+                Timber.d(it.data?.id)
+                Timber.d(it.data?.name)
+                Timber.d(it.data?.skill)
             }
         } else {
             Timber.e(response.code().toString())

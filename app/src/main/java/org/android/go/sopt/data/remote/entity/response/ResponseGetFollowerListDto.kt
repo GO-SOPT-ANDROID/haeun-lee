@@ -2,6 +2,7 @@ package org.android.go.sopt.data.remote.entity.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.android.go.sopt.domain.model.Follower
 
 @Serializable
 data class ResponseGetFollowerListDto(
@@ -12,11 +13,11 @@ data class ResponseGetFollowerListDto(
     @SerialName("total_pages")
     val totalPages: Int,
     @SerialName("data")
-    val data: List<Follower>,
+    val data: List<FollowerDto>,
     val support: Support
 ) {
     @Serializable
-    data class Follower(
+    data class FollowerDto(
         val id: Int,
         val email: String,
         @SerialName("first_name")
@@ -24,7 +25,7 @@ data class ResponseGetFollowerListDto(
         @SerialName("last_name")
         val lastName: String,
         @SerialName("avatar")
-        val imgUrl: String
+        val avatar: String
     )
 
     @Serializable
@@ -32,4 +33,13 @@ data class ResponseGetFollowerListDto(
         val url: String,
         val text: String
     )
+
+    fun toFollowerList() = data.map { followerDto ->
+        Follower(
+            id = followerDto.id,
+            name = followerDto.firstName,
+            email = followerDto.email,
+            imgUrl = followerDto.avatar
+        )
+    }
 }

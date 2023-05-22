@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import org.android.go.sopt.R
-import org.android.go.sopt.data.remote.ReqResApiFactory
+import org.android.go.sopt.data.remote.module.ReqResFactory
 import org.android.go.sopt.data.remote.entity.response.ResponseGetFollowerListDto
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
@@ -35,7 +35,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
     }
 
     private fun initFollowerList() {
-        ReqResApiFactory.ServicePool.followerService.getFollowerList(PAGE, PER_PAGE)
+        ReqResFactory.ServicePool.followerService.getFollowerList(PAGE, PER_PAGE)
             .enqueue(object : retrofit2.Callback<ResponseGetFollowerListDto> {
                 override fun onResponse(
                     call: Call<ResponseGetFollowerListDto>,
@@ -43,7 +43,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            followerAdapter?.submitList(it.data)
+                            followerAdapter?.submitList(it.toFollowerList())
                         }
                     } else {
                         Timber.e(response.code().toString())

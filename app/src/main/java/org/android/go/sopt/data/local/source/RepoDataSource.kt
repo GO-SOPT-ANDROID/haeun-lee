@@ -3,7 +3,7 @@ package org.android.go.sopt.data.local.source
 import android.content.Context
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.android.go.sopt.data.local.model.MockRepoDto
+import org.android.go.sopt.data.local.entity.MockRepoDto
 import org.android.go.sopt.domain.model.MultiViewItem.*
 
 class RepoDataSource(private val context: Context) {

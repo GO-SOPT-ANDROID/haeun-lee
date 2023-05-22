@@ -7,7 +7,7 @@
 
         <variable
             name="follower"
-            type="org.android.go.sopt.data.remote.entity.Follower" />
+            type="org.android.go.sopt.domain.model.Follower" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{follower.firstName}"
+                    android:text="@{follower.name}"
                     android:textAppearance="?textAppearanceBodyLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

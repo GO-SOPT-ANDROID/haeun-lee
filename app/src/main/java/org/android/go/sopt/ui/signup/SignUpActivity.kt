@@ -7,15 +7,17 @@ import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
-import org.android.go.sopt.data.remote.AuthFactory
+import org.android.go.sopt.data.remote.module.AuthFactory
 import org.android.go.sopt.data.remote.entity.request.RequestPostSignUpDto
 import org.android.go.sopt.data.remote.entity.response.ResponsePostSignUpDto
+import org.android.go.sopt.data.remote.entity.response.base.BaseResponse
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.domain.model.User
 import org.android.go.sopt.ui.login.LoginActivity
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
@@ -62,10 +64,10 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 user.name,
                 user.hobby
             )
-        ).enqueue(object : retrofit2.Callback<ResponsePostSignUpDto> {
+        ).enqueue(object : Callback<BaseResponse<ResponsePostSignUpDto>> {
             override fun onResponse(
-                call: Call<ResponsePostSignUpDto>,
-                response: Response<ResponsePostSignUpDto>
+                call: Call<BaseResponse<ResponsePostSignUpDto>>,
+                response: Response<BaseResponse<ResponsePostSignUpDto>>
             ) {
                 if (isResponseSuccessful(response)) {
                     saveUserToPrefs()
@@ -73,19 +75,19 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 }
             }
 
-            override fun onFailure(call: Call<ResponsePostSignUpDto>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<ResponsePostSignUpDto>>, t: Throwable) {
                 Timber.e(t)
             }
         })
     }
 
-    private fun isResponseSuccessful(response: Response<ResponsePostSignUpDto>): Boolean {
+    private fun isResponseSuccessful(response: Response<BaseResponse<ResponsePostSignUpDto>>): Boolean {
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.d(it.status.toString())
                 Timber.d(it.message)
-                Timber.d(it.data.name)
-                Timber.d(it.data.skill)
+                Timber.d(it.data?.name)
+                Timber.d(it.data?.skill)
             }
             return true
         }
