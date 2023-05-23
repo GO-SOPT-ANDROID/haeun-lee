@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.android.go.sopt.data.AuthFactory.ServicePool.authService
 import org.android.go.sopt.data.entity.remote.request.RequestPostLoginDto
-import org.android.go.sopt.domain.repository.AuthRepository
+import org.android.go.sopt.data.entity.remote.response.ResponsePostLoginDto
+import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MAX_ID_LENGTH
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MAX_PW_LENGTH
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MIN_ID_LENGTH
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MIN_PW_LENGTH
+import org.android.go.sopt.util.PreferenceManager
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT
 import org.android.go.sopt.util.code.CODE_UNREGISTERED_USER
@@ -20,7 +23,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
-    private val authRepository = AuthRepository()
+    private val preferenceManager = PreferenceManager()
 
     private val _loginState = MutableLiveData<RemoteUiState>()
     val loginState: LiveData<RemoteUiState>
@@ -37,7 +40,7 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun handleAutoLogin() {
-        if (authRepository.isLastUserLoggedIn()) {
+        if (preferenceManager.loginState) {
             _loginState.value = Success
         }
     }
@@ -52,14 +55,12 @@ class LoginViewModel : ViewModel() {
         return pw.isNotBlank() && pw.length in MIN_PW_LENGTH..MAX_PW_LENGTH
     }
 
-    private fun existSignedUpUser() : Boolean {
-        val signedUpUser = authRepository.getSignedUpUser()
-        if(signedUpUser != null) return true
-        return false
+    private fun existSignedUpUser(): Boolean {
+        return preferenceManager.signedUpUser != null
     }
 
-    private fun equalsUserInfo(): Boolean {
-        val signedUpUser = authRepository.getSignedUpUser()
+    private fun isCorrectInput(): Boolean {
+        val signedUpUser = preferenceManager.signedUpUser
         return id == signedUpUser?.id && pw == signedUpUser.pw
     }
 
@@ -71,13 +72,13 @@ class LoginViewModel : ViewModel() {
         }
 
         // 2. prefs에 저장된 데이터가 있는지
-        if(!existSignedUpUser()){
+        if (!existSignedUpUser()) {
             _loginState.value = Failure(CODE_UNREGISTERED_USER)
             return
         }
 
-        // 3. 아이디와 비밀번호가 일치하는지
-        if(!equalsUserInfo()) {
+        // 3. prefs에 저장된 아이디, 비밀번호와 일치하는지
+        if (!isCorrectInput()) {
             _loginState.value = Failure(CODE_INCORRECT_INPUT)
             return
         }
@@ -88,9 +89,9 @@ class LoginViewModel : ViewModel() {
         )
 
         viewModelScope.launch {
-            authRepository.postLogin(requestPostLoginDto)
+            postLoginResult(requestPostLoginDto)
                 .onSuccess { response ->
-                    authRepository.setLoginState(true)
+                    preferenceManager.loginState = true
                     _loginState.value = Success
                     Timber.d("POST LOGIN SUCCESS : $response")
                 }
@@ -105,4 +106,13 @@ class LoginViewModel : ViewModel() {
                 }
         }
     }
+
+    private suspend fun postLoginResult(requestPostLoginDto: RequestPostLoginDto): Result<ResponsePostLoginDto?> =
+        runCatching {
+            postLogin(requestPostLoginDto).data
+        }
+
+    private suspend fun postLogin(
+        requestPostLoginDto: RequestPostLoginDto
+    ): BaseResponse<ResponsePostLoginDto> = authService.postLogin(requestPostLoginDto)
 }

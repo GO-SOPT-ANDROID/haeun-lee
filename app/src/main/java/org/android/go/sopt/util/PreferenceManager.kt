@@ -1,11 +1,11 @@
-package org.android.go.sopt.data.source.local
+package org.android.go.sopt.util
 
 import androidx.core.content.edit
 import com.google.gson.Gson
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.domain.model.User
 
-class SharedPrefDataSource {
+class PreferenceManager {
     private val prefs = GoSoptApplication.prefs
 
     var loginState: Boolean

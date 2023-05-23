@@ -10,7 +10,7 @@ import org.android.go.sopt.data.entity.remote.request.RequestPostSignUpDto
 import org.android.go.sopt.data.entity.remote.response.ResponsePostSignUpDto
 import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
 import org.android.go.sopt.domain.model.User
-import org.android.go.sopt.domain.repository.AuthRepository
+import org.android.go.sopt.util.PreferenceManager
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT
@@ -20,7 +20,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 class SignUpViewModel : ViewModel() {
-    private val authRepository = AuthRepository()
+    private val preferenceManager = PreferenceManager()
 
     private val _signUpState = MutableLiveData<RemoteUiState>()
     val signUpState: LiveData<RemoteUiState>
@@ -67,15 +67,15 @@ class SignUpViewModel : ViewModel() {
         viewModelScope.launch {
             postSignUpResult(requestPostSignUpDto)
                 .onSuccess { response ->
-                    // todo: pref에 회원가입 정보 저장하기
-                    //saveUserToPref()
+                    saveSignedUpUserToPrefs()
                     _signUpState.value = Success
                     Timber.d("POST SIGNUP SUCCESS : $response")
                 }
                 .onFailure { t ->
                     if (t is HttpException) {
                         when (t.code()) {
-                            CODE_INCORRECT_INPUT -> _signUpState.value = Failure(CODE_INCORRECT_INPUT)
+                            CODE_INCORRECT_INPUT -> _signUpState.value =
+                                Failure(CODE_INCORRECT_INPUT)
                             CODE_DUPLICATED_ID -> _signUpState.value = Failure(CODE_DUPLICATED_ID)
                             else -> _signUpState.value = Error
                         }
@@ -83,6 +83,15 @@ class SignUpViewModel : ViewModel() {
                     }
                 }
         }
+    }
+
+    private fun saveSignedUpUserToPrefs() {
+        preferenceManager.signedUpUser = User(
+            id = id,
+            pw = pw,
+            name = name,
+            hobby = hobby
+        )
     }
 
     private suspend fun postSignUp(
@@ -93,17 +102,6 @@ class SignUpViewModel : ViewModel() {
         runCatching {
             postSignUp(requestPostSignUpDto).data
         }
-
-    private fun saveUserToPref() {
-        authRepository.setSignedUpUser(
-            User(
-                id = id,
-                pw = pw,
-                name = name,
-                hobby = hobby
-            )
-        )
-    }
 
     companion object {
         const val MIN_ID_LENGTH = 6

@@ -7,11 +7,11 @@ import androidx.appcompat.app.AlertDialog
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentMyPageBinding
-import org.android.go.sopt.domain.repository.AuthRepository
 import org.android.go.sopt.presentation.login.LoginActivity
+import org.android.go.sopt.util.PreferenceManager
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
-    private val authRepository = AuthRepository()
+    private val preferenceManager = PreferenceManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,10 +20,10 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     }
 
     private fun initUserProfile() {
-        val savedUserInfo = authRepository.getSignedUpUser()
-        if (savedUserInfo != null) {
-            binding.tvName.append(savedUserInfo.name)
-            binding.tvHobby.append(savedUserInfo.hobby)
+        val signedUpUser = preferenceManager.signedUpUser
+        if (signedUpUser != null) {
+            binding.tvName.append(signedUpUser.name)
+            binding.tvHobby.append(signedUpUser.hobby)
         }
     }
 
@@ -37,7 +37,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(R.string.dialog_logout_msg)
             .setPositiveButton(R.string.dialog_yes) { dialog, id ->
-                authRepository.setLoginState(false)
+                preferenceManager.loginState = false
                 navigateToLoginScreen()
             }
             .setNegativeButton(R.string.dialog_no, null)
