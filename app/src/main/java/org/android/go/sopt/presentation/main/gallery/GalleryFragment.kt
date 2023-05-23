@@ -18,7 +18,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.galleryViewModel = viewModel
+        binding.vm = viewModel
 
         initFollowerAdapter()
         initRecyclerViewLayoutManager()
@@ -49,28 +49,6 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
             }
         }
     }
-
-//    private fun initFollowerList() {
-//        ReqResFactory.ServicePool.followerService.getFollowerList(PAGE, PER_PAGE)
-//            .enqueue(object : retrofit2.Callback<ResponseGetFollowerListDto> {
-//                override fun onResponse(
-//                    call: Call<ResponseGetFollowerListDto>,
-//                    response: Response<ResponseGetFollowerListDto>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        response.body()?.let {
-//                            followerAdapter?.submitList(it.toFollowerList())
-//                        }
-//                    } else {
-//                        Timber.e(response.code().toString())
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ResponseGetFollowerListDto>, t: Throwable) {
-//                    Timber.e(t)
-//                }
-//            })
-//    }
 
     fun scrollToTop() {
         binding.rvGallery.scrollToPosition(0)

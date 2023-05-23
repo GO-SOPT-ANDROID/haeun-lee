@@ -10,6 +10,7 @@
     <string name="gallery_follower_list_null_msg">팔로워가 존재하지 않습니다.</string>
     <string name="network_error_msg">서버 통신에 문제가 발생했습니다.</string>
     <string name="id_duplicate_error_msg">이미 등록된 유저입니다.</string>
+    <string name="home_get_repo_list_fail_msg">데이터 조회에 실패했습니다.</string>
 
     <!-- login -->
     <string name="login_welcome_msg">Welcome to GO Android!</string>

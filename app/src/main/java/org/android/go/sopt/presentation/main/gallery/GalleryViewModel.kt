@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.ReqResFactory
-import org.android.go.sopt.data.entity.remote.response.ResponseGetFollowerListDto
 import org.android.go.sopt.domain.model.Follower
 import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
@@ -25,12 +24,6 @@ class GalleryViewModel : ViewModel() {
     init {
         getFollowerList()
     }
-
-    private suspend fun getFollowerListResult(page: Int, perPage: Int): Result<List<Follower>> =
-        runCatching {
-            ReqResFactory.ServicePool.followerService.getFollowerList(page, perPage)
-                .toFollowerList()
-        }
 
     private fun getFollowerList() {
         viewModelScope.launch {
@@ -53,6 +46,12 @@ class GalleryViewModel : ViewModel() {
                 }
         }
     }
+
+    private suspend fun getFollowerListResult(page: Int, perPage: Int): Result<List<Follower>> =
+        runCatching {
+            ReqResFactory.ServicePool.followerService.getFollowerList(page, perPage)
+                .toFollowerList()
+        }
 
     companion object {
         private const val PAGE = 1

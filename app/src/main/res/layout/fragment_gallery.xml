@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="galleryViewModel"
+            name="vm"
             type="org.android.go.sopt.presentation.main.gallery.GalleryViewModel" />
     </data>
 

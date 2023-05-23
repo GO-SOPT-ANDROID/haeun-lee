@@ -2,49 +2,68 @@ package org.android.go.sopt.presentation.main.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
-import org.android.go.sopt.domain.repository.RepoRepository
-import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.domain.model.MultiViewItem
+import org.android.go.sopt.domain.model.MultiViewItem.Header
 import org.android.go.sopt.presentation.main.home.adapter.MultiViewAdapter
-import org.android.go.sopt.domain.model.MultiViewItem.*
-import timber.log.Timber
+import org.android.go.sopt.util.binding.BindingFragment
+import org.android.go.sopt.util.extension.showSnackbar
+import org.android.go.sopt.util.state.LocalUiState.Failure
+import org.android.go.sopt.util.state.LocalUiState.Success
 
 /** MockRepoList + MultiView Adapter */
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var multiViewItems: MutableList<MultiViewItem>
+    private var multiViewAdapter: MultiViewAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
 
-        initRecyclerView(getMultiViewItems())
+        initMultiViewItems()
+        initRepoListStateObserver()
+        initMultiViewAdapter()
     }
 
-    private fun getMultiViewItems(): MutableList<MultiViewItem> {
-        val multiViewItems = mutableListOf<MultiViewItem>()
+    private fun initMultiViewItems() {
+        multiViewItems = mutableListOf()
         multiViewItems.add(Header(getString(R.string.header_text)))
-
-        // HomeViewModel에서 RepoRepository 사용하려고 했는데,,
-        // assetLoader에 context를 넘겨줘야 하기 때문에 프래그먼트에서 사용함.
-        // 뷰모델에 context를 넘겨주면 메모리 누수가 발생할 수 있음.
-        RepoRepository(requireContext()).getRepoList()
-            .onSuccess { repoList ->
-                multiViewItems.addAll(repoList)
-            }
-            .onFailure { t ->
-                Timber.e(t)
-            }
-
-        return multiViewItems
     }
 
-    private fun initRecyclerView(multiViewItems: MutableList<MultiViewItem>) {
-        binding.rvHome.apply {
-            adapter = MultiViewAdapter(multiViewItems)
-            setHasFixedSize(true)
+    private fun initRepoListStateObserver() {
+        viewModel.getRepoListState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is Success -> addRepoList()
+                is Failure -> requireContext().showSnackbar(
+                    binding.root,
+                    getString(R.string.home_get_repo_list_fail_msg)
+                )
+            }
+        }
+    }
+
+    private fun initMultiViewAdapter() {
+        multiViewAdapter = MultiViewAdapter(multiViewItems)
+        binding.rvHome.adapter = multiViewAdapter
+    }
+
+    private fun addRepoList() {
+        viewModel.repoList?.let { repoList ->
+            for (element in repoList) {
+                multiViewItems.add(element)
+            }
         }
     }
 
     fun scrollToTop() {
         binding.rvHome.scrollToPosition(0)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        multiViewAdapter = null
     }
 }
