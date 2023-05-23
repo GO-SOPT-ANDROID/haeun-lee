@@ -5,7 +5,7 @@
     <string name="unregistered_user_error_msg">등록되지 않은 유저입니다.</string>
     <string name="sign_up_success_msg">회원가입이 완료되었습니다.</string>
     <string name="login_success_msg">로그인에 성공했습니다.</string>
-    <string name="login_incorrect_input_msg">아이디 또는 비밀번호가 일치하지 않습니다.</string>
+    <string name="incorrect_input_error_msg">아이디 또는 비밀번호가 일치하지 않습니다.</string>
     <string name="invalid_input_error_msg">유효한 값을 입력해주세요.</string>
     <string name="gallery_follower_list_null_msg">팔로워가 존재하지 않습니다.</string>
     <string name="network_error_msg">서버 통신에 문제가 발생했습니다.</string>

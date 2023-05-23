@@ -11,6 +11,7 @@ import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
+import org.android.go.sopt.util.code.CODE_INVALID_INPUT
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.state.RemoteUiState.*
@@ -24,7 +25,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
         initRootLayoutClickListener()
         initEditTextChangedListeners()
-
         initSignUpStateObserver()
     }
 
@@ -34,9 +34,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 is Success -> navigateToLoginScreen()
                 is Failure -> {
                     when (state.code) {
-                        CODE_INCORRECT_INPUT -> showSnackbar(
+                        CODE_INVALID_INPUT -> showSnackbar(
                             binding.root,
                             getString(R.string.invalid_input_error_msg)
+                        )
+                        CODE_INCORRECT_INPUT -> showSnackbar(
+                            binding.root,
+                            getString(R.string.incorrect_input_error_msg)
                         )
                         CODE_DUPLICATED_ID -> showSnackbar(
                             binding.root,
@@ -62,17 +66,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
     }
 
-    private fun checkLengthOfId(id: String): Boolean {
-        return id.length in ID_MIN_LEN..ID_MAX_LEN
-    }
-
-    private fun checkLengthOfPw(pw: String): Boolean {
-        return pw.length in PW_MIN_LEN..PW_MAX_LEN
-    }
-
     private fun initEditTextChangedListeners() {
         binding.etId.addTextChangedListener {
-            if (!checkLengthOfId(it.toString())) {
+            if (!viewModel.isValidId()) {
                 binding.tvIdLimitError.visibility = View.VISIBLE
             } else {
                 binding.tvIdLimitError.visibility = View.INVISIBLE
@@ -80,7 +76,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
 
         binding.etPw.addTextChangedListener {
-            if (!checkLengthOfPw(it.toString())) {
+            if (!viewModel.isValidPw()) {
                 binding.tvPwLimitError.visibility = View.VISIBLE
             } else {
                 binding.tvPwLimitError.visibility = View.INVISIBLE
@@ -88,7 +84,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
 
         binding.etName.addTextChangedListener {
-            if (it.toString().isEmpty()) {
+            if (viewModel.name.isEmpty()) {
                 binding.tvNameEmptyError.visibility = View.VISIBLE
             } else {
                 binding.tvNameEmptyError.visibility = View.INVISIBLE
@@ -96,18 +92,11 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
 
         binding.etHobby.addTextChangedListener {
-            if (it.toString().isEmpty()) {
+            if (viewModel.hobby.isEmpty()) {
                 binding.tvHobbyEmptyError.visibility = View.VISIBLE
             } else {
                 binding.tvHobbyEmptyError.visibility = View.INVISIBLE
             }
         }
-    }
-
-    companion object {
-        private const val ID_MIN_LEN = 6
-        private const val ID_MAX_LEN = 10
-        private const val PW_MIN_LEN = 8
-        private const val PW_MAX_LEN = 12
     }
 }

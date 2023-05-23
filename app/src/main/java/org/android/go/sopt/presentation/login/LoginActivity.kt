@@ -45,7 +45,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                         )
                         CODE_INCORRECT_INPUT -> showSnackbar(
                             binding.root,
-                            getString(R.string.login_incorrect_input_msg)
+                            getString(R.string.incorrect_input_error_msg)
                         )
                     }
                 }
