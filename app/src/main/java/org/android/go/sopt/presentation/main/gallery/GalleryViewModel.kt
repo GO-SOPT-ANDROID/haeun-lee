@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.android.go.sopt.domain.repository.FollowerRepository
+import org.android.go.sopt.data.ReqResFactory
+import org.android.go.sopt.data.entity.remote.response.ResponseGetFollowerListDto
 import org.android.go.sopt.domain.model.Follower
 import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
@@ -25,9 +26,15 @@ class GalleryViewModel : ViewModel() {
         getFollowerList()
     }
 
+    private suspend fun getFollowerListResult(page: Int, perPage: Int): Result<List<Follower>> =
+        runCatching {
+            ReqResFactory.ServicePool.followerService.getFollowerList(page, perPage)
+                .toFollowerList()
+        }
+
     private fun getFollowerList() {
         viewModelScope.launch {
-            FollowerRepository().getFollowerList(PAGE, PER_PAGE)
+            getFollowerListResult(PAGE, PER_PAGE)
                 .onSuccess { response ->
                     if (response.isEmpty()) {
                         _getFollowerListState.value = Failure(null)

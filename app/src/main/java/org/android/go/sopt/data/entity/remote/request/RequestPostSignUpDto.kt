@@ -14,11 +14,4 @@ data class RequestPostSignUpDto(
     val name: String,
     @SerialName("skill")
     val skill: String,
-) {
-    fun toUser() = User(
-        id = id,
-        pw = password,
-        name = name,
-        hobby = skill
-    )
-}
+)
