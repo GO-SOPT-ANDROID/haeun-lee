@@ -21,13 +21,13 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="12dp"
             android:backgroundTint="@color/white"
-            app:strokeColor="@android:color/transparent"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@android:color/transparent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,18 +36,16 @@
 
                 <ImageView
                     android:id="@+id/iv_image"
+                    setRoundedCornersImage="@{repo.imgUrl}"
                     android:layout_width="50dp"
                     android:layout_height="0dp"
+                    android:contentDescription="@string/item_repo_desc"
                     android:scaleType="fitXY"
-                    app:error="@{@drawable/img_loading_error}"
-                    app:imgUrl="@{repo.imgUrl}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:placeholder="@{@drawable/img_loading}"
-                    tools:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/item_repo_desc" />
+                    tools:src="@drawable/ic_launcher_background" />
 
                 <TextView
                     android:id="@+id/tv_name"

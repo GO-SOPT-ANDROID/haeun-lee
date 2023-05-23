@@ -57,19 +57,17 @@
 
                 <ImageView
                     android:id="@+id/iv_profile"
+                    setCircleImage="@{follower.imgUrl}"
                     android:layout_width="85dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
+                    android:contentDescription="@string/item_follower_desc"
                     android:scaleType="fitCenter"
-                    app:error="@{@drawable/img_loading_error}"
-                    app:imgUrl="@{follower.imgUrl}"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_email"
-                    app:placeholder="@{@drawable/img_loading}"
-                    tools:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/item_follower_desc" />
+                    tools:src="@drawable/ic_launcher_background" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
