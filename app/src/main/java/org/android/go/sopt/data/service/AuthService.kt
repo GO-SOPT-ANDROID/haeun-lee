@@ -1,10 +1,10 @@
 package org.android.go.sopt.data.service
 
-import org.android.go.sopt.data.entity.remote.request.RequestPostLoginDto
-import org.android.go.sopt.data.entity.remote.request.RequestPostSignUpDto
-import org.android.go.sopt.data.entity.remote.response.ResponsePostLoginDto
-import org.android.go.sopt.data.entity.remote.response.ResponsePostSignUpDto
-import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
+import org.android.go.sopt.data.model.remote.request.RequestPostLoginDto
+import org.android.go.sopt.data.model.remote.request.RequestPostSignUpDto
+import org.android.go.sopt.data.model.remote.response.ResponsePostLoginDto
+import org.android.go.sopt.data.model.remote.response.ResponsePostSignUpDto
+import org.android.go.sopt.data.model.remote.response.base.BaseResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

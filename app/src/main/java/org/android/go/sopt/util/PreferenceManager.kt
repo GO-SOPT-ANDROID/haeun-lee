@@ -3,7 +3,7 @@ package org.android.go.sopt.util
 import androidx.core.content.edit
 import com.google.gson.Gson
 import org.android.go.sopt.GoSoptApplication
-import org.android.go.sopt.domain.model.User
+import org.android.go.sopt.data.entity.User
 
 class PreferenceManager {
     private val prefs = GoSoptApplication.prefs

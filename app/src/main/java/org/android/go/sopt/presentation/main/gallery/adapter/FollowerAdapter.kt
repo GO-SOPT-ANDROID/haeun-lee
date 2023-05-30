@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.databinding.ItemFollowerBinding
-import org.android.go.sopt.domain.model.Follower
+import org.android.go.sopt.data.entity.Follower
 import org.android.go.sopt.util.DiffCallback
 
 class FollowerAdapter : ListAdapter<Follower, FollowerAdapter.FollowerViewHolder>(diffUtil) {

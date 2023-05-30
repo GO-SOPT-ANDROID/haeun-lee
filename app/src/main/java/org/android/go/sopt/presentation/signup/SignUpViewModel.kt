@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.AuthFactory.ServicePool.authService
-import org.android.go.sopt.data.entity.remote.request.RequestPostSignUpDto
-import org.android.go.sopt.data.entity.remote.response.ResponsePostSignUpDto
-import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
-import org.android.go.sopt.domain.model.User
+import org.android.go.sopt.data.model.remote.request.RequestPostSignUpDto
+import org.android.go.sopt.data.model.remote.response.ResponsePostSignUpDto
+import org.android.go.sopt.data.model.remote.response.base.BaseResponse
+import org.android.go.sopt.data.entity.User
 import org.android.go.sopt.util.PreferenceManager
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT

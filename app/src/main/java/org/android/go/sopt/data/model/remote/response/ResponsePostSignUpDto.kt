@@ -1,12 +1,10 @@
-package org.android.go.sopt.data.entity.remote.response
+package org.android.go.sopt.data.model.remote.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponsePostLoginDto(
-    @SerialName("id")
-    val id: String,
+data class ResponsePostSignUpDto(
     @SerialName("name")
     val name: String,
     @SerialName("skill")

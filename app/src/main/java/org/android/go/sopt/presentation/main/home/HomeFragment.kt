@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentHomeBinding
-import org.android.go.sopt.domain.model.MultiViewItem
-import org.android.go.sopt.domain.model.MultiViewItem.Header
+import org.android.go.sopt.data.entity.MultiViewItem
+import org.android.go.sopt.data.entity.MultiViewItem.Header
 import org.android.go.sopt.presentation.main.home.adapter.MultiViewAdapter
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.showSnackbar

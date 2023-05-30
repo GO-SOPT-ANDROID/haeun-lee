@@ -1,8 +1,8 @@
-package org.android.go.sopt.data.entity.local
+package org.android.go.sopt.data.model.local
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.android.go.sopt.domain.model.MultiViewItem.*
+import org.android.go.sopt.data.entity.MultiViewItem.*
 
 @Serializable
 data class MockRepoDto(

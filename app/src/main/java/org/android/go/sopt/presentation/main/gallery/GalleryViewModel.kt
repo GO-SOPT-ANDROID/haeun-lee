@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.ReqResFactory
-import org.android.go.sopt.domain.model.Follower
+import org.android.go.sopt.data.entity.Follower
 import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
 import retrofit2.HttpException

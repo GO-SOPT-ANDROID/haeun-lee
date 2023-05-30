@@ -12,11 +12,11 @@ class GoSoptApplication : Application() {
 
         initTimber()
         initSharedPreferences()
-        initMockRepoJson()
+        initMockJsonString()
     }
 
-    private fun initMockRepoJson() {
-        mockRepoJson = kotlin.runCatching {
+    private fun initMockJsonString() {
+        mockJsonString = kotlin.runCatching {
             loadAsset(FILE_MOCK_REPO_LIST)
         }.getOrNull()
     }
@@ -57,7 +57,8 @@ class GoSoptApplication : Application() {
     // 프로그램과 생명주기를 같이 하며, 한번만 생성된다. (싱글톤)
     companion object {
         lateinit var prefs: SharedPreferences
-        var mockRepoJson: String? = null
+        var mockJsonString: String? = null
+
         private const val FILE_MOCK_REPO_LIST = "mock_repo_list.json"
     }
 }

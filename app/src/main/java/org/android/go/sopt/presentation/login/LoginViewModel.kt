@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.AuthFactory.ServicePool.authService
-import org.android.go.sopt.data.entity.remote.request.RequestPostLoginDto
-import org.android.go.sopt.data.entity.remote.response.ResponsePostLoginDto
-import org.android.go.sopt.data.entity.remote.response.base.BaseResponse
+import org.android.go.sopt.data.model.remote.request.RequestPostLoginDto
+import org.android.go.sopt.data.model.remote.response.ResponsePostLoginDto
+import org.android.go.sopt.data.model.remote.response.base.BaseResponse
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MAX_ID_LENGTH
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MAX_PW_LENGTH
 import org.android.go.sopt.presentation.signup.SignUpViewModel.Companion.MIN_ID_LENGTH
