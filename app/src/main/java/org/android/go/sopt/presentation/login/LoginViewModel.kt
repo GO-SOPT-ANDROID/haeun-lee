@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.android.go.sopt.data.AuthFactory.ServicePool.authService
+import org.android.go.sopt.data.api.AuthFactory.ServicePool.authService
 import org.android.go.sopt.data.model.remote.request.RequestPostLoginDto
 import org.android.go.sopt.data.model.remote.response.ResponsePostLoginDto
 import org.android.go.sopt.data.model.remote.response.base.BaseResponse

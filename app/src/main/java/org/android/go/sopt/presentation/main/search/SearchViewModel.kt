@@ -3,7 +3,7 @@ package org.android.go.sopt.presentation.main.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.android.go.sopt.data.AuthFactory.ServicePool.imageService
+import org.android.go.sopt.data.api.AuthFactory.ServicePool.imageService
 import org.android.go.sopt.util.ContentUriRequestBody
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package org.android.go.sopt.data
+package org.android.go.sopt.data.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
