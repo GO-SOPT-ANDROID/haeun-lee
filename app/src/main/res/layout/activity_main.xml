@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".presentation.main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -10,7 +10,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_main"
-            android:name="org.android.go.sopt.ui.main.home.HomeFragment"
+            android:name="org.android.go.sopt.presentation.main.home.HomeFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/bnv_main"

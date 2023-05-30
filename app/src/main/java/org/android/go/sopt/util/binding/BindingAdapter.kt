@@ -1,24 +1,32 @@
 package org.android.go.sopt.util.binding
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
+import org.android.go.sopt.R
 
 object BindingAdapter {
     @JvmStatic
-    @BindingAdapter("app:imgUrl", "app:placeholder", "app:error")
-    fun ImageView.loadImage(
-        imgUrl: String,
-        loadingImg: Drawable,
-        errorImg: Drawable
-    ) {
-        Glide.with(this.context)
-            .load(imgUrl)
-            .placeholder(loadingImg)
-            .error(errorImg)
-            .apply(RequestOptions().fitCenter())
-            .into(this)
+    @BindingAdapter("setRoundedCornersImage")
+    fun ImageView.setRoundedCornersImage(imgUrl: String?) {
+        load(imgUrl) {
+            placeholder(R.drawable.ic_img_loading)
+            error(R.drawable.ic_img_loading_error)
+            fallback(R.drawable.ic_img_loading_error)
+            transformations(RoundedCornersTransformation(30f))
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setCircleImage")
+    fun ImageView.setCircleImage(imgUrl: String?) {
+        load(imgUrl) {
+            placeholder(R.drawable.ic_img_loading)
+            error(R.drawable.ic_img_loading_error)
+            fallback(R.drawable.ic_img_loading_error)
+            transformations(CircleCropTransformation())
+        }
     }
 }

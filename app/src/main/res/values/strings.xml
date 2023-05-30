@@ -2,11 +2,15 @@
     <string name="app_name">GO SOPT Android</string>
 
     <!-- message -->
-    <string name="unregistered_error">가입되지 않은 유저입니다.</string>
+    <string name="unregistered_user_error_msg">등록되지 않은 유저입니다.</string>
     <string name="sign_up_success_msg">회원가입이 완료되었습니다.</string>
     <string name="login_success_msg">로그인에 성공했습니다.</string>
-    <string name="login_fail_msg">로그인에 실패했습니다.</string>
-    <string name="invalid_input_error">모든 항목에 유효한 값을 입력해주세요.</string>
+    <string name="incorrect_input_error_msg">아이디 또는 비밀번호가 일치하지 않습니다.</string>
+    <string name="invalid_input_error_msg">유효한 값을 입력해주세요.</string>
+    <string name="gallery_follower_list_null_msg">팔로워가 존재하지 않습니다.</string>
+    <string name="network_error_msg">서버 통신에 문제가 발생했습니다.</string>
+    <string name="id_duplicate_error_msg">이미 등록된 유저입니다.</string>
+    <string name="home_get_repo_list_fail_msg">데이터 조회에 실패했습니다.</string>
 
     <!-- login -->
     <string name="login_welcome_msg">Welcome to GO Android!</string>
@@ -38,7 +42,6 @@
     <string name="sign_up_hobby_err">* 필수</string>
     <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
     <string name="sign_up_finish_btn_text">Complete</string>
-    <string name="id_duplicate_error_msg">이미 등록된 유저입니다.</string>
 
 
     <!-- main -->
