@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.android.go.sopt.BuildConfig.*
 import org.android.go.sopt.data.service.AuthService
+import org.android.go.sopt.data.service.ImageService
 import retrofit2.Retrofit
 
 object AuthFactory {
@@ -34,5 +35,6 @@ object AuthFactory {
 
     object ServicePool {
         val authService = create<AuthService>()
+        val imageService = create<ImageService>()
     }
 }
