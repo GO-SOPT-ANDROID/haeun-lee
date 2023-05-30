@@ -69,10 +69,10 @@
             android:layout_marginTop="12dp"
             android:hint="@string/login_pw_hint"
             android:inputType="textPassword"
+            android:textAppearance="?textAppearanceBodyMedium"
             android:minHeight="48dp"
             android:singleLine="true"
             android:text="@={vm._pw}"
-            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_pw" />
