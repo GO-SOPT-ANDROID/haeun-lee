@@ -39,7 +39,7 @@
     <string name="sign_up_name_hint">이름을 입력하세요.</string>
     <string name="sign_up_hobby_label">Hobby</string>
     <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
-    <string name="sign_up_finish_btn_text">Complete</string>
+    <string name="sign_up_finish_btn_text">Sign Up</string>
 
     <string name="sign_up_id_helper_text">영문, 숫자를 포함한 6~10글자</string>
     <string name="sign_up_pw_helper_text">영문, 숫자, 특수문자를 포함한 6~12글자</string>

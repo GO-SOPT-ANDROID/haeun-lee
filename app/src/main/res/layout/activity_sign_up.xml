@@ -178,6 +178,7 @@
             android:layout_marginBottom="36dp"
             android:onClick="@{()->vm.signUp()}"
             android:padding="14dp"
+            android:enabled="false"
             android:text="@string/sign_up_finish_btn_text"
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintBottom_toBottomOf="parent"

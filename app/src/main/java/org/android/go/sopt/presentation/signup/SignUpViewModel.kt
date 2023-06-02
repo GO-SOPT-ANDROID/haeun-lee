@@ -1,19 +1,17 @@
 package org.android.go.sopt.presentation.signup
 
-import android.text.InputFilter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.android.go.sopt.data.api.AuthFactory.ServicePool.authService
+import org.android.go.sopt.data.entity.User
 import org.android.go.sopt.data.model.remote.request.RequestPostSignUpDto
 import org.android.go.sopt.data.model.remote.response.ResponsePostSignUpDto
 import org.android.go.sopt.data.model.remote.response.base.BaseResponse
-import org.android.go.sopt.data.entity.User
 import org.android.go.sopt.util.PreferenceManager
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
-import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT
 import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
@@ -63,7 +61,7 @@ class SignUpViewModel : ViewModel() {
         return hobby.isNotBlank()
     }
 
-    private fun isValidInput(): Boolean {
+    fun isValidInput(): Boolean {
         return isValidId() && isValidPw() && isNotBlankName() && isNotBlankHobby()
     }
 
@@ -90,12 +88,11 @@ class SignUpViewModel : ViewModel() {
                 .onFailure { t ->
                     if (t is HttpException) {
                         when (t.code()) {
-                            CODE_INCORRECT_INPUT -> _signUpState.value = Failure(CODE_INCORRECT_INPUT)
                             CODE_DUPLICATED_ID -> _signUpState.value = Failure(CODE_DUPLICATED_ID)
                             else -> _signUpState.value = Error
                         }
                         Timber.e("POST SIGNUP FAIL ${t.code()} : ${t.message()}")
-                    }else {
+                    } else {
                         _signUpState.value = Error
                         Timber.e("POST SIGNUP FAIL : ${t.message}")
                     }

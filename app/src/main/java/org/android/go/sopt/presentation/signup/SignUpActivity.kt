@@ -9,7 +9,6 @@ import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
-import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
@@ -23,42 +22,49 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.vm = viewModel
 
         initRootLayoutClickListener()
-        initSignUpStateObserver()
         initEditTextChangedListener()
+        initSignUpStateObserver()
     }
 
     private fun initEditTextChangedListener() {
         binding.etId.addTextChangedListener {
-            if(!viewModel.isValidId()){
+            if (!viewModel.isValidId()) {
                 binding.tilId.error = getString(R.string.sign_up_id_helper_text)
-            }else{
+            } else {
                 binding.tilId.error = null
             }
         }
 
         binding.etPw.addTextChangedListener {
-            if(!viewModel.isValidPw()){
+            if (!viewModel.isValidPw()) {
                 binding.tilPw.error = getString(R.string.sign_up_pw_helper_text)
-            }else{
+            } else {
                 binding.tilPw.error = null
             }
         }
 
         binding.etName.addTextChangedListener {
-            if(viewModel.isNotBlankName()) {
+            if (viewModel.isNotBlankName()) {
                 binding.tilName.error = null
-            }else{
+            } else {
                 binding.tilName.error = getString(R.string.sign_up_required_input_err)
             }
         }
 
         binding.etHobby.addTextChangedListener {
-            if(viewModel.isNotBlankHobby()) {
+            if (viewModel.isNotBlankHobby()) {
                 binding.tilHobby.error = null
-            }else{
+
+                // 4개의 입력값이 모두 유효하면 버튼 활성화
+                if (viewModel.isValidInput()) activateSignUpButton()
+            } else {
                 binding.tilHobby.error = getString(R.string.sign_up_required_input_err)
             }
         }
+    }
+
+    private fun activateSignUpButton() {
+        binding.btnSignUp.isEnabled = true
     }
 
     private fun initSignUpStateObserver() {
@@ -70,10 +76,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                         CODE_INVALID_INPUT -> showSnackbar(
                             binding.root,
                             getString(R.string.invalid_input_error_msg)
-                        )
-                        CODE_INCORRECT_INPUT -> showSnackbar(
-                            binding.root,
-                            getString(R.string.incorrect_input_error_msg)
                         )
                         CODE_DUPLICATED_ID -> showSnackbar(
                             binding.root,
@@ -96,6 +98,16 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {
             hideKeyboard()
+            focusOutEditText()
+        }
+    }
+
+    private fun focusOutEditText() {
+        with(binding) {
+            etId.clearFocus()
+            etPw.clearFocus()
+            etName.clearFocus()
+            etHobby.clearFocus()
         }
     }
 }
