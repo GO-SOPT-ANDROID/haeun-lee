@@ -30,41 +30,50 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.etId.addTextChangedListener {
             if (!viewModel.isValidId()) {
                 binding.tilId.error = getString(R.string.sign_up_id_helper_text)
+                deactivateSignUpButton()
             } else {
                 binding.tilId.error = null
+                if (viewModel.isValidInput()) activateSignUpButton()
             }
         }
 
         binding.etPw.addTextChangedListener {
             if (!viewModel.isValidPw()) {
                 binding.tilPw.error = getString(R.string.sign_up_pw_helper_text)
+                deactivateSignUpButton()
             } else {
                 binding.tilPw.error = null
+                if (viewModel.isValidInput()) activateSignUpButton()
             }
         }
 
         binding.etName.addTextChangedListener {
             if (viewModel.isNotBlankName()) {
                 binding.tilName.error = null
+                if (viewModel.isValidInput()) activateSignUpButton()
             } else {
                 binding.tilName.error = getString(R.string.sign_up_required_input_err)
+                deactivateSignUpButton()
             }
         }
 
         binding.etHobby.addTextChangedListener {
             if (viewModel.isNotBlankHobby()) {
                 binding.tilHobby.error = null
-
-                // 4개의 입력값이 모두 유효하면 버튼 활성화
                 if (viewModel.isValidInput()) activateSignUpButton()
             } else {
                 binding.tilHobby.error = getString(R.string.sign_up_required_input_err)
+                deactivateSignUpButton()
             }
         }
     }
 
     private fun activateSignUpButton() {
         binding.btnSignUp.isEnabled = true
+    }
+
+    private fun deactivateSignUpButton() {
+        binding.btnSignUp.isEnabled = false
     }
 
     private fun initSignUpStateObserver() {
