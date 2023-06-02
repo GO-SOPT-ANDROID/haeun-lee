@@ -48,7 +48,7 @@ class SignUpViewModel : ViewModel() {
     fun isValidPw(): Boolean {
         // 영문, 숫자, 특수문자를 적어도 하나씩 포함하는 6~12자리 문자열
         // 허용되는 특수 문자: !, @, #, $, %, ^, +, -, =
-        val pwRegex = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^+-=])[A-Za-z\d!@#$%^+-=]{6,12}$"""
+        val pwRegex = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^+\-=])[A-Za-z\d!@#$%^+\-=]{6,12}$"""
         val pwPattern = Pattern.compile(pwRegex)
         return pwPattern.matcher(pw).matches()
     }
