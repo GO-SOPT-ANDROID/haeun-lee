@@ -1,5 +1,6 @@
 package org.android.go.sopt.presentation.signup
 
+import android.text.InputFilter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
 import retrofit2.HttpException
 import timber.log.Timber
+import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
     private val _signUpState = MutableLiveData<RemoteUiState>()
@@ -39,11 +41,18 @@ class SignUpViewModel : ViewModel() {
     private val hobby: String get() = _hobby.value?.trim() ?: ""
 
     fun isValidId(): Boolean {
-        return id.isNotBlank() && id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
+        // 영문과 숫자를 적어도 하나씩 포함하는 6~10자리 문자열
+        val idRegex = """^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,10}$"""
+        val idPattern = Pattern.compile(idRegex)
+        return idPattern.matcher(id).matches()
     }
 
     fun isValidPw(): Boolean {
-        return pw.isNotBlank() && pw.length in MIN_PW_LENGTH..MAX_PW_LENGTH
+        // 영문, 숫자, 특수문자를 적어도 하나씩 포함하는 6~12자리 문자열
+        // 허용되는 특수 문자: !, @, #, $, %, ^, +, -, =
+        val pwRegex = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^+-=])[A-Za-z\d!@#$%^+-=]{6,12}$"""
+        val pwPattern = Pattern.compile(pwRegex)
+        return pwPattern.matcher(pw).matches()
     }
 
     fun isNotBlankName(): Boolean {
@@ -116,7 +125,7 @@ class SignUpViewModel : ViewModel() {
     companion object {
         const val MIN_ID_LENGTH = 6
         const val MAX_ID_LENGTH = 10
-        const val MIN_PW_LENGTH = 8
+        const val MIN_PW_LENGTH = 6
         const val MAX_PW_LENGTH = 12
     }
 }

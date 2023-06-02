@@ -2,7 +2,6 @@ package org.android.go.sopt.presentation.signup
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import org.android.go.sopt.R
@@ -24,8 +23,42 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.vm = viewModel
 
         initRootLayoutClickListener()
-        initEditTextChangedListeners()
         initSignUpStateObserver()
+        initEditTextChangedListener()
+    }
+
+    private fun initEditTextChangedListener() {
+        binding.etId.addTextChangedListener {
+            if(!viewModel.isValidId()){
+                binding.tilId.error = getString(R.string.sign_up_id_helper_text)
+            }else{
+                binding.tilId.error = null
+            }
+        }
+
+        binding.etPw.addTextChangedListener {
+            if(!viewModel.isValidPw()){
+                binding.tilPw.error = getString(R.string.sign_up_pw_helper_text)
+            }else{
+                binding.tilPw.error = null
+            }
+        }
+
+        binding.etName.addTextChangedListener {
+            if(viewModel.isNotBlankName()) {
+                binding.tilName.error = null
+            }else{
+                binding.tilName.error = getString(R.string.sign_up_required_input_err)
+            }
+        }
+
+        binding.etHobby.addTextChangedListener {
+            if(viewModel.isNotBlankHobby()) {
+                binding.tilHobby.error = null
+            }else{
+                binding.tilHobby.error = getString(R.string.sign_up_required_input_err)
+            }
+        }
     }
 
     private fun initSignUpStateObserver() {
@@ -63,40 +96,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun initRootLayoutClickListener() {
         binding.root.setOnClickListener {
             hideKeyboard()
-        }
-    }
-
-    private fun initEditTextChangedListeners() {
-        binding.etId.addTextChangedListener {
-            if (!viewModel.isValidId()) {
-                binding.tvIdLimitError.visibility = View.VISIBLE
-            } else {
-                binding.tvIdLimitError.visibility = View.INVISIBLE
-            }
-        }
-
-        binding.etPw.addTextChangedListener {
-            if (!viewModel.isValidPw()) {
-                binding.tvPwLimitError.visibility = View.VISIBLE
-            } else {
-                binding.tvPwLimitError.visibility = View.INVISIBLE
-            }
-        }
-
-        binding.etName.addTextChangedListener {
-            if (viewModel.isNotBlankName()) {
-                binding.tvNameEmptyError.visibility = View.INVISIBLE
-            } else {
-                binding.tvNameEmptyError.visibility = View.VISIBLE
-            }
-        }
-
-        binding.etHobby.addTextChangedListener {
-            if (viewModel.isNotBlankHobby()) {
-                binding.tvHobbyEmptyError.visibility = View.INVISIBLE
-            } else {
-                binding.tvHobbyEmptyError.visibility = View.VISIBLE
-            }
         }
     }
 }

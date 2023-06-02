@@ -36,13 +36,15 @@
     <string name="sign_up_pw_err">* 8~12글자 이내만 허용</string>
     <string name="sign_up_pw_hint">비밀번호를 입력하세요.</string>
     <string name="sign_up_name_label">Name</string>
-    <string name="sign_up_name_err">* 필수</string>
     <string name="sign_up_name_hint">이름을 입력하세요.</string>
     <string name="sign_up_hobby_label">Hobby</string>
-    <string name="sign_up_hobby_err">* 필수</string>
     <string name="sign_up_hobby_hint">취미를 입력하세요.</string>
     <string name="sign_up_finish_btn_text">Complete</string>
 
+    <string name="sign_up_id_helper_text">영문, 숫자를 포함한 6~10글자</string>
+    <string name="sign_up_pw_helper_text">영문, 숫자, 특수문자를 포함한 6~12글자</string>
+    <string name="sign_up_required_input_err">필수 입력</string>
+    <string name="sign_up_special_char_notice">※ 허용되는 특수 문자: !, @, #, $, %, ^, +, -, =</string>
 
     <!-- main -->
     <string name="repo_name_preview">레포지토리 이름</string>

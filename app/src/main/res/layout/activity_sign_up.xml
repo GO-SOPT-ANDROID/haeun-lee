@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tf_id"
+            android:id="@+id/til_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -50,6 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_id">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_id_hint"
@@ -69,10 +70,10 @@
             android:text="@string/sign_up_pw_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tf_id" />
+            app:layout_constraintTop_toBottomOf="@id/til_id" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tf_pw"
+            android:id="@+id/til_pw"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -85,6 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_pw">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_pw_hint"
@@ -104,8 +106,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/sign_up_special_char_notice"
             android:textAppearance="@style/TextAppearance.GOSOPTAndroid.LabelLarge"
-            app:layout_constraintStart_toStartOf="@id/tf_pw"
-            app:layout_constraintTop_toBottomOf="@id/tf_pw" />
+            app:layout_constraintStart_toStartOf="@id/til_pw"
+            app:layout_constraintTop_toBottomOf="@id/til_pw" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -118,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_special_char_notice" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tf_name"
+            android:id="@+id/til_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -128,12 +130,13 @@
             app:layout_constraintTop_toBottomOf="@id/tv_name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
                 android:text="@={vm._name}"
-                android:textAppearance="?textAppearanceBodyMedium" />
+                android:textAppearance="?textAppearanceBodySmall" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,10 +148,10 @@
             android:text="@string/sign_up_hobby_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tf_name" />
+            app:layout_constraintTop_toBottomOf="@id/til_name" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tf_hobby"
+            android:id="@+id/til_hobby"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -158,12 +161,13 @@
             app:layout_constraintTop_toBottomOf="@id/tv_hobby">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_hobby"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
                 android:text="@={vm._hobby}"
-                android:textAppearance="?textAppearanceBodyMedium" />
+                android:textAppearance="?textAppearanceBodySmall" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -179,7 +183,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
