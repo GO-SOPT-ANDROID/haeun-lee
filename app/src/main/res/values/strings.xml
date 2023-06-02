@@ -17,7 +17,7 @@
     <string name="login_id_label">ID</string>
     <string name="login_id_hint">6~10자리 이내의 아이디를 입력하세요.</string>
     <string name="login_pw_label">Password</string>
-    <string name="login_pw_hint">8~12자리 이내의 비밀번호를 입력하세요.</string>
+    <string name="login_pw_hint">6~12자리 이내의 비밀번호를 입력하세요.</string>
     <string name="login_btn_text">Login</string>
     <string name="sign_up_start_btn_text">Sign Up</string>
 

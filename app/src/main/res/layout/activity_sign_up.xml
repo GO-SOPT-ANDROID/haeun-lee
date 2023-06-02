@@ -39,6 +39,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_id"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -75,6 +76,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_pw"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -122,6 +124,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -154,6 +157,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_hobby"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

@@ -85,8 +85,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun clearEditText() {
-        binding.etId.text.clear()
-        binding.etPw.text.clear()
+        binding.etId.text?.clear()
+        binding.etPw.text?.clear()
     }
 
     private fun focusOutEditText(button: View?) {
