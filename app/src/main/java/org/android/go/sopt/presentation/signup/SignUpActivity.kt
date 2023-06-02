@@ -84,18 +84,18 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
 
         binding.etName.addTextChangedListener {
-            if (viewModel.name.isEmpty()) {
-                binding.tvNameEmptyError.visibility = View.VISIBLE
-            } else {
+            if (viewModel.isNotBlankName()) {
                 binding.tvNameEmptyError.visibility = View.INVISIBLE
+            } else {
+                binding.tvNameEmptyError.visibility = View.VISIBLE
             }
         }
 
         binding.etHobby.addTextChangedListener {
-            if (viewModel.hobby.isEmpty()) {
-                binding.tvHobbyEmptyError.visibility = View.VISIBLE
-            } else {
+            if (viewModel.isNotBlankHobby()) {
                 binding.tvHobbyEmptyError.visibility = View.INVISIBLE
+            } else {
+                binding.tvHobbyEmptyError.visibility = View.VISIBLE
             }
         }
     }

@@ -20,13 +20,12 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 class SignUpViewModel : ViewModel() {
-    private val preferenceManager = PreferenceManager()
-
     private val _signUpState = MutableLiveData<RemoteUiState>()
     val signUpState: LiveData<RemoteUiState>
         get() = _signUpState
 
-    // 양방향 데이터 바인딩을 위해 LiveData를 public으로 설정
+    // EditText에 입력된 값을 LiveData로 가져오는 양방향 데이터 바인딩을 위해
+    // LiveData를 public으로 설정했다.
     val _id = MutableLiveData("")
     private val id: String get() = _id.value?.trim() ?: ""
 
@@ -34,14 +33,10 @@ class SignUpViewModel : ViewModel() {
     private val pw: String get() = _pw.value?.trim() ?: ""
 
     val _name = MutableLiveData("")
-    val name: String get() = _name.value?.trim() ?: ""
+    private val name: String get() = _name.value?.trim() ?: ""
 
     val _hobby = MutableLiveData("")
-    val hobby: String get() = _hobby.value?.trim() ?: ""
-
-    private fun isValidInput(): Boolean {
-        return isValidId() && isValidPw() && name.isNotBlank() && hobby.isNotBlank()
-    }
+    private val hobby: String get() = _hobby.value?.trim() ?: ""
 
     fun isValidId(): Boolean {
         return id.isNotBlank() && id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
@@ -49,6 +44,18 @@ class SignUpViewModel : ViewModel() {
 
     fun isValidPw(): Boolean {
         return pw.isNotBlank() && pw.length in MIN_PW_LENGTH..MAX_PW_LENGTH
+    }
+
+    fun isNotBlankName(): Boolean {
+        return name.isNotBlank()
+    }
+
+    fun isNotBlankHobby(): Boolean {
+        return hobby.isNotBlank()
+    }
+
+    private fun isValidInput(): Boolean {
+        return isValidId() && isValidPw() && isNotBlankName() && isNotBlankHobby()
     }
 
     fun signUp() {
@@ -74,18 +81,21 @@ class SignUpViewModel : ViewModel() {
                 .onFailure { t ->
                     if (t is HttpException) {
                         when (t.code()) {
-                            CODE_INCORRECT_INPUT -> _signUpState.value =
-                                Failure(CODE_INCORRECT_INPUT)
+                            CODE_INCORRECT_INPUT -> _signUpState.value = Failure(CODE_INCORRECT_INPUT)
                             CODE_DUPLICATED_ID -> _signUpState.value = Failure(CODE_DUPLICATED_ID)
                             else -> _signUpState.value = Error
                         }
                         Timber.e("POST SIGNUP FAIL ${t.code()} : ${t.message()}")
+                    }else {
+                        _signUpState.value = Error
+                        Timber.e("POST SIGNUP FAIL : ${t.message}")
                     }
                 }
         }
     }
 
     private fun saveSignedUpUserToPrefs() {
+        val preferenceManager = PreferenceManager()
         preferenceManager.signedUpUser = User(
             id = id,
             pw = pw,

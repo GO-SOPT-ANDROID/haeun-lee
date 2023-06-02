@@ -14,8 +14,8 @@ class PreferenceManager {
 
     var signedUpUser: User?
         set(value) = prefs.edit {
-            val user = Gson().toJson(value)
-            putString(KEY_SIGNED_UP_USER, user)
+            val json = Gson().toJson(value)
+            putString(KEY_SIGNED_UP_USER, json)
         }
         get() {
             val json = prefs.getString(KEY_SIGNED_UP_USER, "")
