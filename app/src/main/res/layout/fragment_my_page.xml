@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="org.android.go.sopt.presentation.main.mypage.MyPageViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/mypage_name"
+            android:text="@{@string/mypage_name(vm.signedUpUser.name)}"
+            tools:text="@string/mypage_name_preview"
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/mypage_hobby"
+            android:text="@{@string/mypage_hobby(vm.signedUpUser.hobby)}"
+            tools:text="@string/mypage_hobby_preview"
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
