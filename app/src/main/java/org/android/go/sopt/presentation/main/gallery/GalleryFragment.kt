@@ -8,21 +8,29 @@ import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.databinding.FragmentGalleryBinding
 import org.android.go.sopt.presentation.main.gallery.adapter.FollowerAdapter
+import org.android.go.sopt.util.LoadingDialog
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.state.RemoteUiState.*
 
 /** ReqRes API Retrofit + ListAdapter */
 class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
     private val viewModel by viewModels<GalleryViewModel>()
+    private lateinit var loadingDialog: LoadingDialog
     private var followerAdapter: FollowerAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
 
+        showLoadingDialog()
         initFollowerAdapter()
         initRecyclerViewLayoutManager()
         initFollowerListStateObserver()
+    }
+
+    private fun showLoadingDialog() {
+        loadingDialog = LoadingDialog(requireContext())
+        loadingDialog.show()
     }
 
     private fun initFollowerAdapter() {
@@ -37,7 +45,10 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
     private fun initFollowerListStateObserver() {
         viewModel.getFollowerListState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is Success -> followerAdapter?.submitList(viewModel.followerList)
+                is Success -> {
+                    followerAdapter?.submitList(viewModel.followerList)
+                    if(loadingDialog.isShowing) loadingDialog.dismiss()
+                }
                 is Failure -> requireContext().showSnackbar(
                     binding.root,
                     getString(R.string.gallery_follower_list_null_msg)

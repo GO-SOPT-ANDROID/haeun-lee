@@ -55,6 +55,6 @@ class GalleryViewModel : ViewModel() {
 
     companion object {
         private const val PAGE = 1
-        private const val PER_PAGE = 10
+        private const val PER_PAGE = 12
     }
 }

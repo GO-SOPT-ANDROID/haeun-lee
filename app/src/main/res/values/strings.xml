@@ -72,4 +72,5 @@
     <string name="item_repo_desc">repo image</string>
     <string name="item_follower_desc">follower image</string>
     <string name="follower_list_header">Follower List</string>
+    <string name="loading_dialog_message">Please Wait. Loading …</string>
 </resources>
