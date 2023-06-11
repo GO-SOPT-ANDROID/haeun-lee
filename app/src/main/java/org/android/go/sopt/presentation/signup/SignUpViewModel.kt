@@ -38,32 +38,18 @@ class SignUpViewModel : ViewModel() {
     val _hobby = MutableLiveData("")
     private val hobby: String get() = _hobby.value?.trim() ?: ""
 
-    fun isValidId(): Boolean {
-        // 영문과 숫자를 적어도 하나씩 포함하는 6~10자리 문자열
-        val idRegex = """^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,10}$"""
-        val idPattern = Pattern.compile(idRegex)
-        return idPattern.matcher(id).matches()
-    }
+    // 영문과 숫자를 적어도 하나씩 포함하는 6~10자리 문자열
+    fun isValidId() = Pattern.matches(ID_REGEX, id)
 
-    fun isValidPw(): Boolean {
-        // 영문, 숫자, 특수문자를 적어도 하나씩 포함하는 6~12자리 문자열
-        // 허용되는 특수 문자: !, @, #, $, %, ^, +, -, =
-        val pwRegex = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^+\-=])[A-Za-z\d!@#$%^+\-=]{6,12}$"""
-        val pwPattern = Pattern.compile(pwRegex)
-        return pwPattern.matcher(pw).matches()
-    }
+    // 영문, 숫자, 특수문자를 적어도 하나씩 포함하는 6~12자리 문자열
+    // 허용되는 특수 문자: !, @, #, $, %, ^, +, -, =
+    fun isValidPw() = Pattern.matches(PW_REGEX, pw)
 
-    fun isNotBlankName(): Boolean {
-        return name.isNotBlank()
-    }
+    fun isNotBlankName() = name.isNotBlank()
 
-    fun isNotBlankHobby(): Boolean {
-        return hobby.isNotBlank()
-    }
+    fun isNotBlankHobby() = hobby.isNotBlank()
 
-    fun isValidInput(): Boolean {
-        return isValidId() && isValidPw() && isNotBlankName() && isNotBlankHobby()
-    }
+    fun isValidInput() = isValidId() && isValidPw() && isNotBlankName() && isNotBlankHobby()
 
     fun signUp() {
         if (!isValidInput()) {
@@ -124,5 +110,8 @@ class SignUpViewModel : ViewModel() {
         const val MAX_ID_LENGTH = 10
         const val MIN_PW_LENGTH = 6
         const val MAX_PW_LENGTH = 12
+        
+        private const val ID_REGEX = """^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{$MIN_ID_LENGTH,$MAX_ID_LENGTH}$"""
+        private const val PW_REGEX = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^+\-=])[A-Za-z\d!@#$%^+\-=]{$MIN_PW_LENGTH,$MAX_PW_LENGTH}$"""
     }
 }
