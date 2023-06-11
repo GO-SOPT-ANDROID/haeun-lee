@@ -73,4 +73,7 @@
     <string name="item_follower_desc">follower image</string>
     <string name="follower_list_header">Follower List</string>
     <string name="loading_dialog_message">Please Wait. Loading …</string>
+    <string name="mypage_logout_dialog_message">로그아웃 하시겠습니까?</string>
+    <string name="mypage_logout_cancel_button_text">Cancel</string>
+    <string name="mypage_logout_yes_button_text">Yes</string>
 </resources>
