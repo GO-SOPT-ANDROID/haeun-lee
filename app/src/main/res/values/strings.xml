@@ -63,7 +63,7 @@
     <string name="mypage_name_preview">이름:</string>
     <string name="mypage_hobby_preview">취미:</string>
     <string name="logout_btn_text">Logout</string>
-    
+
     <string name="dialog_logout_msg">로그아웃 하시겠습니까?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
