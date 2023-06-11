@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import com.google.android.material.textfield.TextInputLayout
 import org.android.go.sopt.R
 
 object BindingAdapter {
@@ -28,5 +29,11 @@ object BindingAdapter {
             fallback(R.drawable.ic_img_loading_error)
             transformations(CircleCropTransformation())
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setErrorText")
+    fun TextInputLayout.setErrorText(errorText: String?){
+        error = errorText
     }
 }

@@ -3,14 +3,11 @@ package org.android.go.sopt.presentation.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputLayout
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
-import org.android.go.sopt.util.code.CODE_INVALID_INPUT
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.state.RemoteUiState.*
@@ -23,67 +20,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.vm = viewModel
 
         initRootLayoutClickListener()
-        initEditTextChangedListener()
         initSignUpStateObserver()
-    }
-
-    private fun initEditTextChangedListener() {
-        binding.etId.addTextChangedListener {
-            if (!viewModel.isValidId()) {
-                showErrorText(binding.tilId, getString(R.string.sign_up_id_helper_text))
-            } else {
-                hideErrorText(binding.tilId)
-                checkAllInput()
-            }
-        }
-
-        binding.etPw.addTextChangedListener {
-            if (!viewModel.isValidPw()) {
-                showErrorText(binding.tilPw, getString(R.string.sign_up_pw_helper_text))
-            } else {
-                hideErrorText(binding.tilPw)
-                checkAllInput()
-            }
-        }
-
-        binding.etName.addTextChangedListener {
-            if (viewModel.isNotBlankName()) {
-                hideErrorText(binding.tilName)
-                checkAllInput()
-            } else {
-                showErrorText(binding.tilName, getString(R.string.sign_up_required_input_err))
-            }
-        }
-
-        binding.etHobby.addTextChangedListener {
-            if (viewModel.isNotBlankHobby()) {
-                hideErrorText(binding.tilHobby)
-                checkAllInput()
-            } else {
-                showErrorText(binding.tilHobby, getString(R.string.sign_up_required_input_err))
-            }
-        }
-    }
-
-    private fun showErrorText(textInputLayout: TextInputLayout, errorText: String) {
-        textInputLayout.error = errorText
-        deactivateSignUpButton()
-    }
-
-    private fun hideErrorText(textInputLayout: TextInputLayout) {
-        textInputLayout.error = null
-    }
-
-    private fun checkAllInput() {
-        if (viewModel.isValidInput()) activateSignUpButton()
-    }
-
-    private fun activateSignUpButton() {
-        binding.btnSignUp.isEnabled = true
-    }
-
-    private fun deactivateSignUpButton() {
-        binding.btnSignUp.isEnabled = false
     }
 
     private fun initSignUpStateObserver() {
@@ -92,10 +29,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 is Success -> navigateToLoginScreen()
                 is Failure -> {
                     when (state.code) {
-                        CODE_INVALID_INPUT -> showSnackbar(
-                            binding.root,
-                            getString(R.string.invalid_input_error_msg)
-                        )
                         CODE_DUPLICATED_ID -> showSnackbar(
                             binding.root,
                             getString(R.string.id_duplicate_error_msg)

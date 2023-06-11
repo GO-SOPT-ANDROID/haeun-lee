@@ -40,13 +40,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_id"
             style="?textInputFilledStyle"
+            setErrorText="@{vm.isValidId ? null : @string/sign_up_id_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:counterEnabled="true"
             app:counterMaxLength="@{vm.MAX_ID_LENGTH}"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_id">
@@ -77,13 +78,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_pw"
             style="?textInputFilledStyle"
+            setErrorText="@{vm.isValidPw ? null : @string/sign_up_pw_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:counterEnabled="true"
             app:counterMaxLength="@{vm.MAX_PW_LENGTH}"
             app:endIconMode="password_toggle"
-            app:errorEnabled="true"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_pw">
@@ -125,11 +127,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
             style="?textInputFilledStyle"
+            setErrorText="@{vm._name.isBlank() ? @string/sign_up_required_input_err : null}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_name_hint"
             app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name">
@@ -158,11 +162,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_hobby"
             style="?textInputFilledStyle"
+            setErrorText="@{vm._hobby.isBlank() ? @string/sign_up_required_input_err : null}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_hobby_hint"
             app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_hobby">
@@ -183,7 +189,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
-            android:enabled="false"
+            android:enabled="@{vm.isValidId &amp;&amp; vm.isValidPw &amp;&amp; !vm._name.isBlank() &amp;&amp; !vm._hobby.isBlank()}"
             android:onClick="@{()->vm.signUp()}"
             android:padding="14dp"
             android:text="@string/sign_up_finish_btn_text"
