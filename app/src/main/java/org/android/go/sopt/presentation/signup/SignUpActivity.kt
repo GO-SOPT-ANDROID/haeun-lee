@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputLayout
 import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
@@ -29,43 +30,52 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun initEditTextChangedListener() {
         binding.etId.addTextChangedListener {
             if (!viewModel.isValidId()) {
-                binding.tilId.error = getString(R.string.sign_up_id_helper_text)
-                deactivateSignUpButton()
+                showErrorText(binding.tilId, getString(R.string.sign_up_id_helper_text))
             } else {
-                binding.tilId.error = null
-                if (viewModel.isValidInput()) activateSignUpButton()
+                hideErrorText(binding.tilId)
+                checkAllInput()
             }
         }
 
         binding.etPw.addTextChangedListener {
             if (!viewModel.isValidPw()) {
-                binding.tilPw.error = getString(R.string.sign_up_pw_helper_text)
-                deactivateSignUpButton()
+                showErrorText(binding.tilPw, getString(R.string.sign_up_pw_helper_text))
             } else {
-                binding.tilPw.error = null
-                if (viewModel.isValidInput()) activateSignUpButton()
+                hideErrorText(binding.tilPw)
+                checkAllInput()
             }
         }
 
         binding.etName.addTextChangedListener {
             if (viewModel.isNotBlankName()) {
-                binding.tilName.error = null
-                if (viewModel.isValidInput()) activateSignUpButton()
+                hideErrorText(binding.tilName)
+                checkAllInput()
             } else {
-                binding.tilName.error = getString(R.string.sign_up_required_input_err)
-                deactivateSignUpButton()
+                showErrorText(binding.tilName, getString(R.string.sign_up_required_input_err))
             }
         }
 
         binding.etHobby.addTextChangedListener {
             if (viewModel.isNotBlankHobby()) {
-                binding.tilHobby.error = null
-                if (viewModel.isValidInput()) activateSignUpButton()
+                hideErrorText(binding.tilHobby)
+                checkAllInput()
             } else {
-                binding.tilHobby.error = getString(R.string.sign_up_required_input_err)
-                deactivateSignUpButton()
+                showErrorText(binding.tilHobby, getString(R.string.sign_up_required_input_err))
             }
         }
+    }
+
+    private fun showErrorText(textInputLayout: TextInputLayout, errorText: String) {
+        textInputLayout.error = errorText
+        deactivateSignUpButton()
+    }
+
+    private fun hideErrorText(textInputLayout: TextInputLayout) {
+        textInputLayout.error = null
+    }
+
+    private fun checkAllInput() {
+        if (viewModel.isValidInput()) activateSignUpButton()
     }
 
     private fun activateSignUpButton() {
