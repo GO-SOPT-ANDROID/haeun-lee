@@ -58,7 +58,7 @@
                 android:hint="@string/sign_up_id_hint"
                 android:inputType="text"
                 android:maxLength="@{vm.MAX_ID_LENGTH}"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._id}"
                 android:textAppearance="?textAppearanceBodyMedium" />
 
@@ -95,7 +95,7 @@
                 android:hint="@string/sign_up_pw_hint"
                 android:inputType="textPassword"
                 android:maxLength="@{vm.MAX_PW_LENGTH}"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._pw}"
                 android:textAppearance="?textAppearanceBodyMedium" />
 
@@ -139,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._name}"
                 android:textAppearance="?textAppearanceBodyMedium" />
 
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._hobby}"
                 android:textAppearance="?textAppearanceBodyMedium" />
 

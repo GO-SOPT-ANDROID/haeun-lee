@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._id}"
                 android:maxLength="10"
                 android:textAppearance="?textAppearanceBodyMedium"/>
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@={vm._pw}"
                 android:maxLength="10"
                 android:textAppearance="?textAppearanceBodyMedium"/>
