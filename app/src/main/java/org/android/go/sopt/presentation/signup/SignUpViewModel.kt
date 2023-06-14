@@ -64,10 +64,11 @@ class SignUpViewModel : ViewModel() {
                             else -> _signUpState.value = Error
                         }
                         Timber.e("POST SIGNUP FAIL ${t.code()} : ${t.message()}")
-                    } else {
-                        _signUpState.value = Error
-                        Timber.e("POST SIGNUP FAIL : ${t.message}")
+                        return@onFailure
                     }
+
+                    _signUpState.value = Error
+                    Timber.e("POST SIGNUP FAIL : ${t.message}")
                 }
         }
     }

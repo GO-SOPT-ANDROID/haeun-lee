@@ -89,6 +89,8 @@ class LoginViewModel : ViewModel() {
         )
 
         viewModelScope.launch {
+            _loginState.value = Loading
+
             postLoginResult(requestPostLoginDto)
                 .onSuccess { response ->
                     preferenceManager.loginState = true
@@ -102,7 +104,11 @@ class LoginViewModel : ViewModel() {
                             else -> _loginState.value = Error
                         }
                         Timber.e("POST LOGIN FAIL ${t.code()} : ${t.message()}")
+                        return@onFailure
                     }
+
+                    _loginState.value = Error
+                    Timber.e("POST LOGIN FAIL : ${t.message}")
                 }
         }
     }

@@ -13,4 +13,12 @@ class LoadingDialogFragment :
 
         dialog?.setCanceledOnTouchOutside(false)
     }
+
+    override fun dismiss() {
+        if(isAdded) super.dismiss()
+    }
+
+    companion object {
+        const val TAG_LOADING_DIALOG = "LOADING_DIALOG"
+    }
 }

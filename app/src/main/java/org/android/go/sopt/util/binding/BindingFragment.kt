@@ -14,7 +14,8 @@ abstract class BindingFragment<T : ViewDataBinding>(
     @LayoutRes val layoutRes: Int
 ) : Fragment() {
     private var _binding: T? = null
-    protected val binding get() = requireNotNull(_binding) { getString(R.string.binding_error_msg) }
+    protected val binding
+        get() = requireNotNull(_binding) { getString(R.string.binding_not_initialized_error_msg) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

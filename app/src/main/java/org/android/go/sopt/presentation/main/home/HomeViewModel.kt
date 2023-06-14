@@ -3,7 +3,6 @@ package org.android.go.sopt.presentation.main.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.android.go.sopt.GoSoptApplication
 import org.android.go.sopt.data.model.local.MockRepoDto
@@ -26,6 +25,8 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun getRepoList() {
+        _getRepoListState.value = Loading
+
         getRepoListResult()
             .onSuccess { response ->
                 if (response.isEmpty()) {

@@ -9,7 +9,6 @@ import org.android.go.sopt.data.api.ReqResFactory
 import org.android.go.sopt.data.entity.Follower
 import org.android.go.sopt.util.state.RemoteUiState
 import org.android.go.sopt.util.state.RemoteUiState.*
-import retrofit2.HttpException
 import timber.log.Timber
 
 class GalleryViewModel : ViewModel() {
@@ -27,10 +26,13 @@ class GalleryViewModel : ViewModel() {
 
     private fun getFollowerList() {
         viewModelScope.launch {
+            _getFollowerListState.value = Loading
+
             getFollowerListResult(PAGE, PER_PAGE)
                 .onSuccess { response ->
                     if (response.isEmpty()) {
                         _getFollowerListState.value = Failure(null)
+                        Timber.e("GET FOLLOWER LIST FAIL : EMPTY LIST")
                         return@onSuccess
                     }
 
@@ -39,10 +41,8 @@ class GalleryViewModel : ViewModel() {
                     Timber.d("GET FOLLOWER LIST SUCCESS : $response")
                 }
                 .onFailure { t ->
-                    if (t is HttpException) {
-                        _getFollowerListState.value = Error
-                        Timber.e("GET FOLLOWER LIST FAIL : ${t.message}")
-                    }
+                    _getFollowerListState.value = Error
+                    Timber.e("GET FOLLOWER LIST FAIL : ${t.message}")
                 }
         }
     }

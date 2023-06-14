@@ -22,7 +22,7 @@
             android:paddingVertical="16dp"
             android:paddingHorizontal="20dp"
             android:text="@{title}"
-            tools:text="@string/header_text_preview"
+            tools:text="@string/home_repo_header_text"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

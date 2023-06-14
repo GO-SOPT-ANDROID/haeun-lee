@@ -7,6 +7,8 @@ import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.login.LoginActivity
+import org.android.go.sopt.util.LoadingDialogFragment
+import org.android.go.sopt.util.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar
@@ -14,6 +16,7 @@ import org.android.go.sopt.util.state.RemoteUiState.*
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel by viewModels<SignUpViewModel>()
+    private val loadingDialog by lazy { LoadingDialogFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +29,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun initSignUpStateObserver() {
         viewModel.signUpState.observe(this) { state ->
             when (state) {
-                is Success -> navigateToLoginScreen()
+                is Loading -> loadingDialog.show(supportFragmentManager, TAG_LOADING_DIALOG)
+                is Success -> {
+                    loadingDialog.dismiss()
+                    navigateToLoginScreen()
+                }
                 is Failure -> {
+                    loadingDialog.dismiss()
                     when (state.code) {
                         CODE_DUPLICATED_ID -> showSnackbar(
                             binding.root,
@@ -35,7 +43,10 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                         )
                     }
                 }
-                is Error -> showSnackbar(binding.root, getString(R.string.network_error_msg))
+                is Error -> {
+                    loadingDialog.dismiss()
+                    showSnackbar(binding.root, getString(R.string.network_error_msg))
+                }
             }
         }
     }
