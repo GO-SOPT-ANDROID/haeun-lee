@@ -40,7 +40,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_id"
             style="?textInputFilledStyle"
-            setErrorText="@{vm.isValidId ? null : @string/sign_up_id_helper_text}"
+            setErrorText="@{vm.isValidId || vm._id.isBlank() ? null : @string/sign_up_id_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -78,7 +78,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_pw"
             style="?textInputFilledStyle"
-            setErrorText="@{vm.isValidPw ? null : @string/sign_up_pw_helper_text}"
+            setErrorText="@{vm.isValidPw || vm._pw.isBlank() ? null : @string/sign_up_pw_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -127,7 +127,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
             style="?textInputFilledStyle"
-            setErrorText="@{vm._name.isBlank() ? @string/sign_up_required_input_err : null}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -162,7 +161,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_hobby"
             style="?textInputFilledStyle"
-            setErrorText="@{vm._hobby.isBlank() ? @string/sign_up_required_input_err : null}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
