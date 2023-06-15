@@ -32,19 +32,56 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- Font Theme -->
-        <item name="textAppearanceDisplayLarge">@style/TextAppearance.GOSOPTAndroid.DisplayLarge</item>
-        <item name="textAppearanceDisplayMedium">@style/TextAppearance.GOSOPTAndroid.DisplayMedium</item>
-        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.GOSOPTAndroid.HeadLineLarge</item>
-        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.GOSOPTAndroid.HeadLineMedium</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.GOSOPTAndroid.DisplayLarge
+        </item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.GOSOPTAndroid.DisplayMedium
+        </item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.GOSOPTAndroid.HeadLineLarge
+        </item>
+        <item name="textAppearanceHeadlineMedium">
+            @style/TextAppearance.GOSOPTAndroid.HeadLineMedium
+        </item>
         <item name="textAppearanceBodyLarge">@style/TextAppearance.GOSOPTAndroid.BodyLarge</item>
         <item name="textAppearanceBodyMedium">@style/TextAppearance.GOSOPTAndroid.BodyMedium</item>
         <item name="textAppearanceBodySmall">@style/TextAppearance.GOSOPTAndroid.BodySmall</item>
         <item name="textAppearanceLabelLarge">@style/TextAppearance.GOSOPTAndroid.LabelLarge</item>
-        <item name="textAppearanceLabelMedium">@style/TextAppearance.GOSOPTAndroid.LabelMedium</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.GOSOPTAndroid.LabelMedium
+        </item>
+
+        <!-- Text Field Theme -->
+        <item name="textInputOutlinedStyle">@style/Widget.GOSOPTAndroid.TextInputLayout.OutlinedBox</item>
+        <item name="textInputFilledStyle">@style/Widget.GOSOPTAndroid.TextInputLayout.FilledBox</item>
     </style>
 
     <!-- Navigation Bar Active indicator style -->
     <style name="Widget.GOSOPTAndroid.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">?colorSurfaceVariant</item>
+    </style>
+
+    <!-- Text Field Filled Box Theme -->
+    <style name="Widget.GOSOPTAndroid.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.GOSOPTAndroid.TextInputLayout.FilledBox</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.GOSOPTAndroid.TextInputLayout.FilledBox" parent="">
+        <item name="colorPrimary">@color/indigo_700</item>
+        <item name="colorSurface">@color/gray_50</item>
+        <item name="colorOnSurface">@color/indigo_700</item>
+        <item name="colorError">@color/red</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+    </style>
+
+    <!-- Text Field Outlined Box Theme -->
+    <style name="Widget.GOSOPTAndroid.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.GOSOPTAndroid.TextInputLayout.OutlinedBox</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.GOSOPTAndroid.TextInputLayout.OutlinedBox" parent="">
+        <item name="colorPrimary">@color/indigo_700</item>
+        <item name="colorOnSurface">@color/indigo_700</item>
+        <item name="colorError">@color/red</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
 </resources>

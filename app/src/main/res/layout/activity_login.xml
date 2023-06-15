@@ -37,20 +37,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <EditText
-            android:id="@+id/et_id"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_id"
+            style="?textInputOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_id_hint"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._id}"
-            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+            app:layout_constraintTop_toBottomOf="@id/tv_id">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={vm._id}"
+                android:maxLength="10"
+                android:textAppearance="?textAppearanceBodyMedium"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_pw"
@@ -60,22 +68,30 @@
             android:text="@string/login_pw_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_id" />
+            app:layout_constraintTop_toBottomOf="@id/til_id" />
 
-        <EditText
-            android:id="@+id/et_pw"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pw"
+            style="?textInputOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/login_pw_hint"
-            android:inputType="textPassword"
-            android:textAppearance="?textAppearanceBodyMedium"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._pw}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_pw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_pw">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:text="@={vm._pw}"
+                android:maxLength="10"
+                android:textAppearance="?textAppearanceBodyMedium"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
@@ -88,7 +104,7 @@
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_pw" />
+            app:layout_constraintTop_toBottomOf="@id/til_pw" />
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -96,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:padding="14dp"
-            android:text="@string/sign_up_start_btn_text"
+            android:text="@string/login_sign_up_btn_text"
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

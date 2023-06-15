@@ -21,6 +21,8 @@ class GoSoptApplication : Application() {
         }.getOrNull()
     }
 
+    // assets은 context 참조가 필요하기 때문에
+    // 뷰모델이 아니라 application 부분에서 함수를 정의했다.
     private fun loadAsset(fileName: String): String {
         return assets.open(fileName).use { inputStream ->
             val size = inputStream.available()
@@ -53,8 +55,6 @@ class GoSoptApplication : Application() {
         }
     }
 
-    // 클래스가 처음 로딩될 때 초기화 되는 companion object
-    // 프로그램과 생명주기를 같이 하며, 한번만 생성된다. (싱글톤)
     companion object {
         lateinit var prefs: SharedPreferences
         var mockJsonString: String? = null

@@ -37,73 +37,82 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <TextView
-            android:id="@+id/tv_id_limit_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sign_up_id_err"
-            android:textAppearance="?textAppearanceLabelLarge"
-            android:textColor="@color/red"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/tv_id"
-            app:layout_constraintStart_toEndOf="@id/tv_id"
-            app:layout_constraintTop_toTopOf="@id/tv_id" />
-
-        <EditText
-            android:id="@+id/et_id"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_id"
+            style="?textInputFilledStyle"
+            setErrorText="@{vm.isValidId || vm._id.isBlank() ? null : @string/sign_up_id_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/sign_up_id_hint"
-            android:inputType="text"
-            android:maxLength="@{vm.MAX_ID_LENGTH}"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._id}"
-            android:textAppearance="?textAppearanceBodyMedium"
+            app:counterEnabled="true"
+            app:counterMaxLength="@{vm.MAX_ID_LENGTH}"
+            app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+            app:layout_constraintTop_toBottomOf="@id/tv_id">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_id_hint"
+                android:inputType="text"
+                android:maxLength="@{vm.MAX_ID_LENGTH}"
+                android:maxLines="1"
+                android:text="@={vm._id}"
+                android:textAppearance="?textAppearanceBodyMedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/sign_up_pw_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_id" />
+            app:layout_constraintTop_toBottomOf="@id/til_id" />
 
-        <EditText
-            android:id="@+id/et_pw"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pw"
+            style="?textInputFilledStyle"
+            setErrorText="@{vm.isValidPw || vm._pw.isBlank() ? null : @string/sign_up_pw_helper_text}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/sign_up_pw_hint"
-            android:inputType="textPassword"
-            android:maxLength="@{vm.MAX_PW_LENGTH}"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._pw}"
-            android:textAppearance="?textAppearanceBodyMedium"
+            app:counterEnabled="true"
+            app:counterMaxLength="@{vm.MAX_PW_LENGTH}"
+            app:endIconMode="password_toggle"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_pw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_pw">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_pw_hint"
+                android:inputType="textPassword"
+                android:maxLength="@{vm.MAX_PW_LENGTH}"
+                android:maxLines="1"
+                android:text="@={vm._pw}"
+                android:textAppearance="?textAppearanceBodyMedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_pw_limit_error"
+            android:id="@+id/tv_special_char_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sign_up_pw_err"
-            android:textAppearance="?textAppearanceLabelLarge"
-            android:textColor="@color/red"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/tv_pw"
-            app:layout_constraintStart_toEndOf="@id/tv_pw"
-            app:layout_constraintTop_toTopOf="@id/tv_pw" />
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/sign_up_special_char_notice"
+            android:textAppearance="@style/TextAppearance.GOSOPTAndroid.LabelLarge"
+            app:layout_constraintStart_toStartOf="@id/til_pw"
+            app:layout_constraintTop_toBottomOf="@id/til_pw" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -113,35 +122,31 @@
             android:text="@string/sign_up_name_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_pw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_special_char_notice" />
 
-        <TextView
-            android:id="@+id/tv_name_empty_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sign_up_name_err"
-            android:textAppearance="?textAppearanceLabelLarge"
-            android:textColor="@color/red"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/tv_name"
-            app:layout_constraintStart_toEndOf="@id/tv_name"
-            app:layout_constraintTop_toTopOf="@id/tv_name" />
-
-        <EditText
-            android:id="@+id/et_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_name"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_name_hint"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._name}"
-            android:textAppearance="?textAppearanceBodyMedium"
+            app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={vm._name}"
+                android:textAppearance="?textAppearanceBodyMedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_hobby"
@@ -151,49 +156,45 @@
             android:text="@string/sign_up_hobby_label"
             android:textAppearance="?textAppearanceHeadlineMedium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_name" />
+            app:layout_constraintTop_toBottomOf="@id/til_name" />
 
-        <TextView
-            android:id="@+id/tv_hobby_empty_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sign_up_hobby_err"
-            android:textAppearance="?textAppearanceLabelLarge"
-            android:textColor="@color/red"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/tv_hobby"
-            app:layout_constraintStart_toEndOf="@id/tv_hobby"
-            app:layout_constraintTop_toTopOf="@id/tv_hobby" />
-
-        <EditText
-            android:id="@+id/et_hobby"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_hobby"
+            style="?textInputFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/sign_up_hobby_hint"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:singleLine="true"
-            android:text="@={vm._hobby}"
-            android:textAppearance="?textAppearanceBodyMedium"
+            app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/TextAppearance.GOSOPTAndroid.LabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_hobby" />
+            app:layout_constraintTop_toBottomOf="@id/tv_hobby">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_hobby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={vm._hobby}"
+                android:textAppearance="?textAppearanceBodyMedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_sign_up"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
+            android:enabled="@{vm.isValidId &amp;&amp; vm.isValidPw &amp;&amp; !vm._name.isBlank() &amp;&amp; !vm._hobby.isBlank()}"
+            android:onClick="@{()->vm.signUp()}"
             android:padding="14dp"
             android:text="@string/sign_up_finish_btn_text"
-            android:onClick="@{()->vm.signUp()}"
             android:textAppearance="?textAppearanceBodyLarge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,6 +9,8 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.presentation.main.MainActivity
 import org.android.go.sopt.presentation.signup.SignUpActivity
+import org.android.go.sopt.util.LoadingDialogFragment
+import org.android.go.sopt.util.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT
@@ -19,6 +21,7 @@ import org.android.go.sopt.util.state.RemoteUiState.*
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val viewModel by viewModels<LoginViewModel>()
+    private val loadingDialog by lazy { LoadingDialogFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun initLoginStateObserver() {
         viewModel.loginState.observe(this) { state ->
             when (state) {
-                is Success -> navigateToMainScreen()
+                is Loading -> loadingDialog.show(supportFragmentManager, TAG_LOADING_DIALOG)
+                is Success -> {
+                    loadingDialog.dismiss()
+                    navigateToMainScreen()
+                }
                 is Failure -> {
+                    loadingDialog.dismiss()
                     when (state.code) {
                         CODE_INVALID_INPUT -> showSnackbar(
                             binding.root,
@@ -85,8 +93,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun clearEditText() {
-        binding.etId.text.clear()
-        binding.etPw.text.clear()
+        binding.etId.text?.clear()
+        binding.etPw.text?.clear()
     }
 
     private fun focusOutEditText(button: View?) {

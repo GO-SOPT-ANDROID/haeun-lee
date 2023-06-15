@@ -39,7 +39,7 @@
                     setRoundedCornersImage="@{repo.imgUrl}"
                     android:layout_width="50dp"
                     android:layout_height="0dp"
-                    android:contentDescription="@string/item_repo_desc"
+                    android:contentDescription="@string/home_repo_image_desc"
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
@@ -56,7 +56,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/repo_name_preview" />
+                    tools:text="@string/home_repo_name_preview" />
 
                 <TextView
                     android:id="@+id/tv_author"
@@ -68,7 +68,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name"
-                    tools:text="@string/repo_author_preview" />
+                    tools:text="@string/home_repo_author_preview" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
