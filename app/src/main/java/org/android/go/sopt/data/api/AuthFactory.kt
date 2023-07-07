@@ -1,14 +1,13 @@
 package org.android.go.sopt.data.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.android.go.sopt.BuildConfig.*
+import org.android.go.sopt.BuildConfig.AUTH_BASE_URL
+import org.android.go.sopt.BuildConfig.DEBUG
 import org.android.go.sopt.data.service.AuthService
-import org.android.go.sopt.data.service.ImageService
 import retrofit2.Retrofit
 
 object AuthFactory {
@@ -24,7 +23,6 @@ object AuthFactory {
             })
         .build()
 
-    @OptIn(ExperimentalSerializationApi::class)
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(AUTH_BASE_URL)
         .addConverterFactory(Json.asConverterFactory(CONTENT_TYPE.toMediaType()))
@@ -35,6 +33,5 @@ object AuthFactory {
 
     object ServicePool {
         val authService = create<AuthService>()
-        val imageService = create<ImageService>()
     }
 }
