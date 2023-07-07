@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
+    id 'com.google.dagger.hilt.android'
 }
 
 Properties properties = new Properties()
@@ -47,9 +48,13 @@ android {
     }
 }
 
-dependencies {
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}
 
-    implementation "androidx.fragment:fragment-ktx:1.5.7"
+dependencies {
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "com.google.android.material:material:1.9.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
@@ -90,4 +95,8 @@ dependencies {
     // coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
 }
