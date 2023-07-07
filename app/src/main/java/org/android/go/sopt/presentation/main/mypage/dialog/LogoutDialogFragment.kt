@@ -1,4 +1,4 @@
-package org.android.go.sopt.presentation.main.mypage
+package org.android.go.sopt.presentation.main.mypage.dialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentLogoutDialogBinding
 import org.android.go.sopt.presentation.login.LoginActivity
+import org.android.go.sopt.presentation.main.mypage.MyPageViewModel
 import org.android.go.sopt.util.binding.BindingDialogFragment
 
 class LogoutDialogFragment: BindingDialogFragment<FragmentLogoutDialogBinding>(R.layout.fragment_logout_dialog) {

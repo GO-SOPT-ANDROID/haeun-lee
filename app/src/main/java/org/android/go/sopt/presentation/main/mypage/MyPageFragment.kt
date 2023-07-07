@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.FragmentMyPageBinding
+import org.android.go.sopt.presentation.main.mypage.dialog.LogoutDialogFragment
 import org.android.go.sopt.util.binding.BindingFragment
 
 class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
