@@ -7,8 +7,8 @@ import org.android.go.sopt.R
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.databinding.ActivitySignUpBinding
 import org.android.go.sopt.presentation.login.LoginActivity
-import org.android.go.sopt.util.LoadingDialogFragment
-import org.android.go.sopt.util.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
 import org.android.go.sopt.util.code.CODE_DUPLICATED_ID
 import org.android.go.sopt.util.extension.hideKeyboard
 import org.android.go.sopt.util.extension.showSnackbar

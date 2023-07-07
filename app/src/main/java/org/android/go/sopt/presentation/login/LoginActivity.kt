@@ -9,8 +9,8 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.presentation.main.MainActivity
 import org.android.go.sopt.presentation.signup.SignUpActivity
-import org.android.go.sopt.util.LoadingDialogFragment
-import org.android.go.sopt.util.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
 import org.android.go.sopt.util.binding.BindingActivity
 import org.android.go.sopt.util.code.CODE_INCORRECT_INPUT
 import org.android.go.sopt.util.code.CODE_INVALID_INPUT

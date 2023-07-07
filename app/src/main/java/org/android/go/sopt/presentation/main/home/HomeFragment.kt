@@ -8,8 +8,8 @@ import org.android.go.sopt.databinding.FragmentHomeBinding
 import org.android.go.sopt.data.entity.MultiViewItem
 import org.android.go.sopt.data.entity.MultiViewItem.Header
 import org.android.go.sopt.presentation.main.home.adapter.MultiViewAdapter
-import org.android.go.sopt.util.LoadingDialogFragment
-import org.android.go.sopt.util.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment
+import org.android.go.sopt.presentation.dialog.LoadingDialogFragment.Companion.TAG_LOADING_DIALOG
 import org.android.go.sopt.util.binding.BindingFragment
 import org.android.go.sopt.util.extension.showSnackbar
 import org.android.go.sopt.util.state.LocalUiState.*

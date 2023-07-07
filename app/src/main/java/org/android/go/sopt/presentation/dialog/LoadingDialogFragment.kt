@@ -1,4 +1,4 @@
-package org.android.go.sopt.util
+package org.android.go.sopt.presentation.dialog
 
 import android.os.Bundle
 import android.view.View
