@@ -6,8 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import org.android.go.sopt.R
 import org.android.go.sopt.presentation.main.home.adapter.MultiViewHolder.*
-import org.android.go.sopt.util.type.MultiViewType
-import org.android.go.sopt.util.type.MultiViewType.*
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewType.*
 
 class MultiViewHolderFactory {
     fun getViewHolder(parent: ViewGroup, viewType: MultiViewType): MultiViewHolder {

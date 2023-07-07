@@ -1,7 +1,7 @@
 package org.android.go.sopt.data.entity
 
-import org.android.go.sopt.util.type.MultiViewType
-import org.android.go.sopt.util.type.MultiViewType.*
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewType
+import org.android.go.sopt.presentation.main.home.adapter.MultiViewType.*
 
 sealed class MultiViewItem(
     private val viewType: MultiViewType

@@ -17,6 +17,7 @@ import org.android.go.sopt.util.state.LocalUiState.*
 /** MockRepoList + MultiView Adapter */
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
+
     private lateinit var multiViewItems: MutableList<MultiViewItem>
     private var multiViewAdapter: MultiViewAdapter? = null
     private val loadingDialog by lazy { LoadingDialogFragment() }

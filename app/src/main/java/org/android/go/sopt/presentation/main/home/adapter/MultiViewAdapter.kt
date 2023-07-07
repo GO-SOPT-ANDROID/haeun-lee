@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.android.go.sopt.data.entity.MultiViewItem
 import org.android.go.sopt.data.entity.MultiViewItem.*
 import org.android.go.sopt.presentation.main.home.adapter.MultiViewHolder.*
-import org.android.go.sopt.util.type.MultiViewType
 
 class MultiViewAdapter(
     private val itemList: MutableList<MultiViewItem>
