@@ -5,8 +5,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.android.go.sopt.BuildConfig.AUTH_BASE_URL
-import org.android.go.sopt.BuildConfig.DEBUG
+import org.android.go.sopt.BuildConfig.*
 import org.android.go.sopt.data.service.AuthService
 import retrofit2.Retrofit
 
